@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
       - name: Test
         run: yarn test --ci --coverage
 
