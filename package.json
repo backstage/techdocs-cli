@@ -8,8 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/backstage/backstage",
-    "directory": "packages/techdocs-cli"
+    "url": "https://github.com/backstage/techdocs-cli",
+    "directory": "."
   },
   "keywords": [
     "backstage",
