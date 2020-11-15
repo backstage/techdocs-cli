@@ -22,13 +22,15 @@
     "lint": "backstage-cli lint",
     "test": "backstage-cli test --passWithNoTests",
     "clean": "backstage-cli clean",
-    "start": "nodemon --"
+    "start": "nodemon --",
+    "prettier:check": "prettier --check ."
   },
   "bin": {
     "techdocs-cli": "bin/techdocs-cli"
   },
   "devDependencies": {
-    "@types/serve-handler": "^6.1.0"
+    "@types/serve-handler": "^6.1.0",
+    "prettier": "^2.1.2"
   },
   "files": [
     "bin",
