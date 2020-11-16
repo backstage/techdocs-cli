@@ -29,6 +29,7 @@
     "techdocs-cli": "bin/techdocs-cli"
   },
   "devDependencies": {
+    "@spotify/prettier-config": "^9.0.0",
     "@types/serve-handler": "^6.1.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
@@ -39,6 +40,7 @@
       "pre-commit": "lint-staged"
     }
   },
+  "prettier": "@spotify/prettier-config",
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,md}": [
       "prettier --write"
