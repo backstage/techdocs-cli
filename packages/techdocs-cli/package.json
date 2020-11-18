@@ -1,0 +1,60 @@
+{
+    "name": "@techdocs/cli",
+    "description": "CLI for running TechDocs locally.",
+    "version": "0.1.3",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/backstage/techdocs-cli",
+        "directory": "."
+    },
+    "keywords": [
+        "backstage",
+        "techdocs"
+    ],
+    "license": "Apache-2.0",
+    "main": "dist/index.cjs.js",
+    "types": "",
+    "scripts": {
+        "build": "./bin/build.sh",
+        "lint": "backstage-cli lint",
+        "test": "backstage-cli test --passWithNoTests",
+        "clean": "backstage-cli clean",
+        "start": "nodemon --"
+    },
+    "bin": {
+        "techdocs-cli": "bin/techdocs-cli"
+    },
+    "devDependencies": {
+        "@backstage/cli": "^0.2.0",
+        "@types/commander": "^2.12.2",
+        "@types/http-proxy": "^1.17.4",
+        "@types/jest": "^26.0.15",
+        "@types/node": "^14.14.7",
+        "@types/react-dev-utils": "^9.0.4",
+        "@types/serve-handler": "^6.1.0",
+        "@types/webpack-env": "^1.15.3",
+        "nodemon": "^2.0.6",
+        "ts-node": "^9.0.0",
+        "typescript": "^4.0.5"
+    },
+    "files": [
+        "bin",
+        "dist"
+    ],
+    "nodemonConfig": {
+        "watch": "./src",
+        "exec": "bin/techdocs-cli",
+        "ext": "ts"
+    },
+    "dependencies": {
+        "@techdocs/embedded-techdocs": "*",
+        "commander": "^6.1.0",
+        "fs-extra": "^9.0.1",
+        "http-proxy": "^1.18.1",
+        "react-dev-utils": "^10.2.1",
+        "serve-handler": "^6.1.3"
+    }
+}
