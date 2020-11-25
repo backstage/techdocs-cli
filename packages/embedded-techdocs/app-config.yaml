@@ -1,3 +1,6 @@
 app:
   title: TechDocs standalone
   baseUrl: http://localhost:3000
+
+techdocs:
+  storageUrl: http://localhost:3000/api

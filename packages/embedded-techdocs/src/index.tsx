@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-import { createDevApp } from "@backstage/dev-utils";
-import { plugin, techdocsStorageApiRef } from "@backstage/plugin-techdocs";
-import { TechDocsDevStorageApi } from "./api";
+// eslint-disable-next-line monorepo/no-internal-import
+import '@backstage/cli/asset-types';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-createDevApp()
-  .registerApi({
-    api: techdocsStorageApiRef,
-    deps: {},
-    factory: () =>
-      new TechDocsDevStorageApi({
-        apiOrigin: "http://localhost:3000/api",
-      }),
-  })
-  .registerPlugin(plugin)
-  .render();
-
+ReactDOM.render(<App />, document.getElementById('root'));

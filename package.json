@@ -23,5 +23,8 @@
   "license": "Apache-2.0",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "@backstage/cli": "^0.3.0"
+  }
 }
