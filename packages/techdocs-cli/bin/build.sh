@@ -19,7 +19,7 @@ set -e
 # Build the CLI
 yarn run backstage-cli -- build --outputs cjs
 
-TECHDOCS_PREVIEW_SOURCE=../embedded-techdocs/dist
+TECHDOCS_PREVIEW_SOURCE=../embedded-techdocs/packages/app/dist
 TECHDOCS_PREVIEW_DEST=dist/techdocs-preview-bundle
 
 cp -r $TECHDOCS_PREVIEW_SOURCE $TECHDOCS_PREVIEW_DEST

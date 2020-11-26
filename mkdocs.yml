@@ -1,4 +1,4 @@
-site_name: TechDocs Test
+site_name: 'example-docs'
 
 plugins:
   - techdocs-core

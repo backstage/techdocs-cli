@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-import { TechDocsStorage } from "@backstage/plugin-techdocs";
+ 
+ import { createApiFactory, configApiRef } from '@backstage/core';
+
+import {
+    techdocsStorageApiRef,
+    TechDocsStorage,
+    techdocsApiRef,
+    TechDocs,
+} from "@backstage/plugin-techdocs";
 // TODO: Export type from plugin-techdocs and import this here
 // import { ParsedEntityId } from '@backstage/plugin-techdocs'
 
-export class TechDocsDevStorageApi implements TechDocsStorage {
+class TechDocsDevStorageApi implements TechDocsStorage {
   public apiOrigin: string;
 
   constructor({ apiOrigin }: { apiOrigin: string }) {
@@ -29,9 +37,7 @@ export class TechDocsDevStorageApi implements TechDocsStorage {
     entityId: any /*ParsedEntityType from plugin-techdocs/types*/,
     path: string
   ) {
-    const { name } = entityId;
-
-    const url = `${this.apiOrigin}/${name}/${path}`;
+    const url = `${this.apiOrigin}/${path}`;
 
     const request = await fetch(
       `${url.endsWith("/") ? url : `${url}/`}index.html`
@@ -53,3 +59,34 @@ export class TechDocsDevStorageApi implements TechDocsStorage {
     return new URL(oldBaseUrl, `${this.apiOrigin}/${name}/${path}`).toString();
   }
 }
+
+class TechDocsDevApi implements TechDocs {
+    public apiOrigin: string;
+
+    constructor({ apiOrigin }: { apiOrigin: string }) {
+      this.apiOrigin = apiOrigin;
+    }
+  
+    async getMetadata(metadataType: string, entityId: any) {
+      return "";
+    }  
+}
+
+export const apis = [
+    createApiFactory({
+        api: techdocsStorageApiRef,
+        deps: { configApi: configApiRef },
+        factory: ({ configApi }) => 
+        new TechDocsDevStorageApi({
+            apiOrigin: configApi.getString('techdocs.requestUrl'),
+        }),
+    }),
+    createApiFactory({
+        api: techdocsApiRef,
+        deps: { configApi: configApiRef },
+        factory: ({ configApi }) => 
+        new TechDocsDevApi({
+            apiOrigin: configApi.getString('techdocs.requestUrl'),
+        }),
+    }),
+];
