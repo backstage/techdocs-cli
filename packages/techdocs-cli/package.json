@@ -28,7 +28,7 @@
         "techdocs-cli": "bin/techdocs-cli"
     },
     "devDependencies": {
-        "@backstage/cli": "^0.3.0",
+        "@backstage/cli": "^0.3.1",
         "@types/commander": "^2.12.2",
         "@types/http-proxy": "^1.17.4",
         "@types/jest": "^26.0.15",

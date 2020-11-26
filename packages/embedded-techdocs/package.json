@@ -13,11 +13,10 @@
     "start": "nodemon --"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.3.0"
+    "@backstage/cli": "^0.3.1"
   },
   "dependencies": {
     "@backstage/core": "^0.3.2",
-    "@backstage/dev-utils": "^0.1.4",
     "@backstage/plugin-catalog": "^0.2.3",
     "@backstage/plugin-techdocs": "^0.2.3",
     "@types/react-dom": "^17.0.0",
