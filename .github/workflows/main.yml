@@ -23,10 +23,7 @@ jobs:
       - name: yarn install
         run: yarn install --frozen-lockfile
 
-      - name: Test
-        run: yarn test --ci --coverage
-
       - name: Publish
-        run: yarn publish --access public
+        run: yarn workspace @techdocs/cli publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
