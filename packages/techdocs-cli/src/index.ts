@@ -15,10 +15,12 @@
  */
 import { spawn, ChildProcess } from 'child_process';
 import program from 'commander';
-import { version } from '../package.json';
 import path from 'path';
+import { version } from '../package.json';
 import HTTPServer from './lib/httpServer';
 import openBrowser from 'react-dev-utils/openBrowser';
+// @ts-ignore
+// import embeddedTechdocs from '@techdocs/embedded-techdocs';
 
 const run = (name: string, args: string[] = []): ChildProcess => {
   const [stdin, stdout, stderr] = [
@@ -56,7 +58,6 @@ const runMkdocsServer = (options?: {
   return new Promise(resolve => {
     const childProcess = run('docker', [
       'run',
-      '-it',
       '-w',
       '/content',
       '-v',
@@ -95,13 +96,11 @@ const main = (argv: string[]) => {
   program
     .command('serve')
     .description('Serve a documentation project locally')
-    .action(() => {
+    .action(async () => {
       // Mkdocs server
       const mkdocsServer = runMkdocsServer();
 
-      // Local Backstage Preview
       const techdocsPreviewBundlePath = path.join(
-        /* eslint-disable-next-line no-restricted-syntax */
         __dirname,
         '..',
         'dist',
@@ -115,7 +114,7 @@ const main = (argv: string[]) => {
           mkdocsServer.then(childProcess => childProcess.kill());
         });
 
-      Promise.all([mkdocsServer, httpServer]).then(() => {
+      await Promise.all([mkdocsServer, httpServer]).then(() => {
         openBrowser('http://localhost:3000/docs/local-dev/');
       });
     });

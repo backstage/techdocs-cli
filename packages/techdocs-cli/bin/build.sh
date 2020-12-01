@@ -16,16 +16,12 @@
 
 set -e
 
-TECHDOCS_PREVIEW_SOURCE=../../plugins/techdocs/dist
-TECHDOCS_PREVIEW_DEST=../../packages/techdocs-cli/dist/techdocs-preview-bundle
-
 # Build the CLI
 yarn run backstage-cli -- build --outputs cjs
 
-# Create export of the TechDocs plugin
-APP_CONFIG_techdocs_storageUrl='"http://localhost:3000/api"' yarn workspace @backstage/plugin-techdocs export
+TECHDOCS_PREVIEW_SOURCE=../embedded-techdocs/packages/app/dist
+TECHDOCS_PREVIEW_DEST=dist/techdocs-preview-bundle
 
-# Copy over export to techdocs-cli dist/ folder
 cp -r $TECHDOCS_PREVIEW_SOURCE $TECHDOCS_PREVIEW_DEST
 
 # Write to console
