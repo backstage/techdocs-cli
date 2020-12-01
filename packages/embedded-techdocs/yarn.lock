@@ -960,23 +960,10 @@
     "@backstage/config" "^0.1.1"
     cross-fetch "^3.0.6"
 
-"@backstage/catalog-model@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-0.2.0.tgz#e3fe2a4ddeb6a9b6ec480c80cb2b9c39cb245576"
-  integrity sha512-Y1ocdRpBlxK/VrJQjHlQd0bgADECd1B2NRjwd8ss46ibT5hwLvMOfD80+Fa7oPLu0ktJrH4lq0pNIIJIml48zA==
-  dependencies:
-    "@backstage/config" "^0.1.1"
-    "@types/json-schema" "^7.0.5"
-    "@types/yup" "^0.29.8"
-    json-schema "^0.2.5"
-    lodash "^4.17.15"
-    uuid "^8.0.0"
-    yup "^0.29.3"
-
-"@backstage/catalog-model@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-0.3.0.tgz#77e5be70df62f5536562e3334dc2aeb82beecf39"
-  integrity sha512-Ahf5fj7C/ZKOs4tJziogWz4EfwXXJbaJNrj6hgw7PgkaWka1LgVxZtG8J/r8m7JhGhuClxpW8b8Flp3WBeMSkA==
+"@backstage/catalog-model@^0.3.0", "@backstage/catalog-model@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-0.3.1.tgz#45d08e2f333c9c566b2bf2629fd707fe989bb404"
+  integrity sha512-9XhV7c4rmVW+Yzj2PiwTQ7DsegWGB3C4ELsDRExuEVZONdqNcC02cyJtrt3fT5F31ZS3tHkB9bMUymFOBLqUSA==
   dependencies:
     "@backstage/config" "^0.1.1"
     "@types/json-schema" "^7.0.5"
@@ -992,9 +979,9 @@
   integrity sha512-JxbSUkJIXQqamgiE38MtlMn2/BdpLaqMwwi429wZfNg8upfONIrN2BW9qMb8G9CkWdI4ssUfIem1HAtDqhdDvQ==
 
 "@backstage/cli@^0.3.0":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.3.1.tgz#294d0192dd0401bd811297a135fd8642ed8cb9ab"
-  integrity sha512-BFk+Bt1y3dhFsDeI5iw5ReQb8dtjvYEiF9yymV7tCPW5XxjZgNM5TaDv8MDo4KhfK/xJF3L0/yTSULYo2jNH5A==
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.3.2.tgz#e1972beb30cd7cd7078ed405d810357449a8c9c5"
+  integrity sha512-JxVOD0RJivHX38dmRZuvk2atePVXcsv3jw5SC/l4S/dmGdnDKIbp21A5DNNzmHqxCJcnArtO54nFuss2pNgc1Q==
   dependencies:
     "@backstage/cli-common" "^0.1.1"
     "@backstage/config" "^0.1.1"
@@ -1054,9 +1041,9 @@
     react-hot-loader "^4.12.21"
     recursive-readdir "^2.2.2"
     replace-in-file "^6.0.0"
-    rollup "2.23.x"
+    rollup "2.33.x"
     rollup-plugin-dts "1.4.13"
-    rollup-plugin-esbuild "^2.0.0"
+    rollup-plugin-esbuild "2.3.x"
     rollup-plugin-peer-deps-external "^2.2.2"
     rollup-plugin-postcss "^3.1.1"
     rollup-plugin-typescript2 "^0.27.3"
@@ -1100,10 +1087,10 @@
   dependencies:
     lodash "^4.17.15"
 
-"@backstage/core-api@^0.2.0", "@backstage/core-api@^0.2.1":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@backstage/core-api/-/core-api-0.2.2.tgz#5fabe08af7292165f7bc2e7cd8b9db17b603db7a"
-  integrity sha512-IKrmbHyeBklcTDgT+viXYR5J2tqrNWUG8QiBIEiD8+/wi/kV0CypJg0sBWtNTRKwR9WcZ+kTHnGl6F1cB3kw3w==
+"@backstage/core-api@^0.2.0", "@backstage/core-api@^0.2.1", "@backstage/core-api@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@backstage/core-api/-/core-api-0.2.3.tgz#551dc3694b91849d5fbfa03ee57033dec971224e"
+  integrity sha512-ZcCzSR3PPGULauYDIJA3KH03mV4hJIq7tLin9Y0jT6wiSp9lqxxVJ+LWyKD/3YHOzivoSaHmNDq1bXIng5h6mA==
   dependencies:
     "@backstage/config" "^0.1.1"
     "@backstage/test-utils" "^0.1.3"
@@ -1156,16 +1143,16 @@
     remark-gfm "^1.0.0"
     zen-observable "^0.8.15"
 
-"@backstage/plugin-catalog@^0.2.2", "@backstage/plugin-catalog@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-0.2.3.tgz#348653f5627ca46ef8e84884b4515d9144c070d4"
-  integrity sha512-kMuG0AkszbcvfraEliMgfw6+ZLtVPowbDzvFotrlYyBhJTE73x7HUUJaFZf+ktwQZ2yjy3oZT3lb/mt6cmtK1Q==
+"@backstage/plugin-catalog@^0.2.2", "@backstage/plugin-catalog@^0.2.3", "@backstage/plugin-catalog@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-0.2.4.tgz#f318260cca6bef29e154300204e98ccea9a679a5"
+  integrity sha512-BtG68nbZvcE3brq96cNVhrvhf327xsNww7oJ3d9+RTnh/mzxYQCE7vh0dwpRwHpFX1al4YbtlwgwmM8tNpeV/g==
   dependencies:
     "@backstage/catalog-client" "^0.3.1"
-    "@backstage/catalog-model" "^0.3.0"
+    "@backstage/catalog-model" "^0.3.1"
     "@backstage/core" "^0.3.2"
     "@backstage/plugin-scaffolder" "^0.3.1"
-    "@backstage/plugin-techdocs" "^0.2.3"
+    "@backstage/plugin-techdocs" "^0.3.0"
     "@backstage/theme" "^0.2.1"
     "@material-ui/core" "^4.11.0"
     "@material-ui/icons" "^4.9.1"
@@ -1206,15 +1193,15 @@
     react-use "^15.3.3"
     swr "^0.3.0"
 
-"@backstage/plugin-techdocs@^0.2.2", "@backstage/plugin-techdocs@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs/-/plugin-techdocs-0.2.3.tgz#1d92aabfec58a1c9af98c02cf261dd95801b5d9f"
-  integrity sha512-W/i4cHuQarM9idk5hufaSJkAGYUtCqbUTBVgBmMpnGhrbi2q8KApOP2m51ywQLLUkpu1POvFTQjQXg91ai0fUQ==
+"@backstage/plugin-techdocs@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs/-/plugin-techdocs-0.3.0.tgz#2ff96c45003a03697900765ba9038b8deb4a513e"
+  integrity sha512-3dtMGZ7Fwn39jjnJA41PLbROeP2O91iomY9nvwx2S1H5YyGQ9uBI+RyUerSk4KER14DLwjcbA4PVxyAQnTdKpg==
   dependencies:
-    "@backstage/catalog-model" "^0.3.0"
+    "@backstage/catalog-model" "^0.3.1"
     "@backstage/core" "^0.3.2"
-    "@backstage/core-api" "^0.2.1"
-    "@backstage/plugin-catalog" "^0.2.3"
+    "@backstage/core-api" "^0.2.3"
+    "@backstage/plugin-catalog" "^0.2.4"
     "@backstage/test-utils" "^0.1.3"
     "@backstage/theme" "^0.2.1"
     "@material-ui/core" "^4.11.0"
@@ -2644,14 +2631,6 @@
   dependencies:
     "@types/estree" "0.0.39"
     estree-walker "^1.0.1"
-    picomatch "^2.2.2"
-
-"@rollup/pluginutils@^4.0.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-4.1.0.tgz#0dcc61c780e39257554feb7f77207dceca13c838"
-  integrity sha512-TrBhfJkFxA+ER+ew2U2/fHbebhLT/l/2pRk0hfj9KusXUuRXd2v0R58AfaZK9VXDQ4TogOSEmICVrQAA3zFnHQ==
-  dependencies:
-    estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
 "@samverschueren/stream-to-observable@^0.3.0":
@@ -9445,11 +9424,6 @@ joi@^17.1.1:
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
-joycon@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/joycon/-/joycon-2.2.5.tgz#8d4cf4cbb2544d7b7583c216fcdfec19f6be1615"
-  integrity sha512-YqvUxoOcVPnCp0VU1/56f+iKSdvIRJYPznH22BdXV3xMk75SFXhWeJkZ8C9XxUWt1b5x2X1SxuFygW1U0FmkEQ==
-
 js-cookie@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
@@ -13431,14 +13405,12 @@ rollup-plugin-dts@1.4.13:
   optionalDependencies:
     "@babel/code-frame" "^7.10.4"
 
-rollup-plugin-esbuild@^2.0.0:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-esbuild/-/rollup-plugin-esbuild-2.5.2.tgz#fd7d4a88518898012a9d07e4c3ef8b4009c244d3"
-  integrity sha512-E4q3ac1AlMd0m0ZRYffdiorOt2eZcxfbdPaqBLs7JLnPE8krgIAihOD6cTUc54UJjoOMA9WcY63TR+JKWLzYNw==
+rollup-plugin-esbuild@2.3.x:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-esbuild/-/rollup-plugin-esbuild-2.3.0.tgz#7c107d4508af80d30966a148b306cb7d5b36b258"
+  integrity sha512-lNbWDRaClwXauaIybuaiOBRWgxcp3GkZu0UUix9yH/OHFgVohKmzlU0NtNbvfbxAcfEooyuBRAv6YCaJl1Mbpw==
   dependencies:
-    "@rollup/pluginutils" "^4.0.0"
-    joycon "^2.2.5"
-    strip-json-comments "^3.1.1"
+    "@rollup/pluginutils" "^3.1.0"
 
 rollup-plugin-peer-deps-external@^2.2.2:
   version "2.2.4"
@@ -13483,10 +13455,10 @@ rollup-pluginutils@^2.8.2:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@2.23.x:
-  version "2.23.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.23.1.tgz#d458d28386dc7660c2e8a4978bea6f9494046c20"
-  integrity sha512-Heyl885+lyN/giQwxA8AYT2GY3U+gOlTqVLrMQYno8Z1X9lAOpfXPiKiZCyPc25e9BLJM3Zlh957dpTlO4pa8A==
+rollup@2.33.x:
+  version "2.33.3"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.33.3.tgz#ae72ce31f992b09a580072951bfea76e9df17342"
+  integrity sha512-RpayhPTe4Gu/uFGCmk7Gp5Z9Qic2VsqZ040G+KZZvsZYdcuWaJg678JeDJJvJeEQXminu24a2au+y92CUWVd+w==
   optionalDependencies:
     fsevents "~2.1.2"
 
