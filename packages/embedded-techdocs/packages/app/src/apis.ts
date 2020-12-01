@@ -67,9 +67,13 @@ class TechDocsDevApi implements TechDocs {
       this.apiOrigin = apiOrigin;
     }
   
-    async getMetadata(metadataType: string, entityId: any) {
+    async getEntityMetadata(metadataType: string, entityId: any) {
       return "";
-    }  
+    }
+
+    async getTechDocsMetadata(entityId: EntityName) {
+      return "";
+    }
 }
 
 export const apis = [

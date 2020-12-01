@@ -115,7 +115,7 @@ const main = (argv: string[]) => {
         });
 
       await Promise.all([mkdocsServer, httpServer]).then(() => {
-        openBrowser('http://localhost:3000/docs/local-dev/');
+        openBrowser('http://localhost:3000/docs/local/dev/env/');
       });
     });
 
