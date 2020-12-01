@@ -20,8 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/ # Needed for auth
 
-      - name: yarn install
-        run: yarn install --frozen-lockfile
+      - name: yarn build
+        run: ./build.sh
 
       - name: Publish
         run: yarn workspace @techdocs/cli publish --access public
