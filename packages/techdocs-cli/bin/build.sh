@@ -17,7 +17,7 @@
 set -e
 
 # Build the CLI
-yarn run backstage-cli -- build --outputs cjs
+npx backstage-cli -- build --outputs cjs
 
 TECHDOCS_PREVIEW_SOURCE=../embedded-techdocs/packages/app/dist
 TECHDOCS_PREVIEW_DEST=dist/techdocs-preview-bundle

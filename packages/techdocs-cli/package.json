@@ -1,7 +1,7 @@
 {
     "name": "@techdocs/cli",
     "description": "CLI for running TechDocs locally.",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "publishConfig": {
         "access": "public"
     },
