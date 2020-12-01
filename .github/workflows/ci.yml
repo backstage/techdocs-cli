@@ -16,8 +16,5 @@ jobs:
       - name: yarn install
         run: yarn install --frozen-lockfile
 
-      - name: Test
-        run: yarn test --ci --coverage
-
       - name: Prettier (lint)
         run: yarn prettier:check
