@@ -15,8 +15,8 @@
  */
 
  
- import { createApiFactory, configApiRef } from '@backstage/core';
-
+import { createApiFactory, configApiRef } from '@backstage/core';
+import { EntityName } from '@backstage/catalog-model';
 import {
     techdocsStorageApiRef,
     TechDocsStorage,
@@ -34,7 +34,7 @@ class TechDocsDevStorageApi implements TechDocsStorage {
   }
 
   async getEntityDocs(
-    entityId: any /*ParsedEntityType from plugin-techdocs/types*/,
+    entityId: EntityName,
     path: string
   ) {
     const url = `${this.apiOrigin}/${path}`;
@@ -52,7 +52,7 @@ class TechDocsDevStorageApi implements TechDocsStorage {
 
   getBaseUrl(
     oldBaseUrl: string,
-    entityId: any /*ParsedEntityType from plugin-techdocs/types*/,
+    entityId: EntityName,
     path: string
   ): string {
     const { name } = entityId;
@@ -68,11 +68,16 @@ class TechDocsDevApi implements TechDocs {
     }
   
     async getEntityMetadata(metadataType: string, entityId: any) {
-      return "";
+      return {
+        spec: {},
+      };
     }
 
     async getTechDocsMetadata(entityId: EntityName) {
-      return "";
+      return {
+        site_name: "Live editing environment",
+        site_description: "",
+      };
     }
 }
 
