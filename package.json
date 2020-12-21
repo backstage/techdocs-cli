@@ -12,7 +12,7 @@
     "directory": "."
   },
   "scripts": {
-    "build": "yarn workspaces run build",
+    "build": "./build.sh",
     "tsc": "yarn workspaces run tsc",
     "start": "yarn workspace @techdocs/cli run start"
   },
