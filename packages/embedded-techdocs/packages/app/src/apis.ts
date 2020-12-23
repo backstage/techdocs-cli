@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
- 
 import { createApiFactory, configApiRef } from '@backstage/core';
 import { EntityName } from '@backstage/catalog-model';
 import {
-    techdocsStorageApiRef,
-    TechDocsStorage,
-    techdocsApiRef,
-    TechDocs,
-} from "@backstage/plugin-techdocs";
+  techdocsStorageApiRef,
+  TechDocsStorage,
+  techdocsApiRef,
+  TechDocs,
+} from '@backstage/plugin-techdocs';
 // TODO: Export type from plugin-techdocs and import this here
 // import { ParsedEntityId } from '@backstage/plugin-techdocs'
 
@@ -33,69 +32,61 @@ class TechDocsDevStorageApi implements TechDocsStorage {
     this.apiOrigin = apiOrigin;
   }
 
-  async getEntityDocs(
-    entityId: EntityName,
-    path: string
-  ) {
+  async getEntityDocs(entityId: EntityName, path: string) {
     const url = `${this.apiOrigin}/${path}`;
 
     const request = await fetch(
-      `${url.endsWith("/") ? url : `${url}/`}index.html`
+      `${url.endsWith('/') ? url : `${url}/`}index.html`,
     );
 
     if (request.status === 404) {
-      throw new Error("Page not found");
+      throw new Error('Page not found');
     }
 
     return request.text();
   }
 
-  getBaseUrl(
-    oldBaseUrl: string,
-    entityId: EntityName,
-    path: string
-  ): string {
-    const { name } = entityId;
-    return new URL(oldBaseUrl, `${this.apiOrigin}/${name}/${path}`).toString();
+  getBaseUrl(oldBaseUrl: string, entityId: EntityName, path: string): string {
+    return new URL(oldBaseUrl, `${this.apiOrigin}/${path}`).toString();
   }
 }
 
 class TechDocsDevApi implements TechDocs {
-    public apiOrigin: string;
+  public apiOrigin: string;
 
-    constructor({ apiOrigin }: { apiOrigin: string }) {
-      this.apiOrigin = apiOrigin;
-    }
-  
-    async getEntityMetadata(metadataType: string, entityId: any) {
-      return {
-        spec: {},
-      };
-    }
+  constructor({ apiOrigin }: { apiOrigin: string }) {
+    this.apiOrigin = apiOrigin;
+  }
 
-    async getTechDocsMetadata(entityId: EntityName) {
-      return {
-        site_name: "Live editing environment",
-        site_description: "",
-      };
-    }
+  async getEntityMetadata(metadataType: string, entityId: any) {
+    return {
+      spec: {},
+    };
+  }
+
+  async getTechDocsMetadata(entityId: EntityName) {
+    return {
+      site_name: 'Live editing environment',
+      site_description: '',
+    };
+  }
 }
 
 export const apis = [
-    createApiFactory({
-        api: techdocsStorageApiRef,
-        deps: { configApi: configApiRef },
-        factory: ({ configApi }) => 
-        new TechDocsDevStorageApi({
-            apiOrigin: configApi.getString('techdocs.requestUrl'),
-        }),
-    }),
-    createApiFactory({
-        api: techdocsApiRef,
-        deps: { configApi: configApiRef },
-        factory: ({ configApi }) => 
-        new TechDocsDevApi({
-            apiOrigin: configApi.getString('techdocs.requestUrl'),
-        }),
-    }),
+  createApiFactory({
+    api: techdocsStorageApiRef,
+    deps: { configApi: configApiRef },
+    factory: ({ configApi }) =>
+      new TechDocsDevStorageApi({
+        apiOrigin: configApi.getString('techdocs.requestUrl'),
+      }),
+  }),
+  createApiFactory({
+    api: techdocsApiRef,
+    deps: { configApi: configApiRef },
+    factory: ({ configApi }) =>
+      new TechDocsDevApi({
+        apiOrigin: configApi.getString('techdocs.requestUrl'),
+      }),
+  }),
 ];
