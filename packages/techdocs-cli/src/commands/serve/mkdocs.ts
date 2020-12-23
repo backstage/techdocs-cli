@@ -13,16 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import program from "commander";
-import { registerCommands } from "./commands";
-import { version } from "../package.json";
+import openBrowser from "react-dev-utils/openBrowser";
+import { runMkdocsServer } from "../../lib/run";
 
-const main = (argv: string[]) => {
-  program.name("techdocs-cli").version(version);
-
-  registerCommands(program);
-
-  program.parse(argv);
-};
-
-main(process.argv);
+export default async function serveMkdocs() {
+  await runMkdocsServer();
+  openBrowser("http://localhost:8000");
+}
