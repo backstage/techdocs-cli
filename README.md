@@ -41,9 +41,10 @@ Happy hacking!
 
 Deploying the Node packages to NPM happens automatically on merge to `main` through GitHub Actions. The package is published to `@techdocs/cli` in NPM. Just bump the version number in the package.json file and create a pull request. It will deploy when merged.
 
-
-## Develop
+## Local Development of the CLI
 
 The `techdocs-cli` package currently has a bit of a weird setup. It consists of two monorepos. The first one is the top level monorepo, where each package is listed in the `packages` directory. The second monorepo is a backstage app monorepo which can be found in `packages/embedded-techdocs`.
 
-When we build techdocs-cli we will first run `npm run build` on `embedded-techdocs` resulting in a bundle containing the entire backstage application. When we build techdocs-cli this bundle will be copied over to the techdocs-cli package.
+When we build techdocs-cli we will first run `yarn run build` in `packages/embedded-techdocs` resulting in a bundle containing the entire backstage application. When we build `techdocs-cli` using `yarn run build` in `packages/techdocs-cli` the embedded-techdocs bundle will be copied over to the techdocs-cli package.
+
+The resulting CLI can be found in `packages/techdocs-cli/bin`. Use this for local development.
