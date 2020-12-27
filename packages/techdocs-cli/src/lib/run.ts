@@ -47,7 +47,7 @@ export const run = (name: string, args: string[] = []): ChildProcess => {
 export const runMkdocsServer = (options?: {
   devAddr: string;
 }): Promise<ChildProcess> => {
-  const devAddr = options?.devAddr ?? "0.0.0.0:8000";
+  const devAddr = options?.devAddr ?? "127.0.0.1:8000";
 
   return new Promise(resolve => {
     const childProcess = run("docker", [

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import path from "path";
-import openBrowser from "react-dev-utils/openBrowser";
 import { runMkdocsServer } from "../../lib/run";
 import HTTPServer from "../../lib/httpServer";
 
@@ -42,6 +41,9 @@ export default async function serve() {
   await Promise.all([mkdocsServer, httpServer]).then(() => {
     // The last three things local, dev, env don't matter. They can be anything.
     // Possibly rename them to kind/namespace/entity
-    openBrowser("http://localhost:3000/docs/local/dev/env/");
+    // openBrowser("http://localhost:3000/docs/local/dev/env/");
+    console.log(
+      "Please open http://localhost:3000/docs/local/dev/env/ in browser"
+    );
   });
 }

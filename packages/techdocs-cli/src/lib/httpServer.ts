@@ -15,7 +15,7 @@
  */
 
 import serveHandler from "serve-handler";
-import http, { request } from "http";
+import http from "http";
 import httpProxy from "http-proxy";
 
 export default class HTTPServer {
