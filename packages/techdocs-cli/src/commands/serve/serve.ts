@@ -14,12 +14,21 @@
  * limitations under the License.
  */
 import path from "path";
+import { Command } from "commander";
 import { runMkdocsServer } from "../../lib/mkdocsServer";
 import HTTPServer from "../../lib/httpServer";
 
-export default async function serve() {
+export default async function serve(cmd: Command) {
+  // TODO: Backstage app port should also be configurable as a CLI option. However, since we bundle
+  // a backstage app, we define app.baseUrl in the app-config.yaml.
+  // Hence, it is complicated to make this configurable.
+  const backstagePort = 3000;
+
   // Mkdocs server
-  const mkdocsServer = runMkdocsServer({});
+  const mkdocsServer = runMkdocsServer({
+    port: cmd.mkdocsPort,
+    useDocker: cmd.docker
+  });
 
   // Run the embedded-techdocs Backstage app
   const techdocsPreviewBundlePath = path.join(
@@ -31,7 +40,11 @@ export default async function serve() {
     "techdocs-preview-bundle"
   );
 
-  const httpServer = new HTTPServer(techdocsPreviewBundlePath, 3000)
+  const httpServer = new HTTPServer(
+    techdocsPreviewBundlePath,
+    backstagePort,
+    cmd.mkdocsPort
+  )
     .serve()
     .catch(err => {
       console.error(err);
@@ -39,12 +52,11 @@ export default async function serve() {
     });
 
   await Promise.all([mkdocsServer, httpServer]).then(() => {
-    // The last three things local, dev, env don't matter. They can be anything.
-    // Possibly rename them to kind/namespace/entity
-    // openBrowser("http://localhost:3000/docs/local/dev/env/");
-    // TODO: This is not working.
+    // The last three things default/component/local/ don't matter. They can be anything.
+    // TODO: openBrowser and console.log is not working. Too bad.
+    // openBrowser("http://localhost:3000/docs/default/component/local/");
     console.log(
-      "Please open http://localhost:3000/docs/local/dev/env/ in browser"
+      `Please open http://localhost:${backstagePort}/docs/default/component/local/ in browser`
     );
   });
 }

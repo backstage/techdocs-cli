@@ -24,10 +24,7 @@ export function registerCommands(program: CommanderStatic) {
       "--no-docker",
       "Do not use docker, run `mkdocs serve` in current user environment."
     )
-    .option(
-      "-p, --port <PORT>",
-      "Port to serve documentation locally (default: 8000)"
-    )
+    .option("-p, --port <PORT>", "Port to serve documentation locally", "8000")
     .action(lazy(() => import("./serve/mkdocs").then(m => m.default)));
 
   program
@@ -35,6 +32,11 @@ export function registerCommands(program: CommanderStatic) {
     .description(
       "Serve a documentation project locally in a Backstage app-like environment"
     )
+    .option(
+      "--no-docker",
+      "Do not use docker, use mkdocs executable in current user environment."
+    )
+    .option("--mkdocs-port <PORT>", "Port for mkdocs server to use", "8000")
     .action(lazy(() => import("./serve/serve").then(m => m.default)));
 }
 

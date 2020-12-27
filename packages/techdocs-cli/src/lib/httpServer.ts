@@ -19,15 +19,26 @@ import http from "http";
 import httpProxy from "http-proxy";
 
 export default class HTTPServer {
-  proxyEndpoint: string;
+  private readonly proxyEndpoint: string;
+  private readonly backstageBundleDir: string;
+  private readonly backstagePort: number;
+  private readonly mkdocsPort: number;
 
-  constructor(public dir: string, public port: number) {
+  constructor(
+    backstageBundleDir: string,
+    backstagePort: number,
+    mkdocsPort: number
+  ) {
     this.proxyEndpoint = "/api/";
+    this.backstageBundleDir = backstageBundleDir;
+    this.backstagePort = backstagePort;
+    this.mkdocsPort = mkdocsPort;
   }
 
+  // Create a Proxy for mkdocs server
   private createProxy() {
     const proxy = httpProxy.createProxyServer({
-      target: "http://localhost:8000"
+      target: `http://localhost:${this.mkdocsPort}`
     });
 
     return (request: http.IncomingMessage): [httpProxy, string] => {
@@ -57,16 +68,16 @@ export default class HTTPServer {
           }
 
           return serveHandler(request, response, {
-            public: this.dir,
+            public: this.backstageBundleDir,
             trailingSlash: true,
             rewrites: [{ source: "**", destination: "index.html" }]
           });
         }
       );
 
-      server.listen(this.port, () => {
+      server.listen(this.backstagePort, () => {
         console.log(
-          "[techdocs-preview-bundle] Running local version of Backstage at http://localhost:3000"
+          `[techdocs-preview-bundle] Running local version of Backstage at http://localhost:${this.backstagePort}`
         );
         resolve(server);
       });
