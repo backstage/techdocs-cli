@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 import path from "path";
-import { runMkdocsServer } from "../../lib/run";
+import { runMkdocsServer } from "../../lib/mkdocsServer";
 import HTTPServer from "../../lib/httpServer";
 
 export default async function serve() {
   // Mkdocs server
-  const mkdocsServer = runMkdocsServer();
+  const mkdocsServer = runMkdocsServer({});
 
   // Run the embedded-techdocs Backstage app
   const techdocsPreviewBundlePath = path.join(
@@ -42,6 +42,7 @@ export default async function serve() {
     // The last three things local, dev, env don't matter. They can be anything.
     // Possibly rename them to kind/namespace/entity
     // openBrowser("http://localhost:3000/docs/local/dev/env/");
+    // TODO: This is not working.
     console.log(
       "Please open http://localhost:3000/docs/local/dev/env/ in browser"
     );

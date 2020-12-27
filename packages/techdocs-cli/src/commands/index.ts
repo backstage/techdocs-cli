@@ -19,7 +19,15 @@ import { CommanderStatic } from "commander";
 export function registerCommands(program: CommanderStatic) {
   program
     .command("serve:mkdocs")
-    .description("Serve a documentation project locally using mkdocs serve")
+    .description("Serve a documentation project locally using mkdocs serve.")
+    .option(
+      "--no-docker",
+      "Do not use docker, run `mkdocs serve` in current user environment."
+    )
+    .option(
+      "-p, --port <PORT>",
+      "Port to serve documentation locally (default: 8000)"
+    )
     .action(lazy(() => import("./serve/mkdocs").then(m => m.default)));
 
   program

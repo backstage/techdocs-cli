@@ -13,8 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { runMkdocsServer } from "../../lib/run";
+import { Command } from "commander";
+import { runMkdocsServer } from "../../lib/mkdocsServer";
 
-export default async function serveMkdocs() {
-  await runMkdocsServer();
+export default async function serveMkdocs(cmd: Command) {
+  // Commander stores --no-docker in cmd.docker variable
+  await runMkdocsServer({
+    port: cmd.port,
+    useDocker: cmd.docker
+  });
 }

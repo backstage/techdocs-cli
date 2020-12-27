@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { spawn, ChildProcess } from "child_process";
 
+// TODO: Accept log functions to pipe logs with.
 export const run = (name: string, args: string[] = []): ChildProcess => {
   const [stdin, stdout, stderr] = [
     "inherit" as const,
@@ -42,35 +42,4 @@ export const run = (name: string, args: string[] = []): ChildProcess => {
   });
 
   return childProcess;
-};
-
-export const runMkdocsServer = (options?: {
-  devAddr: string;
-}): Promise<ChildProcess> => {
-  const devAddr = options?.devAddr ?? "127.0.0.1:8000";
-
-  return new Promise(resolve => {
-    const childProcess = run("docker", [
-      "run",
-      "-w",
-      "/content",
-      "-v",
-      `${process.cwd()}:/content`,
-      "-p",
-      "8000:8000",
-      "spotify/techdocs",
-      "serve",
-      "-a",
-      devAddr
-    ]);
-
-    childProcess.stdout?.on("data", rawData => {
-      const data = rawData.toString().split("\n")[0];
-      console.log("[mkdocs] ", data);
-
-      if (data.includes(`Serving on http://${devAddr}`)) {
-        resolve(childProcess);
-      }
-    });
-  });
 };
