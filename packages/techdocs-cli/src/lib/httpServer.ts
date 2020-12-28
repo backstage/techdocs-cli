@@ -23,16 +23,19 @@ export default class HTTPServer {
   private readonly backstageBundleDir: string;
   private readonly backstagePort: number;
   private readonly mkdocsPort: number;
+  private readonly verbose: boolean;
 
   constructor(
     backstageBundleDir: string,
     backstagePort: number,
-    mkdocsPort: number
+    mkdocsPort: number,
+    verbose: boolean
   ) {
     this.proxyEndpoint = "/api/";
     this.backstageBundleDir = backstageBundleDir;
     this.backstagePort = backstagePort;
     this.mkdocsPort = mkdocsPort;
+    this.verbose = verbose;
   }
 
   // Create a Proxy for mkdocs server
@@ -76,9 +79,11 @@ export default class HTTPServer {
       );
 
       server.listen(this.backstagePort, () => {
-        console.log(
-          `[techdocs-preview-bundle] Running local version of Backstage at http://localhost:${this.backstagePort}`
-        );
+        if (this.verbose) {
+          console.log(
+            `[techdocs-preview-bundle] Running local version of Backstage at http://localhost:${this.backstagePort}`
+          );
+        }
         resolve(server);
       });
 

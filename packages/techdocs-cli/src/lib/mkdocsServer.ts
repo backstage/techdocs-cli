@@ -14,55 +14,42 @@
  * limitations under the License.
  */
 import { ChildProcess } from "child_process";
-import { run } from "./run";
+import { run, LogFunc } from "./run";
 
-const runMkdocsInDocker = (port: string): ChildProcess => {
-  return run("docker", [
-    "run",
-    "-w",
-    "/content",
-    "-v",
-    `${process.cwd()}:/content`,
-    "-p",
-    `${port}:${port}`,
-    "spotify/techdocs",
-    "serve",
-    "--dev-addr",
-    `0.0.0.0:${port}`
-  ]);
-};
-
-const runMkdocsWithoutDocker = (port: string): ChildProcess => {
-  console.log("Running without docker");
-  return run("mkdocs", ["serve", "--dev-addr", `localhost:${port}`]);
-};
-
-export const runMkdocsServer = (options: {
+export const runMkdocsServer = async (options: {
   port?: string;
   useDocker?: boolean;
+  stdoutLogFunc?: LogFunc;
+  stderrLogFunc?: LogFunc;
 }): Promise<ChildProcess> => {
   const port = options.port ?? "8000";
   const useDocker = options.useDocker ?? true;
 
-  return new Promise(resolve => {
-    let childProcess: ChildProcess;
-    if (useDocker) {
-      childProcess = runMkdocsInDocker(port);
-    } else {
-      childProcess = runMkdocsWithoutDocker(port);
-    }
-
-    // Note/TODO: This thing is not working. We don't always want to see
-    // all the logs from the `run()` function, especially if they are run inside docker.
-    // Create a log pipe function here, pass it in run() as an option.
-    // Make child.process.stdout use the log function
-    childProcess.stdout?.on("data", rawData => {
-      const data = rawData.toString().split("\n")[0];
-      console.log("[mkdocs] ", data);
-
-      if (data.includes(`Serving on http://0.0.0.0${port}`)) {
-        resolve(childProcess);
+  if (useDocker) {
+    return await run(
+      "docker",
+      [
+        "run",
+        "-w",
+        "/content",
+        "-v",
+        `${process.cwd()}:/content`,
+        "-p",
+        `${port}:${port}`,
+        "spotify/techdocs",
+        "serve",
+        "--dev-addr",
+        `0.0.0.0:${port}`
+      ],
+      {
+        stdoutLogFunc: options.stdoutLogFunc,
+        stderrLogFunc: options.stderrLogFunc
       }
+    );
+  } else {
+    return await run("mkdocs", ["serve", "--dev-addr", `127.0.0.1:${port}`], {
+      stdoutLogFunc: options.stdoutLogFunc,
+      stderrLogFunc: options.stderrLogFunc
     });
-  });
+  }
 };

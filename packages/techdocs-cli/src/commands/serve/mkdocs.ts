@@ -14,12 +14,54 @@
  * limitations under the License.
  */
 import { Command } from "commander";
+import openBrowser from "react-dev-utils/openBrowser";
 import { runMkdocsServer } from "../../lib/mkdocsServer";
+import { LogFunc, waitForSignal } from "../../lib/run";
 
 export default async function serveMkdocs(cmd: Command) {
+  const dockerAddr = `http://0.0.0.0:${cmd.port}`;
+  const localAddr = `http://127.0.0.1:${cmd.port}`;
+  const expectedDevAddr = cmd.docker ? dockerAddr : localAddr;
+  // We want to open browser only once based on a log.
+  let boolOpenBrowserTriggered = false;
+
+  const logFunc: LogFunc = data => {
+    // Sometimes the lines contain an unnecessary extra new line in between
+    const logLines = data.toString().split("\n");
+    const logPrefix = cmd.docker ? "[docker/mkdocs]" : "[mkdocs]";
+    logLines.forEach(line => {
+      if (line === "") {
+        return;
+      }
+
+      if (cmd.verbose) {
+        console.log(`${logPrefix} ${line}`);
+      }
+
+      // When the server has started, open a new browser tab for the user.
+      if (
+        !boolOpenBrowserTriggered &&
+        line.includes(`Serving on ${expectedDevAddr}`)
+      ) {
+        // Always open the local address, since 0.0.0.0 belongs to docker
+        console.log(`\nOpening browser on ${localAddr}\n`);
+        openBrowser(localAddr);
+        boolOpenBrowserTriggered = true;
+      }
+    });
+  };
+  // mkdocs writes all of its logs to stderr by default, and not stdout.
+  // https://github.com/mkdocs/mkdocs/issues/879#issuecomment-203536006
+  // Had me questioning this whole implementation for half an hour.
+
   // Commander stores --no-docker in cmd.docker variable
-  await runMkdocsServer({
+  const childProcess = await runMkdocsServer({
     port: cmd.port,
-    useDocker: cmd.docker
+    useDocker: cmd.docker,
+    stdoutLogFunc: logFunc,
+    stderrLogFunc: logFunc
   });
+
+  // Keep waiting for user to cancel the process
+  await waitForSignal([childProcess]);
 }

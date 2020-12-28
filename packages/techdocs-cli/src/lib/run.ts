@@ -13,33 +13,94 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { spawn, ChildProcess } from "child_process";
+import { spawn, SpawnOptions, ChildProcess } from "child_process";
+
+export type LogFunc = (data: Buffer | string) => void;
+type SpawnOptionsPartialEnv = Omit<SpawnOptions, "env"> & {
+  env?: Partial<NodeJS.ProcessEnv>;
+  // Pipe stdout to this log function
+  stdoutLogFunc?: LogFunc;
+  // Pipe stderr to this log function
+  stderrLogFunc?: LogFunc;
+};
 
 // TODO: Accept log functions to pipe logs with.
-export const run = (name: string, args: string[] = []): ChildProcess => {
-  const [stdin, stdout, stderr] = [
-    "inherit" as const,
-    "pipe" as const,
-    "inherit" as const
-  ];
+// Runs a child command, returning the child process instance.
+// Use it along with waitForSignal to run a long running process e.g. mkdocs serve
+export const run = async (
+  name: string,
+  args: string[] = [],
+  options: SpawnOptionsPartialEnv = {}
+): Promise<ChildProcess> => {
+  const { stdoutLogFunc, stderrLogFunc } = options;
+
+  const env: NodeJS.ProcessEnv = {
+    ...process.env,
+    FORCE_COLOR: "true",
+    ...(options.env ?? {})
+  };
+
+  // Refer: https://nodejs.org/api/child_process.html#child_process_subprocess_stdio
+  const stdio = [
+    "inherit",
+    stdoutLogFunc ? "pipe" : "inherit",
+    stderrLogFunc ? "pipe" : "inherit"
+  ] as ("inherit" | "pipe")[];
 
   const childProcess = spawn(name, args, {
-    stdio: [stdin, stdout, stderr],
+    stdio: stdio,
     shell: true,
-    env: {
-      ...process.env,
-      FORCE_COLOR: "true"
-    }
+    ...options,
+    env
   });
 
-  childProcess.once("error", error => {
-    console.error(error);
-    childProcess.kill();
-  });
-
-  childProcess.once("exit", () => {
-    process.exit(0);
-  });
+  if (stdoutLogFunc && childProcess.stdout) {
+    childProcess.stdout.on("data", stdoutLogFunc);
+  }
+  if (stderrLogFunc && childProcess.stderr) {
+    childProcess.stderr.on("data", stderrLogFunc);
+  }
 
   return childProcess;
 };
+
+// Block indefinitely and wait for a signal to kill the child process(es)
+// Throw error if any child process errors
+// Resolves only when all processes exit with status code 0
+export async function waitForSignal(
+  childProcesses: Array<ChildProcess>
+): Promise<void> {
+  const promises: Array<Promise<void>> = [];
+
+  childProcesses.forEach(childProcess => {
+    if (typeof childProcess.exitCode === "number") {
+      if (childProcess.exitCode) {
+        throw new Error(`Non zero exit code from child process`);
+      }
+      return;
+    }
+
+    for (const signal of ["SIGINT", "SIGTERM"] as const) {
+      process.on(signal, () => {
+        childProcess.kill(signal);
+        // exit instead of resolve. The process is shutting down and resolving a promise here logs an error
+        process.exit();
+      });
+    }
+
+    promises.push(
+      new Promise<void>((resolve, reject) => {
+        childProcess.once("error", error => reject(error));
+        childProcess.once("exit", code => {
+          if (code) {
+            reject(new Error(`Non zero exit code from child process`));
+          } else {
+            resolve();
+          }
+        });
+      })
+    );
+  });
+
+  await Promise.all(promises);
+}
