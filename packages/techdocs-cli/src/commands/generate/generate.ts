@@ -16,14 +16,16 @@
 import { resolve } from "path";
 import { Command } from "commander";
 import fs from "fs-extra";
-import * as winston from "winston";
 import Docker from "dockerode";
 import {
   TechdocsGenerator,
   ParsedLocationAnnotation
 } from "@backstage/techdocs-common";
 import { ConfigReader } from "@backstage/config";
-import { convertTechDocsRefToLocationAnnotation } from "../../lib/helpers";
+import {
+  convertTechDocsRefToLocationAnnotation,
+  createLogger
+} from "../../lib/helpers";
 
 export default async function generate(cmd: Command) {
   // Use techdocs-common package to generate docs. Keep consistency between Backstage and CI generating docs.
@@ -34,14 +36,15 @@ export default async function generate(cmd: Command) {
   // Generator.run (source directory, docker client, parsed annotation, output dir)
   // Will create output dir parents on its own
 
+  const logger = createLogger({ verbose: cmd.verbose });
+
   const sourceDir = resolve(cmd.sourceDir);
   const outputDir = resolve(cmd.outputDir);
-  console.log("Using source dir", sourceDir);
-  console.log("Will output generated files in", outputDir);
+  logger.info(`Using source dir ${sourceDir}`);
+  logger.info(`Will output generated files in ${outputDir}`);
 
-  if (cmd.verbose) {
-    console.log("Creating output directory if it does not exist.");
-  }
+  logger.verbose("Creating output directory if it does not exist.");
+
   await fs.ensureDir(outputDir);
 
   const config = new ConfigReader({
@@ -51,21 +54,24 @@ export default async function generate(cmd: Command) {
       }
     }
   });
-  const logger = winston.createLogger();
 
   // Docker client (conditionally) used by the generators, based on techdocs.generators config.
   const dockerClient = new Docker();
 
   let parsedLocationAnnotation = {} as ParsedLocationAnnotation;
   if (cmd.techdocsRef) {
-    parsedLocationAnnotation = convertTechDocsRefToLocationAnnotation(
-      cmd.techdocsRef
-    );
+    try {
+      parsedLocationAnnotation = convertTechDocsRefToLocationAnnotation(
+        cmd.techdocsRef
+      );
+    } catch (err) {
+      logger.error(err.message);
+    }
   }
 
   // Generate docs using @backstage/techdocs-common
   const techdocsGenerator = new TechdocsGenerator(logger, config);
-  console.log("Generating documentation...");
+  logger.info("Generating documentation...");
   await techdocsGenerator.run({
     directory: sourceDir,
     dockerClient: dockerClient,
@@ -75,5 +81,5 @@ export default async function generate(cmd: Command) {
     })
   });
 
-  console.log("Done!");
+  logger.info("Done!");
 }

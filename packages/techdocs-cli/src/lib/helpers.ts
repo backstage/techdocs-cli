@@ -17,6 +17,7 @@ import {
   RemoteProtocol,
   ParsedLocationAnnotation
 } from "@backstage/techdocs-common";
+import * as winston from "winston";
 
 export const convertTechDocsRefToLocationAnnotation = (
   techdocsRef: string
@@ -29,11 +30,25 @@ export const convertTechDocsRefToLocationAnnotation = (
   ];
 
   if (!type || !target) {
-    console.error(
+    throw new Error(
       `Can not parse --techdocs-ref ${techdocsRef}. Should be of type HOST:URL.`
     );
-    throw new Error();
   }
 
   return { type, target };
+};
+
+export const createLogger = ({
+  verbose = false
+}: {
+  verbose: boolean;
+}): winston.Logger => {
+  const logger = winston.createLogger({
+    level: verbose ? "verbose" : "info",
+    transports: [
+      new winston.transports.Console({ format: winston.format.simple() })
+    ]
+  });
+
+  return logger;
 };

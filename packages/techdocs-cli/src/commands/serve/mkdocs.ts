@@ -15,10 +15,13 @@
  */
 import { Command } from "commander";
 import openBrowser from "react-dev-utils/openBrowser";
+import { createLogger } from "../../lib/helpers";
 import { runMkdocsServer } from "../../lib/mkdocsServer";
 import { LogFunc, waitForSignal } from "../../lib/run";
 
 export default async function serveMkdocs(cmd: Command) {
+  const logger = createLogger({ verbose: cmd.verbose });
+
   const dockerAddr = `http://0.0.0.0:${cmd.port}`;
   const localAddr = `http://127.0.0.1:${cmd.port}`;
   const expectedDevAddr = cmd.docker ? dockerAddr : localAddr;
@@ -34,9 +37,8 @@ export default async function serveMkdocs(cmd: Command) {
         return;
       }
 
-      if (cmd.verbose) {
-        console.log(`${logPrefix} ${line}`);
-      }
+      // Logs from container is verbose.
+      logger.verbose(`${logPrefix} ${line}`);
 
       // When the server has started, open a new browser tab for the user.
       if (
@@ -44,7 +46,7 @@ export default async function serveMkdocs(cmd: Command) {
         line.includes(`Serving on ${expectedDevAddr}`)
       ) {
         // Always open the local address, since 0.0.0.0 belongs to docker
-        console.log(`\nOpening browser on ${localAddr}\n`);
+        logger.info(`\nOpening browser on ${localAddr}\n`);
         openBrowser(localAddr);
         boolOpenBrowserTriggered = true;
       }

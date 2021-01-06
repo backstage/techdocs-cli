@@ -19,8 +19,11 @@ import openBrowser from "react-dev-utils/openBrowser";
 import { runMkdocsServer } from "../../lib/mkdocsServer";
 import HTTPServer from "../../lib/httpServer";
 import { LogFunc, waitForSignal } from "../../lib/run";
+import { createLogger } from "../../lib/helpers";
 
 export default async function serve(cmd: Command) {
+  const logger = createLogger({ verbose: cmd.verbose });
+
   // TODO: Backstage app port should also be configurable as a CLI option. However, since we bundle
   // a backstage app, we define app.baseUrl in the app-config.yaml.
   // Hence, it is complicated to make this configurable.
@@ -40,9 +43,7 @@ export default async function serve(cmd: Command) {
         return;
       }
 
-      if (cmd.verbose) {
-        console.log(`${logPrefix} ${line}`);
-      }
+      logger.verbose(`${logPrefix} ${line}`);
 
       // When the server has started, open a new browser tab for the user.
       if (
@@ -56,7 +57,7 @@ export default async function serve(cmd: Command) {
   // mkdocs writes all of its logs to stderr by default, and not stdout.
   // https://github.com/mkdocs/mkdocs/issues/879#issuecomment-203536006
   // Had me questioning this whole implementation for half an hour.
-  console.log("Starting mkdocs server.");
+  logger.info("Starting mkdocs server.");
   const mkdocsChildProcess = await runMkdocsServer({
     port: cmd.mkdocsPort,
     useDocker: cmd.docker,
@@ -71,11 +72,11 @@ export default async function serve(cmd: Command) {
     if (mkdocsServerHasStarted) {
       break;
     }
-    console.log("Waiting for mkdocs server to start...");
+    logger.info("Waiting for mkdocs server to start...");
   }
 
   if (!mkdocsServerHasStarted) {
-    console.error(
+    logger.error(
       "mkdocs server did not start. Exiting. Try re-running command with -v option for more details."
     );
   }
@@ -100,7 +101,7 @@ export default async function serve(cmd: Command) {
   httpServer
     .serve()
     .catch(err => {
-      console.error(err);
+      logger.error(err);
       mkdocsChildProcess.kill();
       process.exit(1);
     })
@@ -109,7 +110,7 @@ export default async function serve(cmd: Command) {
       openBrowser(
         `http://localhost:${backstagePort}/docs/default/component/local/`
       );
-      console.log(
+      logger.info(
         `Serving docs in Backstage at http://localhost:${backstagePort}/docs/default/component/local/\nOpening browser.`
       );
     });

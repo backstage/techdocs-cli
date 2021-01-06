@@ -17,6 +17,7 @@
 import serveHandler from "serve-handler";
 import http from "http";
 import httpProxy from "http-proxy";
+import { createLogger } from "./helpers";
 
 export default class HTTPServer {
   private readonly proxyEndpoint: string;
@@ -78,9 +79,10 @@ export default class HTTPServer {
         }
       );
 
+      const logger = createLogger({ verbose: false });
       server.listen(this.backstagePort, () => {
         if (this.verbose) {
-          console.log(
+          logger.info(
             `[techdocs-preview-bundle] Running local version of Backstage at http://localhost:${this.backstagePort}`
           );
         }
