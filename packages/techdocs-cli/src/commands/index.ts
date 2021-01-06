@@ -18,6 +18,32 @@ import { CommanderStatic } from "commander";
 
 export function registerCommands(program: CommanderStatic) {
   program
+    .command("generate")
+    .description("Generate TechDocs documentation site using mkdocs.")
+    .option(
+      "--source-dir <PATH>",
+      "Source directory containing mkdocs.yml and docs/ directory.",
+      "."
+    )
+    .option(
+      "--output-dir <PATH>",
+      "Output directory containing generated TechDocs site.",
+      "./site/"
+    )
+    .option(
+      "--no-docker",
+      "Do not use docker, use mkdocs executable and plugins in current user environment."
+    )
+    .option(
+      "--techdocs-ref <HOST_TYPE:URL>",
+      "The repository hosting documentation source files e.g. github:https://ghe.mycompany.net.com/org/repo." +
+        "\nThis value is same as the backstage.io/techdocs-ref annotation of the corresponding Backstage entity.\n"
+    )
+    .option("-v --verbose", "Enable verbose output.", false)
+    .alias("build")
+    .action(lazy(() => import("./generate/generate").then(m => m.default)));
+
+  program
     .command("serve:mkdocs")
     .description("Serve a documentation project locally using mkdocs serve.")
     .option(
@@ -25,7 +51,7 @@ export function registerCommands(program: CommanderStatic) {
       "Do not use docker, run `mkdocs serve` in current user environment."
     )
     .option("-p, --port <PORT>", "Port to serve documentation locally", "8000")
-    .option("-v --verbose", "View additional logs", false)
+    .option("-v --verbose", "Enable verbose output.", false)
     .action(lazy(() => import("./serve/mkdocs").then(m => m.default)));
 
   program
@@ -38,7 +64,7 @@ export function registerCommands(program: CommanderStatic) {
       "Do not use docker, use mkdocs executable in current user environment."
     )
     .option("--mkdocs-port <PORT>", "Port for mkdocs server to use", "8000")
-    .option("-v --verbose", "View additional logs", false)
+    .option("-v --verbose", "Enable verbose output.", false)
     .action(lazy(() => import("./serve/serve").then(m => m.default)));
 }
 
@@ -53,6 +79,7 @@ function lazy(
       await actionFunc(...args);
       process.exit(0);
     } catch (error) {
+      console.error(error.message);
       process.exit(1);
     }
   };

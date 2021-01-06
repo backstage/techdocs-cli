@@ -56,7 +56,6 @@ export default async function serve(cmd: Command) {
   // mkdocs writes all of its logs to stderr by default, and not stdout.
   // https://github.com/mkdocs/mkdocs/issues/879#issuecomment-203536006
   // Had me questioning this whole implementation for half an hour.
-  // Mkdocs server
   console.log("Starting mkdocs server.");
   const mkdocsChildProcess = await runMkdocsServer({
     port: cmd.mkdocsPort,
