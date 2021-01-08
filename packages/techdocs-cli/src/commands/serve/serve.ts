@@ -19,7 +19,7 @@ import openBrowser from "react-dev-utils/openBrowser";
 import { runMkdocsServer } from "../../lib/mkdocsServer";
 import HTTPServer from "../../lib/httpServer";
 import { LogFunc, waitForSignal } from "../../lib/run";
-import { createLogger } from "../../lib/helpers";
+import { createLogger } from "../../lib/utility";
 
 export default async function serve(cmd: Command) {
   const logger = createLogger({ verbose: cmd.verbose });

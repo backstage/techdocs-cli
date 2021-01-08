@@ -15,7 +15,7 @@
  */
 import { Command } from "commander";
 import openBrowser from "react-dev-utils/openBrowser";
-import { createLogger } from "../../lib/helpers";
+import { createLogger } from "../../lib/utility";
 import { runMkdocsServer } from "../../lib/mkdocsServer";
 import { LogFunc, waitForSignal } from "../../lib/run";
 

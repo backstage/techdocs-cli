@@ -17,7 +17,7 @@
 import serveHandler from "serve-handler";
 import http from "http";
 import httpProxy from "http-proxy";
-import { createLogger } from "./helpers";
+import { createLogger } from "./utility";
 
 export default class HTTPServer {
   private readonly proxyEndpoint: string;

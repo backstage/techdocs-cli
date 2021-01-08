@@ -51,6 +51,8 @@
     "ext": "ts"
   },
   "dependencies": {
+    "@backstage/backend-common": "^0.4.2",
+    "@backstage/catalog-model": "^0.6.0",
     "@types/dockerode": "^3.2.1",
     "commander": "^6.1.0",
     "dockerode": "^3.2.1",

@@ -25,7 +25,7 @@ import { ConfigReader } from "@backstage/config";
 import {
   convertTechDocsRefToLocationAnnotation,
   createLogger
-} from "../../lib/helpers";
+} from "../../lib/utility";
 
 export default async function generate(cmd: Command) {
   // Use techdocs-common package to generate docs. Keep consistency between Backstage and CI generating docs.

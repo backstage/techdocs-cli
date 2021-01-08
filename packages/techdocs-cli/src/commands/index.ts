@@ -44,6 +44,30 @@ export function registerCommands(program: CommanderStatic) {
     .action(lazy(() => import("./generate/generate").then(m => m.default)));
 
   program
+    .command("publish")
+    .description(
+      "Publish generated TechDocs site to an external storage AWS S3, Google GCS, etc."
+    )
+    .requiredOption(
+      "--publisher-type <TYPE>",
+      "awsS3 | googleGcs - same as techdocs.publisher.type in Backstage app-config.yaml"
+    )
+    .requiredOption(
+      "--bucket-name <BUCKET>",
+      "Bucket to use. Same as techdocs.publisher.[TYPE].bucket"
+    )
+    .requiredOption(
+      "--entity <NAMESPACE/KIND/NAME>",
+      "Entity uid separated by / in namespace/kind/name order (case-sensitive). Example: default/Component/myEntity "
+    )
+    .option(
+      "--directory <PATH>",
+      "Path of the directory containing generated files to publish",
+      "./site/"
+    )
+    .action(lazy(() => import("./publish/publish").then(m => m.default)));
+
+  program
     .command("serve:mkdocs")
     .description("Serve a documentation project locally using mkdocs serve.")
     .option(
