@@ -1,8 +1,0 @@
-site_name: Example Documentation
-# Enabling the plugin causes the live-reload feature of mkdocs to crash.
-# However, `mkdocs serve` only crashes in the example-docs directory in this project.
-# Works well in standalone directories and example docs. Needs investigation.
-# Could be related to the temporary files created by the mkdocs-techdocs-core plugin
-# and them being removed after creation, but live-reload wants to track them.
-# plugins:
-#   - techdocs-core
