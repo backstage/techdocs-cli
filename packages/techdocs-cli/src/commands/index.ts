@@ -50,15 +50,15 @@ export function registerCommands(program: CommanderStatic) {
     )
     .requiredOption(
       "--publisher-type <TYPE>",
-      "awsS3 | googleGcs - same as techdocs.publisher.type in Backstage app-config.yaml"
+      "(Required) awsS3 | googleGcs - same as techdocs.publisher.type in Backstage app-config.yaml"
     )
     .requiredOption(
       "--bucket-name <BUCKET>",
-      "Bucket to use. Same as techdocs.publisher.[TYPE].bucket"
+      "(Required) Bucket to use. Same as techdocs.publisher.[TYPE].bucket"
     )
     .requiredOption(
       "--entity <NAMESPACE/KIND/NAME>",
-      "Entity uid separated by / in namespace/kind/name order (case-sensitive). Example: default/Component/myEntity "
+      "(Required) Entity uid separated by / in namespace/kind/name order (case-sensitive). Example: default/Component/myEntity "
     )
     .option(
       "--directory <PATH>",
