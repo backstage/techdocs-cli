@@ -32,7 +32,7 @@ export function registerCommands(program: CommanderStatic) {
     )
     .option(
       "--no-docker",
-      "Do not use docker, use mkdocs executable and plugins in current user environment."
+      "Do not use Docker, use MkDocs executable and plugins in current user environment."
     )
     .option(
       "--techdocs-ref <HOST_TYPE:URL>",
@@ -85,7 +85,7 @@ export function registerCommands(program: CommanderStatic) {
     )
     .option(
       "--no-docker",
-      "Do not use docker, use mkdocs executable in current user environment."
+      "Do not use Docker, use MkDocs executable in current user environment."
     )
     .option("--mkdocs-port <PORT>", "Port for mkdocs server to use", "8000")
     .option("-v --verbose", "Enable verbose output.", false)
