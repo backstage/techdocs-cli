@@ -101,6 +101,8 @@ Options:
                                   github:https://ghe.mycompany.net.com/org/repo.
                                   This value is same as the backstage.io/techdocs-ref annotation
                                   of the corresponding Backstage entity.
+                                  It is completely fine to skip this as it is only being used to
+                                  set repo_url in mkdocs.yml if not found.
   -v --verbose                    Enable verbose output. (default: false)
   -h, --help                      display help for command
 ```
