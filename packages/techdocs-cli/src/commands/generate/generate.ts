@@ -31,10 +31,6 @@ export default async function generate(cmd: Command) {
   // Use techdocs-common package to generate docs. Keep consistency between Backstage and CI generating docs.
   // Docs can be prepared using actions/checkout or git clone, or similar paradigms on CI. The TechDocs CI workflow
   // will run on the CI pipeline containing the documentation files.
-  //
-  // Create a generator from config
-  // Generator.run (source directory, docker client, parsed annotation, output dir)
-  // Will create output dir parents on its own
 
   const logger = createLogger({ verbose: cmd.verbose });
 
@@ -73,9 +69,9 @@ export default async function generate(cmd: Command) {
   const techdocsGenerator = new TechdocsGenerator(logger, config);
   logger.info("Generating documentation...");
   await techdocsGenerator.run({
-    directory: sourceDir,
+    inputDir: sourceDir,
+    outputDir,
     dockerClient: dockerClient,
-    expectedResultDir: outputDir,
     ...(cmd.techdocsRef && {
       parsedLocationAnnotation
     })
