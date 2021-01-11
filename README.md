@@ -11,8 +11,8 @@ https://backstage.io/docs/features/techdocs/techdocs-overview
 - Supports local development/preview of a TechDocs site in a Backstage app.
 - Supports generation and publishing of a documentation site in a CI/CD workflow.
 
-```
-$ techdocs-cli --help
+```bash
+techdocs-cli --help
 Usage: techdocs-cli [options] [command]
 
 Options:
@@ -34,22 +34,22 @@ Commands:
 You can always use [`npx`](https://github.com/npm/npx) to run the latest version of `techdocs-cli` -
 
 ```bash
-$ npx @techdocs/cli [command]
+npx @techdocs/cli [command]
 ```
 
 Or you can install it using [npm](https://www.npmjs.com/package/@techdocs/cli) -
 
 ```bash
-$ npm install -g @techdocs/cli
-$ techdocs-cli [command]
+npm install -g @techdocs/cli
+techdocs-cli [command]
 ```
 
 ## Usage
 
 ### Preview TechDocs site locally in a Backstage like environment
 
-```
-$ techdocs-cli serve
+```bash
+techdocs-cli serve
 ```
 
 ![](.github/assets/techdocs-cli-serve-preview.png)
@@ -59,7 +59,7 @@ By default, Docker and [techdocs-container](https://github.com/backstage/techdoc
 The command starts two local servers - an MkDocs preview server on port 8000 and a Backstage app server on port 3000. The Backstage app has a custom TechDocs API implementation, which uses the MkDocs preview server as a proxy to fetch the generated documentation files and assets.
 
 ```bash
-$ techdocs-cli serve --help
+techdocs-cli serve --help
 Usage: techdocs-cli serve [options]
 
 Serve a documentation project locally in a Backstage app-like environment
@@ -72,8 +72,8 @@ Options:
 
 ### Generate TechDocs site from a documentation project
 
-```
-$ techdocs-cli generate
+```bash
+techdocs-cli generate
 ```
 
 Alias: `techdocs-cli build`
@@ -84,8 +84,8 @@ By default, this command uses Docker and [techdocs-container](https://github.com
 
 Command reference -
 
-```
-$ techdocs-cli generate --help
+```bash
+techdocs-cli generate --help
 Usage: techdocs-cli generate|build [options]
 
 Generate TechDocs documentation site using mkdocs.
@@ -107,8 +107,8 @@ Options:
 
 ### Publish generated TechDocs sites
 
-```
-$ techdocs-cli publish --publisher-type <awsS3|googleGcs> --bucket-name <bucket> --entity <namespace/kind/name>
+```bash
+techdocs-cli publish --publisher-type <awsS3|googleGcs> --bucket-name <bucket> --entity <namespace/kind/name>
 ```
 
 After generating a TechDocs site using `techdocs-cli generate`, use the publish command to upload the static generated files on a cloud storage bucket
@@ -131,8 +131,8 @@ Refer to their official documentation for more details -
 
 Caveat: In case of AWS, it is undocumented but `AWS_REGION` also needs to be set in the environment for the aws-sdk v3 client to authenticate.
 
-```
-$ techdocs-cli publish --help
+```bash
+techdocs-cli publish --help
 Usage: techdocs-cli publish [options]
 
 Publish generated TechDocs site to an external storage AWS S3, Google GCS, etc.
@@ -158,13 +158,13 @@ You are welcome to contribute to TechDocs CLI to improve it and support new feat
 Clone this repository, install dependencies and build a local version of the CLI.
 
 ```bash
-$ git clone https://github.com/backstage/techdocs-cli
+git clone https://github.com/backstage/techdocs-cli
 
-$ cd techdocs-cli/
+cd techdocs-cli/
 
-$ yarn install
+yarn install
 
-$ yarn run build
+yarn run build
 ```
 
 The build commands first bundles a small Backstage app located inside `packages/embedded-techdocs` and stores at `packages/techdocs-cli/dist`. It then builds the `packages/techdocs-cli` which uses the Backstage app bundle for the `serve` command.
@@ -185,15 +185,15 @@ Note that any changes to `packages/embedded-techdocs` will require a new `yarn r
 We have created an [example documentation project](https://github.com/backstage/techdocs-container/tree/main/mock-docs) and it's shipped with [techdocs-container](https://github.com/backstage/techdocs-container) repository, for the purpose of local development. But you are free to create your own local test site. All it takes is a `docs/index.md` and `mkdocs.yml` in a directory.
 
 ```bash
-$ git clone https://github.com/backstage/techdocs-container.git
+git clone https://github.com/backstage/techdocs-container.git
 
-$ cd techdocs-container/mock-docs
+cd techdocs-container/mock-docs
 
 # To get a view of your docs in Backstage, use:
-$ techdocs-cli serve
+techdocs-cli serve
 
 # To view the raw mkdocs site (without Backstage), use:
-$ techdocs-cli serve:mkdocs
+techdocs-cli serve:mkdocs
 ```
 
 ### Deploying a new version
