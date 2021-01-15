@@ -26,9 +26,6 @@ export default async function publish(cmd: Command) {
 
   // Assuming that proper credentials are set in Environment variables
   // for the respective GCS/AWS clients to work.
-  // BLOCKED by these two issues
-  // https://github.com/backstage/backstage/issues/3946
-  // https://github.com/backstage/backstage/issues/3947
 
   const techdocsConfig = {
     type: "",
