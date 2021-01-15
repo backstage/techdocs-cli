@@ -73,7 +73,7 @@ export function registerCommands(program: CommanderStatic) {
     .description("Serve a documentation project locally using MkDocs serve.")
     .option(
       "--no-docker",
-      "Do not use docker, run `mkdocs serve` in current user environment."
+      "Do not use Docker, run `mkdocs serve` in current user environment."
     )
     .option("-p, --port <PORT>", "Port to serve documentation locally", "8000")
     .option("-v --verbose", "Enable verbose output.", false)
