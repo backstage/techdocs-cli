@@ -42,11 +42,11 @@ export default async function publish(cmd: Command) {
   switch (cmd.publisherType) {
     case "awsS3":
       techdocsConfig.type = "awsS3";
-      techdocsConfig.awsS3.bucketName = cmd.bucketName;
+      techdocsConfig.awsS3.bucketName = cmd.storageName;
       break;
     case "googleGcs":
       techdocsConfig.type = "googleGcs";
-      techdocsConfig.googleGcs.bucketName = cmd.bucketName;
+      techdocsConfig.googleGcs.bucketName = cmd.storageName;
       break;
     default:
       logger.error(`Unknown publisher type ${cmd.publisherType}`);

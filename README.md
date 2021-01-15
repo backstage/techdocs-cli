@@ -1,6 +1,6 @@
 # TechDocs CLI
 
-[![](https://img.shields.io/npm/v/@techdocs/cli)](https://www.npmjs.com/package/@techdocs/cli)
+[![NPM Version badge](https://img.shields.io/npm/v/@techdocs/cli)](https://www.npmjs.com/package/@techdocs/cli)
 
 Utility command line interface for managing TechDocs sites in [Backstage](https://github.com/backstage/backstage).
 
@@ -52,7 +52,7 @@ techdocs-cli [command]
 techdocs-cli serve
 ```
 
-![](.github/assets/techdocs-cli-serve-preview.png)
+![A preview of techdocs-cli serve command](.github/assets/techdocs-cli-serve-preview.png)
 
 By default, Docker and [techdocs-container](https://github.com/backstage/techdocs-container) is used to make sure all the dependencies are installed. However, Docker can be disabled with `--no-docker` flag.
 
@@ -110,11 +110,11 @@ Options:
 ### Publish generated TechDocs sites
 
 ```bash
-techdocs-cli publish --publisher-type <awsS3|googleGcs> --bucket-name <bucket> --entity <namespace/kind/name>
+techdocs-cli publish --publisher-type <awsS3|googleGcs> --storage-name <bucket/container name> --entity <namespace/kind/name>
 ```
 
-After generating a TechDocs site using `techdocs-cli generate`, use the publish command to upload the static generated files on a cloud storage bucket
-which your Backstage app can read from.
+After generating a TechDocs site using `techdocs-cli generate`, use the publish command to upload the static generated files on a cloud storage
+(AWS/GCS) bucket or (Azure) container which your Backstage app can read from.
 
 The value for `--entity` must be the Backstage entity which the generated TechDocs site belongs to. You can find the values in your Entity's `catalog-info.yaml` file. If namespace is missing in the `catalog-info.yaml`, use `default`.
 The directory structure used in the storage bucket is `namespace/kind/name/<files>`.
@@ -140,15 +140,16 @@ Usage: techdocs-cli publish [options]
 Publish generated TechDocs site to an external storage AWS S3, Google GCS, etc.
 
 Options:
-  --publisher-type <TYPE>         (Required) awsS3 | googleGcs - same as techdocs.publisher.type
-                                  in Backstage app-config.yaml
-  --bucket-name <BUCKET>          (Required) Bucket to use. Same as
-                                  techdocs.publisher.[TYPE].bucket
-  --entity <NAMESPACE/KIND/NAME>  (Required) Entity uid separated by / in namespace/kind/name
-                                  order (case-sensitive). Example: default/Component/myEntity
-  --directory <PATH>              Path of the directory containing generated files to publish
-                                  (default: "./site/")
-  -h, --help                      display help for command
+  --publisher-type <TYPE>                 (Required) awsS3 | googleGcs - same as
+                                          techdocs.publisher.type in Backstage app-config.yaml
+  --storage-name <BUCKET/CONTAINER NAME>  (Required) In case of AWS/GCS, use the bucket name.
+                                          Same as techdocs.publisher.[TYPE].bucketName
+  --entity <NAMESPACE/KIND/NAME>          (Required) Entity uid separated by / in
+                                          namespace/kind/name order (case-sensitive). Example:
+                                          default/Component/myEntity
+  --directory <PATH>                      Path of the directory containing generated files to
+                                          publish (default: "./site/")
+  -h, --help                              display help for command
 ```
 
 ## Development

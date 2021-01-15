@@ -54,8 +54,8 @@ export function registerCommands(program: CommanderStatic) {
       "(Required) awsS3 | googleGcs - same as techdocs.publisher.type in Backstage app-config.yaml"
     )
     .requiredOption(
-      "--bucket-name <BUCKET>",
-      "(Required) Bucket to use. Same as techdocs.publisher.[TYPE].bucket"
+      "--storage-name <BUCKET/CONTAINER NAME>",
+      "(Required) In case of AWS/GCS, use the bucket name. Same as techdocs.publisher.[TYPE].bucketName"
     )
     .requiredOption(
       "--entity <NAMESPACE/KIND/NAME>",
