@@ -54,6 +54,13 @@ export default async function publish(cmd: Command) {
   }
 
   const config = new ConfigReader({
+    // This backend config is not used at all. Just something needed a create a mock discovery instance.
+    backend: {
+      baseUrl: "http://localhost:7000",
+      listen: {
+        port: 7000
+      }
+    },
     techdocs: {
       publisher: techdocsConfig
     }
