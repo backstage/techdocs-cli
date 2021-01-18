@@ -1,7 +1,7 @@
 {
   "name": "@techdocs/cli",
-  "description": "CLI for running TechDocs locally.",
-  "version": "0.1.7",
+  "description": "Utility CLI for managing TechDocs sites in Backstage.",
+  "version": "0.2.0",
   "publishConfig": {
     "access": "public"
   },

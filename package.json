@@ -1,7 +1,7 @@
 {
   "name": "@techdocs/monorepo",
-  "description": "CLI for running TechDocs locally.",
-  "version": "0.1.4",
+  "description": "See packages/techdocs-cli",
+  "version": "0.0.0",
   "private": true,
   "publishConfig": {
     "access": "public"
