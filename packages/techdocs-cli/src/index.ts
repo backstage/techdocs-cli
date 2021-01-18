@@ -13,111 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { spawn, ChildProcess } from 'child_process';
-import program from 'commander';
-import path from 'path';
-import { version } from '../package.json';
-import HTTPServer from './lib/httpServer';
-import openBrowser from 'react-dev-utils/openBrowser';
-// @ts-ignore
-// import embeddedTechdocs from '@techdocs/embedded-techdocs';
-
-const run = (name: string, args: string[] = []): ChildProcess => {
-  const [stdin, stdout, stderr] = [
-    'inherit' as const,
-    'pipe' as const,
-    'inherit' as const,
-  ];
-
-  const childProcess = spawn(name, args, {
-    stdio: [stdin, stdout, stderr],
-    shell: true,
-    env: {
-      ...process.env,
-      FORCE_COLOR: 'true',
-    },
-  });
-
-  childProcess.once('error', error => {
-    console.error(error);
-    childProcess.kill();
-  });
-
-  childProcess.once('exit', () => {
-    process.exit(0);
-  });
-
-  return childProcess;
-};
-
-const runMkdocsServer = (options?: {
-  devAddr: string;
-}): Promise<ChildProcess> => {
-  const devAddr = options?.devAddr ?? '0.0.0.0:8000';
-
-  return new Promise(resolve => {
-    const childProcess = run('docker', [
-      'run',
-      '-w',
-      '/content',
-      '-v',
-      `${process.cwd()}:/content`,
-      '-p',
-      '8000:8000',
-      'spotify/techdocs',
-      'serve',
-      '-a',
-      devAddr,
-    ]);
-
-    childProcess.stdout?.on('data', rawData => {
-      const data = rawData.toString().split('\n')[0];
-      console.log('[mkdocs] ', data);
-
-      if (data.includes(`Serving on http://${devAddr}`)) {
-        resolve(childProcess);
-      }
-    });
-  });
-};
+import program from "commander";
+import { registerCommands } from "./commands";
+import { version } from "../package.json";
 
 const main = (argv: string[]) => {
-  program.name('techdocs-cli').version(version);
+  program.name("techdocs-cli").version(version);
 
-  program
-    .command('serve:mkdocs')
-    .description('Serve a documentation project locally')
-    .action(() => {
-      runMkdocsServer().then(() => {
-        openBrowser('http://localhost:8000');
-      });
-    });
-
-  program
-    .command('serve')
-    .description('Serve a documentation project locally')
-    .action(async () => {
-      // Mkdocs server
-      const mkdocsServer = runMkdocsServer();
-
-      const techdocsPreviewBundlePath = path.join(
-        __dirname,
-        '..',
-        'dist',
-        'techdocs-preview-bundle',
-      );
-
-      const httpServer = new HTTPServer(techdocsPreviewBundlePath, 3000)
-        .serve()
-        .catch(err => {
-          console.error(err);
-          mkdocsServer.then(childProcess => childProcess.kill());
-        });
-
-      await Promise.all([mkdocsServer, httpServer]).then(() => {
-        openBrowser('http://localhost:3000/docs/local/dev/env/');
-      });
-    });
+  registerCommands(program);
 
   program.parse(argv);
 };

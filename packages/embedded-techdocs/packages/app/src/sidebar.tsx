@@ -21,7 +21,12 @@ export const AppSidebar = () => (
     <SidebarDivider />
     {/* Global nav, not org-specific */}
     <SidebarItem icon={HomeIcon} to="./" text="Home" />
-    <SidebarItem icon={LibraryBooks} to="/docs" text="Docs" />
+    {/* Since /docs page is useless in local preview, redirect to a meaningful page which renders the local docs site. */}
+    <SidebarItem
+      icon={LibraryBooks}
+      to="/docs/default/component/local/"
+      text="Docs"
+    />
     <SidebarDivider />
     {/* End global nav */}
     <SidebarDivider />

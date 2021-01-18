@@ -16,8 +16,10 @@
 
 set -e
 
-# Build the CLI
+# Build the TechDocs CLI
 npx backstage-cli -- build --outputs cjs
+
+# Make sure to do `yarn run build` in packages/embedded-techdocs before building here.
 
 TECHDOCS_PREVIEW_SOURCE=../embedded-techdocs/packages/app/dist
 TECHDOCS_PREVIEW_DEST=dist/techdocs-preview-bundle
