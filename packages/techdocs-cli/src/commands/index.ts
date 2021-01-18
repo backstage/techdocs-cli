@@ -19,7 +19,7 @@ import { CommanderStatic } from "commander";
 export function registerCommands(program: CommanderStatic) {
   program
     .command("generate")
-    .description("Generate TechDocs documentation site using mkdocs.")
+    .description("Generate TechDocs documentation site using MkDocs.")
     .option(
       "--source-dir <PATH>",
       "Source directory containing mkdocs.yml and docs/ directory.",
@@ -70,10 +70,10 @@ export function registerCommands(program: CommanderStatic) {
 
   program
     .command("serve:mkdocs")
-    .description("Serve a documentation project locally using mkdocs serve.")
+    .description("Serve a documentation project locally using MkDocs serve.")
     .option(
       "--no-docker",
-      "Do not use docker, run `mkdocs serve` in current user environment."
+      "Do not use Docker, run `mkdocs serve` in current user environment."
     )
     .option("-p, --port <PORT>", "Port to serve documentation locally", "8000")
     .option("-v --verbose", "Enable verbose output.", false)
@@ -88,7 +88,7 @@ export function registerCommands(program: CommanderStatic) {
       "--no-docker",
       "Do not use Docker, use MkDocs executable in current user environment."
     )
-    .option("--mkdocs-port <PORT>", "Port for mkdocs server to use", "8000")
+    .option("--mkdocs-port <PORT>", "Port for MkDocs server to use", "8000")
     .option("-v --verbose", "Enable verbose output.", false)
     .action(lazy(() => import("./serve/serve").then(m => m.default)));
 }

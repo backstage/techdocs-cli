@@ -95,7 +95,7 @@ Options:
                                   (default: ".")
   --output-dir <PATH>             Output directory containing generated TechDocs site. (default:
                                   "./site/")
-  --no-docker                     Do not use docker, use mkdocs executable and plugins in current
+  --no-docker                     Do not use Docker, use MkDocs executable and plugins in current
                                   user environment.
   --techdocs-ref <HOST_TYPE:URL>  The repository hosting documentation source files e.g.
                                   github:https://ghe.mycompany.net.com/org/repo.
