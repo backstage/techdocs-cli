@@ -83,10 +83,7 @@ export default async function serve(cmd: Command) {
 
   // Run the embedded-techdocs Backstage app
   const techdocsPreviewBundlePath = path.join(
-    __dirname,
-    "..",
-    "..",
-    "..",
+    path.dirname(require.resolve("@techdocs/cli/package.json")),
     "dist",
     "techdocs-preview-bundle"
   );
