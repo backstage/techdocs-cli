@@ -209,6 +209,8 @@ The `techdocs-cli` package currently has a bit of a weird setup. It consists of 
 
 When we build techdocs-cli we will first run `yarn run build` in `packages/embedded-techdocs` resulting in a bundle containing the entire backstage application. When we build `techdocs-cli` using `yarn run build` in `packages/techdocs-cli` the embedded-techdocs bundle will be copied over to the `packages/techdocs-cli/dist`.
 
+Note that the Backstage app and plugins versions are fixed in the `packages/embedded-techdocs` mono-repo. So [`@backstage/plugin-techdocs`](https://github.com/backstage/techdocs-cli/blob/main/packages/embedded-techdocs/packages/app/package.json) version may need upgrading from time to time if significant APIs are changed.
+
 The resulting CLI can be found inside `packages/techdocs-cli/bin`. Use this for local development.
 
 Happy hacking!
