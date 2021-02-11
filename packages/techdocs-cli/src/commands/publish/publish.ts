@@ -27,28 +27,19 @@ export default async function publish(cmd: Command) {
   // Assuming that proper credentials are set in Environment variables
   // for the respective GCS/AWS clients to work.
 
-  const techdocsConfig = {
-    type: "",
-    googleGcs: {
-      bucketName: ""
-    },
-    awsS3: {
-      bucketName: ""
-    }
-  };
-  switch (cmd.publisherType) {
-    case "awsS3":
-      techdocsConfig.type = "awsS3";
-      techdocsConfig.awsS3.bucketName = cmd.storageName;
-      break;
-    case "googleGcs":
-      techdocsConfig.type = "googleGcs";
-      techdocsConfig.googleGcs.bucketName = cmd.storageName;
-      break;
-    default:
+  if (!["awsS3", "googleGcs", "azureBlobStorage"].includes(cmd.publisherType)) {
       logger.error(`Unknown publisher type ${cmd.publisherType}`);
       throw new Error();
   }
+
+  const storageKeyName = cmd.publisherType === "azureBlobStorage" ? "containerName" : "bucketName";
+
+  const techdocsConfig = {
+    type: cmd.publisherType,
+    [cmd.publisherType]: {
+      [storageKeyName]: cmd.storageName
+    }
+  };
 
   const config = new ConfigReader({
     // This backend config is not used at all. Just something needed a create a mock discovery instance.
