@@ -34,17 +34,17 @@ export default async function publish(cmd: Command) {
 
   let publisherConfig;
   if ("azureBlobStorage" === cmd.publisherType) {
-    let credentials = {};
-    if (cmd.azureAccountName) {
-      credentials = {
-        accountName: cmd.azureAccountName
-      }
+    if (!cmd.azureAccountName) {
+      logger.error(`azureBlobStorage requires --azureAccountName to be specified`);
+      throw new Error();
     }
     publisherConfig = {
       type: cmd.publisherType,
       [cmd.publisherType]: {
         containerName: cmd.storageName,
-        credentials
+        credentials: {
+          accountName: cmd.azureAccountName
+        }
       }
     } 
   } else {

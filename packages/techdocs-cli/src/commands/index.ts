@@ -51,7 +51,7 @@ export function registerCommands(program: CommanderStatic) {
     )
     .requiredOption(
       "--publisher-type <TYPE>",
-      "(Required) awsS3 | googleGcs - same as techdocs.publisher.type in Backstage app-config.yaml"
+      "(Required) awsS3 | googleGcs | azureBlobStorage - same as techdocs.publisher.type in Backstage app-config.yaml"
     )
     .requiredOption(
       "--storage-name <BUCKET/CONTAINER NAME>",
@@ -63,7 +63,7 @@ export function registerCommands(program: CommanderStatic) {
     )
     .option(
       "--azureAccountName <AZURE ACCOUNT NAME>",
-      "Azure Account Name used for authentication. Environment variables must include AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET"
+      "(Required when --publisher-type azureBlobStorage) Environment variables must include AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET"
     )
     .option(
       "--directory <PATH>",
