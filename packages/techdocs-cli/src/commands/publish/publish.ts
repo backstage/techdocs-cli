@@ -32,14 +32,29 @@ export default async function publish(cmd: Command) {
       throw new Error();
   }
 
-  const storageKeyName = cmd.publisherType === "azureBlobStorage" ? "containerName" : "bucketName";
-
-  const techdocsConfig = {
-    type: cmd.publisherType,
-    [cmd.publisherType]: {
-      [storageKeyName]: cmd.storageName
+  let publisherConfig;
+  if ("azureBlobStorage" === cmd.publisherType) {
+    let credentials = {};
+    if (cmd.azureAccountName) {
+      credentials = {
+        accountName: cmd.azureAccountName
+      }
     }
-  };
+    publisherConfig = {
+      type: cmd.publisherType,
+      [cmd.publisherType]: {
+        containerName: cmd.storageName,
+        credentials
+      }
+    } 
+  } else {
+    publisherConfig = {
+      type: cmd.publisherType,
+      [cmd.publisherType]: {
+        bucketName: cmd.storageName
+      }
+    }
+  }
 
   const config = new ConfigReader({
     // This backend config is not used at all. Just something needed a create a mock discovery instance.
@@ -50,7 +65,7 @@ export default async function publish(cmd: Command) {
       }
     },
     techdocs: {
-      publisher: techdocsConfig
+      publisher: publisherConfig
     }
   });
 

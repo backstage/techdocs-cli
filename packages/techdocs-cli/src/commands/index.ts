@@ -62,6 +62,10 @@ export function registerCommands(program: CommanderStatic) {
       "(Required) Entity uid separated by / in namespace/kind/name order (case-sensitive). Example: default/Component/myEntity "
     )
     .option(
+      "--azureAccountName <AZURE ACCOUNT NAME>",
+      "Azure Account Name used for authentication. Environment variables must include AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET"
+    )
+    .option(
       "--directory <PATH>",
       "Path of the directory containing generated files to publish",
       "./site/"
