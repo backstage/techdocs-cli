@@ -51,7 +51,7 @@ export function registerCommands(program: CommanderStatic) {
     )
     .requiredOption(
       "--publisher-type <TYPE>",
-      "(Required) awsS3 | googleGcs - same as techdocs.publisher.type in Backstage app-config.yaml"
+      "(Required) awsS3 | googleGcs | azureBlobStorage - same as techdocs.publisher.type in Backstage app-config.yaml"
     )
     .requiredOption(
       "--storage-name <BUCKET/CONTAINER NAME>",
@@ -60,6 +60,14 @@ export function registerCommands(program: CommanderStatic) {
     .requiredOption(
       "--entity <NAMESPACE/KIND/NAME>",
       "(Required) Entity uid separated by / in namespace/kind/name order (case-sensitive). Example: default/Component/myEntity "
+    )
+    .option(
+      "--azureAccountName <AZURE ACCOUNT NAME>",
+      "(Required) specify when --publisher-type azureBlobStorage"
+    )
+    .option(
+      "--azureAccountKey <AZURE ACCOUNT KEY>",
+      "Azure Storage Account key to use for authentication. If not specified, you must include AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET environment variables."
     )
     .option(
       "--directory <PATH>",

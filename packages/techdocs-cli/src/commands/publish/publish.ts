@@ -27,27 +27,34 @@ export default async function publish(cmd: Command) {
   // Assuming that proper credentials are set in Environment variables
   // for the respective GCS/AWS clients to work.
 
-  const techdocsConfig = {
-    type: "",
-    googleGcs: {
-      bucketName: ""
-    },
-    awsS3: {
-      bucketName: ""
-    }
-  };
-  switch (cmd.publisherType) {
-    case "awsS3":
-      techdocsConfig.type = "awsS3";
-      techdocsConfig.awsS3.bucketName = cmd.storageName;
-      break;
-    case "googleGcs":
-      techdocsConfig.type = "googleGcs";
-      techdocsConfig.googleGcs.bucketName = cmd.storageName;
-      break;
-    default:
+  if (!["awsS3", "googleGcs", "azureBlobStorage"].includes(cmd.publisherType)) {
       logger.error(`Unknown publisher type ${cmd.publisherType}`);
       throw new Error();
+  }
+
+  let publisherConfig;
+  if ("azureBlobStorage" === cmd.publisherType) {
+    if (!cmd.azureAccountName) {
+      logger.error(`azureBlobStorage requires --azureAccountName to be specified`);
+      throw new Error();
+    }
+    publisherConfig = {
+      type: cmd.publisherType,
+      [cmd.publisherType]: {
+        containerName: cmd.storageName,
+        credentials: {
+          accountName: cmd.azureAccountName,
+          accountKey: cmd.azureAccountKey
+        },
+      }
+    } 
+  } else {
+    publisherConfig = {
+      type: cmd.publisherType,
+      [cmd.publisherType]: {
+        bucketName: cmd.storageName
+      }
+    }
   }
 
   const config = new ConfigReader({
@@ -59,7 +66,7 @@ export default async function publish(cmd: Command) {
       }
     },
     techdocs: {
-      publisher: techdocsConfig
+      publisher: publisherConfig
     }
   });
 
