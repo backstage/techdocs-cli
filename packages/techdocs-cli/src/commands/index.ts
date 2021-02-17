@@ -63,7 +63,11 @@ export function registerCommands(program: CommanderStatic) {
     )
     .option(
       "--azureAccountName <AZURE ACCOUNT NAME>",
-      "(Required when --publisher-type azureBlobStorage) Environment variables must include AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET"
+      "(Required) specify when --publisher-type azureBlobStorage"
+    )
+    .option(
+      "--azureAccountKey <AZURE ACCOUNT KEY>",
+      "Azure Storage Account key to use for authentication. If not specified, you must include AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET environment variables."
     )
     .option(
       "--directory <PATH>",

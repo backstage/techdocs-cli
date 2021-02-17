@@ -43,8 +43,9 @@ export default async function publish(cmd: Command) {
       [cmd.publisherType]: {
         containerName: cmd.storageName,
         credentials: {
-          accountName: cmd.azureAccountName
-        }
+          accountName: cmd.azureAccountName,
+          accountKey: cmd.azureAccountKey
+        },
       }
     } 
   } else {
