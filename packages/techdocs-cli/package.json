@@ -52,7 +52,7 @@
   "dependencies": {
     "@backstage/backend-common": "^0.5.3",
     "@backstage/catalog-model": "^0.7.1",
-    "@backstage/techdocs-common": "^0.4.0",
+    "@backstage/techdocs-common": "^0.4.1",
     "@types/dockerode": "^3.2.1",
     "commander": "^6.1.0",
     "dockerode": "^3.2.1",
