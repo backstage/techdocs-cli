@@ -18,4 +18,5 @@ backend:
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 techdocs:
+  builder: 'external'
   requestUrl: http://localhost:3000/api

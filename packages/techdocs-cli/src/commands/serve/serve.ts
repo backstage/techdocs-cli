@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import path from "path";
 import { Command } from "commander";
+import path from "path";
 import openBrowser from "react-dev-utils/openBrowser";
-import { runMkdocsServer } from "../../lib/mkdocsServer";
 import HTTPServer from "../../lib/httpServer";
+import { runMkdocsServer } from "../../lib/mkdocsServer";
 import { LogFunc, waitForSignal } from "../../lib/run";
 import { createLogger } from "../../lib/utility";
 
@@ -66,8 +66,8 @@ export default async function serve(cmd: Command) {
   });
 
   // Wait until mkdocs server has started so that Backstage starts with docs loaded
-  // Hardly takes 1 second
-  for (let attempt = 0; attempt < 5; attempt++) {
+  // Takes 1-5 seconds
+  for (let attempt = 0; attempt < 10; attempt++) {
     await new Promise(r => setTimeout(r, 1000));
     if (mkdocsServerHasStarted) {
       break;

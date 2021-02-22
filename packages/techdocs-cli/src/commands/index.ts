@@ -51,23 +51,23 @@ export function registerCommands(program: CommanderStatic) {
     )
     .requiredOption(
       "--publisher-type <TYPE>",
-      "(Required) awsS3 | googleGcs | azureBlobStorage - same as techdocs.publisher.type in Backstage app-config.yaml"
+      "(Required always) awsS3 | googleGcs | azureBlobStorage - same as techdocs.publisher.type in Backstage app-config.yaml"
     )
     .requiredOption(
       "--storage-name <BUCKET/CONTAINER NAME>",
-      "(Required) In case of AWS/GCS, use the bucket name. Same as techdocs.publisher.[TYPE].bucketName"
+      "(Required always) In case of AWS/GCS, use the bucket name. In case of Azure, use container name. Same as techdocs.publisher.[TYPE].bucketName"
     )
     .requiredOption(
       "--entity <NAMESPACE/KIND/NAME>",
-      "(Required) Entity uid separated by / in namespace/kind/name order (case-sensitive). Example: default/Component/myEntity "
+      "(Required always) Entity uid separated by / in namespace/kind/name order (case-sensitive). Example: default/Component/myEntity "
     )
     .option(
       "--azureAccountName <AZURE ACCOUNT NAME>",
-      "(Required) specify when --publisher-type azureBlobStorage"
+      "(Required for Azure) specify when --publisher-type azureBlobStorage"
     )
     .option(
       "--azureAccountKey <AZURE ACCOUNT KEY>",
-      "Azure Storage Account key to use for authentication. If not specified, you must include AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET environment variables."
+      "Azure Storage Account key to use for authentication. If not specified, you must set AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET as environment variables."
     )
     .option(
       "--directory <PATH>",
