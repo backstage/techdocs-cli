@@ -110,7 +110,33 @@ Options:
 ### Publish generated TechDocs sites
 
 ```bash
-techdocs-cli publish --publisher-type <awsS3|googleGcs> --storage-name <bucket/container name> --entity <namespace/kind/name>
+# Example
+techdocs-cli publish --publisher-type <awsS3|googleGcs|azureBlobStorage> --storage-name <bucket/container name> --entity <namespace/kind/name>
+
+# Command reference
+Usage: techdocs-cli publish [options]
+
+Publish generated TechDocs site to an external storage AWS S3, Google GCS, etc.
+
+Options:
+  --publisher-type <TYPE>                  (Required always) awsS3 | googleGcs | azureBlobStorage
+                                           - same as techdocs.publisher.type in Backstage
+                                           app-config.yaml
+  --storage-name <BUCKET/CONTAINER NAME>   (Required always) In case of AWS/GCS, use the bucket
+                                           name. In case of Azure, use container name. Same as
+                                           techdocs.publisher.[TYPE].bucketName
+  --entity <NAMESPACE/KIND/NAME>           (Required always) Entity uid separated by / in
+                                           namespace/kind/name order (case-sensitive). Example:
+                                           default/Component/myEntity
+  --azureAccountName <AZURE ACCOUNT NAME>  (Required for Azure) specify when --publisher-type
+                                           azureBlobStorage
+  --azureAccountKey <AZURE ACCOUNT KEY>    Azure Storage Account key to use for authentication.
+                                           If not specified, you must set AZURE_TENANT_ID,
+                                           AZURE_CLIENT_ID & AZURE_CLIENT_SECRET as environment
+                                           variables.
+  --directory <PATH>                       Path of the directory containing generated files to
+                                           publish (default: "./site/")
+  -h, --help                               display help for command
 ```
 
 After generating a TechDocs site using `techdocs-cli generate`, use the publish command to upload the static generated files on a cloud storage
@@ -123,15 +149,14 @@ Note that the values are case-sensitive. An example for `--entity` is `default/C
 
 #### Authentication
 
-You need to make sure that your environment is able to authenticate with GCP/AWS. `techdocs-cli` uses the official Node.js clients provided by AWS (v3) and Google Cloud. You can authenticate using
+You need to make sure that your environment is able to authenticate with GCP/AWS. `techdocs-cli` uses the official Node.js clients provided by AWS (v2), Google Cloud and Azure. You can authenticate using
 environment variables and/or by other means (`~/.aws/credentials`, `~/.config/gcloud` etc.)
 
-Refer to their official documentation for more details -
+Refer to the Authentication section of the following documentation depending upon your cloud storage provider -
 
-- Google Cloud: https://cloud.google.com/storage/docs/authentication#libauth
-- AWS: https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-environment.html
-
-Caveat: In case of AWS, it is undocumented but `AWS_REGION` also needs to be set in the environment for the aws-sdk v3 client to authenticate.
+- [Google Cloud Storage](https://backstage.io/docs/features/techdocs/using-cloud-storage#configuring-google-gcs-bucket-with-techdocs)
+- [AWS S3](https://backstage.io/docs/features/techdocs/using-cloud-storage#configuring-aws-s3-bucket-with-techdocs)
+- [Azure Blob Storage](https://backstage.io/docs/features/techdocs/using-cloud-storage#configuring-azure-blob-storage-container-with-techdocs)
 
 ```bash
 techdocs-cli publish --help
@@ -203,14 +228,14 @@ techdocs-cli serve:mkdocs
 
 Deploying the Node package to NPM happens automatically when a PR is merged into the `main` branch with a [GitHub Actions workflow](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml). The package is published at [`@techdocs/cli`](https://www.npmjs.com/package/@techdocs/cli) on NPM. Just bump the version number in the `packages/techdocs-cli/package.json` file and create a pull request. It will be deployed when the PR is merged.
 
+Note that the Backstage app and plugins versions are fixed in the `packages/embedded-techdocs` mono-repo. So [`@backstage/plugin-techdocs`](https://github.com/backstage/techdocs-cli/blob/main/packages/embedded-techdocs/packages/app/package.json) version may need upgrading from time to time if significant APIs are changed.
+
 ### Few words on the setup of the project
 
 The `techdocs-cli` package currently has a bit of a weird setup. It consists of two monorepos. The first one is the top level monorepo, where each package is listed in the `packages` directory. The second monorepo is a backstage app monorepo which can be found in `packages/embedded-techdocs`.
 
-When we build techdocs-cli we will first run `yarn run build` in `packages/embedded-techdocs` resulting in a bundle containing the entire backstage application. When we build `techdocs-cli` using `yarn run build` in `packages/techdocs-cli` the embedded-techdocs bundle will be copied over to the `packages/techdocs-cli/dist`.
+When we build techdocs-cli (using `build.sh` in the root) we first run `yarn run build` in `packages/embedded-techdocs` resulting in a bundle containing the entire backstage application. When we build `packages/techdocs-cli` using `yarn run build`, the embedded-techdocs bundle will be copied over to the `packages/techdocs-cli/dist`.
 
-Note that the Backstage app and plugins versions are fixed in the `packages/embedded-techdocs` mono-repo. So [`@backstage/plugin-techdocs`](https://github.com/backstage/techdocs-cli/blob/main/packages/embedded-techdocs/packages/app/package.json) version may need upgrading from time to time if significant APIs are changed.
-
-The resulting CLI can be found inside `packages/techdocs-cli/bin`. Use this for local development.
+The resulting CLI can be found inside `packages/techdocs-cli/bin`. Use this for local development (by adding an alias in your local shell environment).
 
 Happy hacking!
