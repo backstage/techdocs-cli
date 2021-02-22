@@ -13,27 +13,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import { createApiFactory, configApiRef } from '@backstage/core';
 import { EntityName } from '@backstage/catalog-model';
+import { Config } from '@backstage/config';
 import {
-  techdocsStorageApiRef,
-  TechDocsStorage,
-  techdocsApiRef,
+  configApiRef,
+  createApiFactory,
+  DiscoveryApi,
+  discoveryApiRef,
+} from '@backstage/core';
+import {
   TechDocs,
+  techdocsApiRef,
+  TechDocsStorage,
+  techdocsStorageApiRef,
 } from '@backstage/plugin-techdocs';
+
 // TODO: Export type from plugin-techdocs and import this here
 // import { ParsedEntityId } from '@backstage/plugin-techdocs'
 
-class TechDocsDevStorageApi implements TechDocsStorage {
-  public apiOrigin: string;
+/**
+ * Note: Override TechDocs API to use local mkdocs server instead of techdocs-backend.
+ */
 
-  constructor({ apiOrigin }: { apiOrigin: string }) {
-    this.apiOrigin = apiOrigin;
+class TechDocsDevStorageApi implements TechDocsStorage {
+  public configApi: Config;
+  public discoveryApi: DiscoveryApi;
+
+  constructor({
+    configApi,
+    discoveryApi,
+  }: {
+    configApi: Config;
+    discoveryApi: DiscoveryApi;
+  }) {
+    this.configApi = configApi;
+    this.discoveryApi = discoveryApi;
   }
 
-  async getEntityDocs(entityId: EntityName, path: string) {
-    const url = `${this.apiOrigin}/${path}`;
+  async getApiOrigin() {
+    return (
+      this.configApi.getOptionalString('techdocs.requestUrl') ??
+      (await this.discoveryApi.getBaseUrl('techdocs'))
+    );
+  }
+
+  async getEntityDocs(_entityId: EntityName, path: string) {
+    const apiOrigin = await this.getApiOrigin();
+    // Irrespective of the entity, use mkdocs server to find the file for the path.
+    const url = `${apiOrigin}/${path}`;
 
     const request = await fetch(
       `${url.endsWith('/') ? url : `${url}/`}index.html`,
@@ -46,25 +73,50 @@ class TechDocsDevStorageApi implements TechDocsStorage {
     return request.text();
   }
 
-  getBaseUrl(oldBaseUrl: string, entityId: EntityName, path: string): string {
-    return new URL(oldBaseUrl, `${this.apiOrigin}/${path}`).toString();
+  // Used by transformer to modify the request to assets (CSS, Image) from inside the HTML.
+  async getBaseUrl(
+    oldBaseUrl: string,
+    _entityId: EntityName,
+    path: string,
+  ): Promise<string> {
+    const apiOrigin = await this.getApiOrigin();
+    return new URL(oldBaseUrl, `${apiOrigin}/${path}`).toString();
   }
 }
 
 class TechDocsDevApi implements TechDocs {
-  public apiOrigin: string;
+  public configApi: Config;
+  public discoveryApi: DiscoveryApi;
 
-  constructor({ apiOrigin }: { apiOrigin: string }) {
-    this.apiOrigin = apiOrigin;
+  constructor({
+    configApi,
+    discoveryApi,
+  }: {
+    configApi: Config;
+    discoveryApi: DiscoveryApi;
+  }) {
+    this.configApi = configApi;
+    this.discoveryApi = discoveryApi;
   }
 
-  async getEntityMetadata(metadataType: string, entityId: any) {
+  async getApiOrigin() {
+    return (
+      this.configApi.getOptionalString('techdocs.requestUrl') ??
+      (await this.discoveryApi.getBaseUrl('techdocs'))
+    );
+  }
+
+  // @ts-ignore
+  async getEntityMetadata(_entityId: any) {
     return {
-      spec: {},
+      spec: {
+        owner: 'test',
+        lifecycle: 'experimental',
+      },
     };
   }
 
-  async getTechDocsMetadata(entityId: EntityName) {
+  async getTechDocsMetadata(_entityId: EntityName) {
     return {
       site_name: 'Live editing environment',
       site_description: '',
@@ -75,18 +127,20 @@ class TechDocsDevApi implements TechDocs {
 export const apis = [
   createApiFactory({
     api: techdocsStorageApiRef,
-    deps: { configApi: configApiRef },
-    factory: ({ configApi }) =>
+    deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
+    factory: ({ configApi, discoveryApi }) =>
       new TechDocsDevStorageApi({
-        apiOrigin: configApi.getString('techdocs.requestUrl'),
+        configApi,
+        discoveryApi,
       }),
   }),
   createApiFactory({
     api: techdocsApiRef,
-    deps: { configApi: configApiRef },
-    factory: ({ configApi }) =>
+    deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
+    factory: ({ configApi, discoveryApi }) =>
       new TechDocsDevApi({
-        apiOrigin: configApi.getString('techdocs.requestUrl'),
+        configApi,
+        discoveryApi,
       }),
   }),
 ];
