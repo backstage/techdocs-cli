@@ -118,7 +118,7 @@ class TechDocsDevApi implements TechDocs {
 
   async getTechDocsMetadata(_entityId: EntityName) {
     return {
-      site_name: 'Live editing environment',
+      site_name: 'Live preview environment',
       site_description: '',
     };
   }
