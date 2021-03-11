@@ -48,6 +48,15 @@ export default async function publish(cmd: Command) {
         },
       }
     } 
+  } else if ("awsS3" === cmd.publisherType) {
+    publisherConfig = {
+      type: cmd.publisherType,
+      [cmd.publisherType]: {
+        bucketName: cmd.storageName,
+        ...(cmd.awsRoleArn && { credentials: {roleArn: cmd.awsRoleArn} }),
+        ...(cmd.awsEndpoint && { endpoint: cmd.awsEndpoint })
+      }
+    };
   } else {
     publisherConfig = {
       type: cmd.publisherType,
