@@ -1,10 +1,12 @@
 /// <reference types="node" />
-import http from 'http';
+import http from "http";
 export default class HTTPServer {
-    dir: string;
-    port: number;
-    proxyEndpoint: string;
-    constructor(dir: string, port: number);
+    private readonly proxyEndpoint;
+    private readonly backstageBundleDir;
+    private readonly backstagePort;
+    private readonly mkdocsPort;
+    private readonly verbose;
+    constructor(backstageBundleDir: string, backstagePort: number, mkdocsPort: number, verbose: boolean);
     private createProxy;
     serve(): Promise<http.Server>;
 }

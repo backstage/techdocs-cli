@@ -1,3 +1,2 @@
-import { FC } from 'react';
-declare const App: FC<{}>;
+declare const App: () => JSX.Element;
 export default App;

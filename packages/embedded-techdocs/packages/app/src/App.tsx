@@ -1,19 +1,12 @@
-import React, { FC } from 'react';
-import {
-  createApp,
-  AlertDisplay,
-  OAuthRequestDialog,
-  SidebarPage,
-  createRouteRef,
-} from '@backstage/core';
-import { apis } from './apis';
-import * as plugins from './plugins';
-import { AppSidebar } from './sidebar';
-import { Route, Routes, Navigate } from 'react-router';
-import { Router as CatalogRouter } from '@backstage/plugin-catalog';
-import { Router as DocsRouter } from '@backstage/plugin-techdocs';
+import React from 'react';
+import { Navigate, Route } from 'react-router';
+import { createApp, FlatRoutes } from '@backstage/core';
+import { CatalogEntityPage } from '@backstage/plugin-catalog';
 
-import { EntityPage } from './components/catalog/EntityPage';
+import { TechdocsPage } from '@backstage/plugin-techdocs';
+import { apis } from './apis';
+import { Root } from './components/Root';
+import * as plugins from './plugins';
 
 const app = createApp({
   apis,
@@ -22,25 +15,23 @@ const app = createApp({
 
 const AppProvider = app.getProvider();
 const AppRouter = app.getRouter();
-const deprecatedAppRoutes = app.getRoutes();
 
-const App: FC<{}> = () => (
+const routes = (
+  <FlatRoutes>
+    <Navigate key="/" to="/docs/default/component/local/" />
+    {/* we need this route as TechDocs header links relies on it */}
+    <Route
+      path="/catalog/:namespace/:kind/:name"
+      element={<CatalogEntityPage />}
+    />
+    <Route path="/docs" element={<TechdocsPage />} />
+  </FlatRoutes>
+);
+
+const App = () => (
   <AppProvider>
-    <AlertDisplay />
-    <OAuthRequestDialog />
     <AppRouter>
-      <SidebarPage>
-        <AppSidebar />
-        <Routes>
-          <Navigate key="/" to="/catalog" />
-          <Route
-            path="/catalog/*"
-            element={<CatalogRouter EntityPage={EntityPage} />}
-          />
-          <Route path="/docs/*" element={<DocsRouter />} />
-          {deprecatedAppRoutes}
-        </Routes>
-      </SidebarPage>
+      <Root>{routes}</Root>
     </AppRouter>
   </AppProvider>
 );
