@@ -20,6 +20,8 @@ import {
   createApiFactory,
   DiscoveryApi,
   discoveryApiRef,
+  IdentityApi,
+  identityApiRef,
 } from '@backstage/core';
 import {
   TechDocs,
@@ -38,16 +40,20 @@ import {
 class TechDocsDevStorageApi implements TechDocsStorage {
   public configApi: Config;
   public discoveryApi: DiscoveryApi;
+  public identityApi: IdentityApi;
 
   constructor({
     configApi,
     discoveryApi,
+    identityApi,
   }: {
     configApi: Config;
     discoveryApi: DiscoveryApi;
+    identityApi: IdentityApi;
   }) {
     this.configApi = configApi;
     this.discoveryApi = discoveryApi;
+    this.identityApi = identityApi;
   }
 
   async getApiOrigin() {
@@ -55,6 +61,17 @@ class TechDocsDevStorageApi implements TechDocsStorage {
       this.configApi.getOptionalString('techdocs.requestUrl') ??
       (await this.discoveryApi.getBaseUrl('techdocs'))
     );
+  }
+
+  async getStorageUrl() {
+    return (
+      this.configApi.getOptionalString('techdocs.storageUrl') ??
+      `${await this.discoveryApi.getBaseUrl('techdocs')}/static/docs`
+    );
+  }
+
+  async getBuilder() {
+    return this.configApi.getString('techdocs.builder');
   }
 
   async getEntityDocs(_entityId: EntityName, path: string) {
@@ -73,6 +90,12 @@ class TechDocsDevStorageApi implements TechDocsStorage {
     return request.text();
   }
 
+  async syncEntityDocs(_: EntityName) {
+    // this is just stub of this function as we don't need to check if docs are up to date,
+    //we always want to retrigger a new build
+    return true;
+  }
+
   // Used by transformer to modify the request to assets (CSS, Image) from inside the HTML.
   async getBaseUrl(
     oldBaseUrl: string,
@@ -87,16 +110,20 @@ class TechDocsDevStorageApi implements TechDocsStorage {
 class TechDocsDevApi implements TechDocs {
   public configApi: Config;
   public discoveryApi: DiscoveryApi;
+  public identityApi: IdentityApi;
 
   constructor({
     configApi,
     discoveryApi,
+    identityApi,
   }: {
     configApi: Config;
     discoveryApi: DiscoveryApi;
+    identityApi: IdentityApi;
   }) {
     this.configApi = configApi;
     this.discoveryApi = discoveryApi;
+    this.identityApi = identityApi;
   }
 
   async getApiOrigin() {
@@ -127,20 +154,30 @@ class TechDocsDevApi implements TechDocs {
 export const apis = [
   createApiFactory({
     api: techdocsStorageApiRef,
-    deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
-    factory: ({ configApi, discoveryApi }) =>
+    deps: {
+      configApi: configApiRef,
+      discoveryApi: discoveryApiRef,
+      identityApi: identityApiRef,
+    },
+    factory: ({ configApi, discoveryApi, identityApi }) =>
       new TechDocsDevStorageApi({
         configApi,
         discoveryApi,
+        identityApi,
       }),
   }),
   createApiFactory({
     api: techdocsApiRef,
-    deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
-    factory: ({ configApi, discoveryApi }) =>
+    deps: {
+      configApi: configApiRef,
+      discoveryApi: discoveryApiRef,
+      identityApi: identityApiRef,
+    },
+    factory: ({ configApi, discoveryApi, identityApi }) =>
       new TechDocsDevApi({
         configApi,
         discoveryApi,
+        identityApi,
       }),
   }),
 ];
