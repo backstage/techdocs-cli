@@ -81,6 +81,14 @@ export default async function publish(cmd: Command) {
 
   const discovery = SingleHostDiscovery.fromConfig(config);
   const publisher = await Publisher.fromConfig(config, { logger, discovery });
+
+  // Check that the publisher's underlying storage is ready and available.
+  const { isAvailable } = await publisher.getReadiness();
+  if (!isAvailable) {
+    // Error messages printed in getReadiness() call. This ensures exit code 1.
+    return Promise.reject(new Error(''));
+  }
+
   const [namespace, kind, name] = cmd.entity.split("/");
   const entity = {
     kind,
