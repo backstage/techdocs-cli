@@ -21,6 +21,7 @@ import {
   TechdocsGenerator,
   ParsedLocationAnnotation
 } from "@backstage/techdocs-common";
+import { DockerContainerRunner } from "@backstage/backend-common";
 import { ConfigReader } from "@backstage/config";
 import {
   convertTechDocsRefToLocationAnnotation,
@@ -53,6 +54,7 @@ export default async function generate(cmd: Command) {
 
   // Docker client (conditionally) used by the generators, based on techdocs.generators config.
   const dockerClient = new Docker();
+  const containerRunner = new DockerContainerRunner({ dockerClient });
 
   let parsedLocationAnnotation = {} as ParsedLocationAnnotation;
   if (cmd.techdocsRef) {
@@ -66,12 +68,17 @@ export default async function generate(cmd: Command) {
   }
 
   // Generate docs using @backstage/techdocs-common
-  const techdocsGenerator = new TechdocsGenerator(logger, config);
+  const techdocsGenerator = new TechdocsGenerator({
+    logger,
+    containerRunner,
+    config
+  });
+
   logger.info("Generating documentation...");
+
   await techdocsGenerator.run({
     inputDir: sourceDir,
     outputDir,
-    dockerClient: dockerClient,
     ...(cmd.techdocsRef && {
       parsedLocationAnnotation
     })
