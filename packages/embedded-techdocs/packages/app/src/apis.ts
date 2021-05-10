@@ -16,6 +16,10 @@
 import { EntityName } from '@backstage/catalog-model';
 import { Config } from '@backstage/config';
 import {
+  scmIntegrationsApiRef,
+  ScmIntegrationsApi,
+} from '@backstage/integration-react';
+import {
   configApiRef,
   createApiFactory,
   DiscoveryApi,
@@ -179,5 +183,10 @@ export const apis = [
         discoveryApi,
         identityApi,
       }),
+  }),
+  createApiFactory({
+    api: scmIntegrationsApiRef,
+    deps: { configApi: configApiRef },
+    factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
   }),
 ];
