@@ -19,7 +19,7 @@
   "scripts": {
     "build": "./bin/build.sh",
     "lint": "backstage-cli lint",
-    "test": "backstage-cli test --passWithNoTests",
+    "test": "yarn build && backstage-cli test",
     "clean": "backstage-cli clean",
     "start": "nodemon --"
   },
