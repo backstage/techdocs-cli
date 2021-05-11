@@ -108,3 +108,6 @@ dist
 .tern-port
 
 .DS_Store
+
+# TechDocs-specific stuff
+site/

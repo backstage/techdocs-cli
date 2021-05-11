@@ -46,7 +46,7 @@ export default async function serveMkdocs(cmd: Command) {
         line.includes(`Serving on ${expectedDevAddr}`)
       ) {
         // Always open the local address, since 0.0.0.0 belongs to docker
-        logger.info(`\nOpening browser on ${localAddr}\n`);
+        logger.info(`\nStarting mkdocs server on ${localAddr}\n`);
         openBrowser(localAddr);
         boolOpenBrowserTriggered = true;
       }

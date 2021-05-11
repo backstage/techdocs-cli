@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "./build.sh",
+    "test": "yarn workspace @techdocs/cli run test",
     "tsc": "yarn workspaces run tsc",
     "start": "yarn workspace @techdocs/cli run start"
   },
