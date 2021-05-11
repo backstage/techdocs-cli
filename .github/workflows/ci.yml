@@ -12,9 +12,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
 
       - name: yarn install
         run: yarn install --frozen-lockfile
 
       - name: yarn build
         run: ./build.sh
+
+      - name: Install mkdocs
+        run: python -m pip install mkdocs
+
+      - name: yarn test
+        run: yarn test
