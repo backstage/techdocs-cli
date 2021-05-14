@@ -52,7 +52,7 @@ techdocs-cli [command]
 techdocs-cli serve
 ```
 
-![A preview of techdocs-cli serve command](.github/assets/techdocs-cli-serve-preview.png)
+![A preview of techdocs-cli serve command](../.github/assets/techdocs-cli-serve-preview.png)
 
 By default, Docker and [techdocs-container](https://github.com/backstage/techdocs-container) is used to make sure all the dependencies are installed. However, Docker can be disabled with `--no-docker` flag.
 
