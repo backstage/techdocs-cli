@@ -1856,6 +1856,49 @@
     unzipper "^0.10.11"
     winston "^3.2.1"
 
+"@backstage/backend-common@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@backstage/backend-common/-/backend-common-0.8.1.tgz#71d9e38386fa2b0354a7c8a058ee55299a499dec"
+  integrity sha512-uR5WNWmz7HpCaL6ghwW1ioWcG34VY7kvPFb0uuNCgVVUvFh12hxwQih8KvgMWZYhK/C2+QtpHzX8bKPIdp5gtA==
+  dependencies:
+    "@backstage/cli-common" "^0.1.1"
+    "@backstage/config" "^0.1.5"
+    "@backstage/config-loader" "^0.6.2"
+    "@backstage/errors" "^0.1.1"
+    "@backstage/integration" "^0.5.3"
+    "@google-cloud/storage" "^5.8.0"
+    "@octokit/rest" "^18.5.3"
+    "@types/cors" "^2.8.6"
+    "@types/dockerode" "^3.2.1"
+    "@types/express" "^4.17.6"
+    archiver "^5.0.2"
+    compression "^1.7.4"
+    concat-stream "^2.0.0"
+    cors "^2.8.5"
+    cross-fetch "^3.0.6"
+    dockerode "^3.2.1"
+    express "^4.17.1"
+    express-promise-router "^4.1.0"
+    fs-extra "^9.0.1"
+    git-url-parse "^11.4.4"
+    helmet "^4.0.0"
+    isomorphic-git "^1.8.0"
+    keyv "^4.0.3"
+    keyv-memcache "^1.2.5"
+    knex "^0.95.1"
+    lodash "^4.17.15"
+    logform "^2.1.1"
+    minimatch "^3.0.4"
+    minimist "^1.2.5"
+    morgan "^1.10.0"
+    raw-body "^2.4.1"
+    selfsigned "^1.10.7"
+    stoppable "^1.1.0"
+    tar "^6.0.5"
+    unzipper "^0.10.11"
+    winston "^3.2.1"
+    yn "^4.0.0"
+
 "@backstage/catalog-model@^0.7.8":
   version "0.7.8"
   resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-0.7.8.tgz#3226d2416caa12bad4ca8ebca31218e469572f89"
@@ -1867,6 +1910,22 @@
     ajv "^7.0.3"
     json-schema "^0.3.0"
     lodash "^4.17.15"
+    uuid "^8.0.0"
+    yup "^0.29.3"
+
+"@backstage/catalog-model@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-0.8.0.tgz#7302691c4d542363af98641c8310744d39451fe6"
+  integrity sha512-rTj22txZ56zYH0OJiF2gw9hvnN3BDdrozFoF/GEIRgYRu1hSw7BqPH4feX+B5LhuKHIAI7CGN01pXhpHth94cg==
+  dependencies:
+    "@backstage/config" "^0.1.5"
+    "@backstage/errors" "^0.1.1"
+    "@types/json-schema" "^7.0.5"
+    "@types/yup" "^0.29.8"
+    ajv "^7.0.3"
+    json-schema "^0.3.0"
+    lodash "^4.17.15"
+    typescript-json-schema "^0.49.0"
     uuid "^8.0.0"
     yup "^0.29.3"
 
@@ -2194,6 +2253,22 @@
     yaml "^1.9.2"
     yup "^0.29.3"
 
+"@backstage/config-loader@^0.6.2":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-0.6.3.tgz#7719603f2fd9a7000c1fef7127a0f806465f0a7c"
+  integrity sha512-V1yLKJsmYPJV5SfqZyoIhhHTnbKLn8nLwdG5m38bEQDCpjEQWLnb0MMFLo+sKaPDfm5Xf2vABmkBOPc8Zit8Ww==
+  dependencies:
+    "@backstage/cli-common" "^0.1.1"
+    "@backstage/config" "^0.1.5"
+    "@types/json-schema" "^7.0.6"
+    ajv "^7.0.3"
+    fs-extra "^9.0.0"
+    json-schema "^0.3.0"
+    json-schema-merge-allof "^0.8.1"
+    typescript-json-schema "^0.49.0"
+    yaml "^1.9.2"
+    yup "^0.29.3"
+
 "@backstage/config@^0.1.1", "@backstage/config@^0.1.2", "@backstage/config@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@backstage/config/-/config-0.1.4.tgz#d30d7246552a661a9b0ac08dc8622c108327c671"
@@ -2229,18 +2304,30 @@
     git-url-parse "^11.4.4"
     luxon "^1.25.0"
 
-"@backstage/techdocs-common@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@backstage/techdocs-common/-/techdocs-common-0.6.0.tgz#d6994cf5800e88b3eac797af31f84f1871f16616"
-  integrity sha512-F4LqpJIawGxhPiaIhahWA9LPEKU2/nOFo8bMSyGOhx3V+udFF4F57hFXaCG4f3lqB/Q00+zIOgpwVVnL2z8AHw==
+"@backstage/integration@^0.5.3", "@backstage/integration@^0.5.4":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-0.5.4.tgz#dc79984b4895af95e53b7a619e95c2028f5dbd81"
+  integrity sha512-eYSudFfami3eXECCtJEXSHp9uGIjlly9BFyuEJbmsKA4dlsBGsH162qnfdpEcfd4AG+oo8jeJsgDcz92Cl3bWA==
+  dependencies:
+    "@backstage/config" "^0.1.5"
+    "@octokit/auth-app" "^3.4.0"
+    "@octokit/rest" "^18.5.3"
+    cross-fetch "^3.0.6"
+    git-url-parse "^11.4.4"
+    luxon "^1.25.0"
+
+"@backstage/techdocs-common@^0.6.3":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@backstage/techdocs-common/-/techdocs-common-0.6.3.tgz#3fe53f02bb3957f38cb8224b8f17713c0b1d4ae6"
+  integrity sha512-bb/VR1muKKH7rId3iS4Z7er5f0uA4ZJdLPpsfIXAnf0+yP31I/M4G93ZU41rzrxYKQRAvFiJKRLGOvDBJaRAUQ==
   dependencies:
     "@azure/identity" "^1.2.2"
     "@azure/storage-blob" "^12.4.0"
-    "@backstage/backend-common" "^0.7.0"
-    "@backstage/catalog-model" "^0.7.8"
+    "@backstage/backend-common" "^0.8.1"
+    "@backstage/catalog-model" "^0.8.0"
     "@backstage/config" "^0.1.5"
     "@backstage/errors" "^0.1.1"
-    "@backstage/integration" "^0.5.2"
+    "@backstage/integration" "^0.5.4"
     "@google-cloud/storage" "^5.6.0"
     "@types/express" "^4.17.6"
     aws-sdk "^2.840.0"
@@ -6666,7 +6753,7 @@ compute-gcd@^1.2.1:
     validate.io-function "^1.0.2"
     validate.io-integer-array "^1.0.0"
 
-compute-lcm@^1.1.0:
+compute-lcm@^1.1.0, compute-lcm@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/compute-lcm/-/compute-lcm-1.1.2.tgz#9107c66b9dca28cefb22b4ab4545caac4034af23"
   integrity sha512-OFNPdQAXnQhDSKioX8/XYT6sdUlXwpeMjfd6ApxMJfyZ4GxmLR1xvMERctlYhlHwIiz6CSpBc2+qYKjHGZw4TQ==
@@ -11342,6 +11429,11 @@ json-buffer@3.0.0:
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
   integrity sha1-Wx85evx11ne96Lz8Dkfh+aPZqJg=
 
+json-buffer@3.0.1, json-buffer@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.1.tgz#9338802a30d3b6605fbe0613e094008ca8c05a13"
+  integrity sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==
+
 json-parse-better-errors@^1.0.0, json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
@@ -11367,6 +11459,15 @@ json-schema-merge-allof@^0.7.0:
     compute-lcm "^1.1.0"
     json-schema-compare "^0.2.2"
     lodash "^4.17.4"
+
+json-schema-merge-allof@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/json-schema-merge-allof/-/json-schema-merge-allof-0.8.1.tgz#ed2828cdd958616ff74f932830a26291789eaaf2"
+  integrity sha512-CTUKmIlPJbsWfzRRnOXz+0MjIqvnleIXwFTzz+t9T86HnYX/Rozria6ZVGLktAU9e+NygNljveP+yxqtQp/Q4w==
+  dependencies:
+    compute-lcm "^1.1.2"
+    json-schema-compare "^0.2.2"
+    lodash "^4.17.20"
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
@@ -11538,12 +11639,27 @@ keytar@^7.3.0:
     node-addon-api "^3.0.0"
     prebuild-install "^6.0.0"
 
+keyv-memcache@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/keyv-memcache/-/keyv-memcache-1.2.5.tgz#9097af5c617dc740e7300ebfd4a2efb8917429e3"
+  integrity sha512-iG+GHlhXyV83gmlCtMFIqNYVvv0i0towAy42NvziUR7D+k9jp81fAq0lu66H4gooOnW+ojkdigRvRpL40j1f7w==
+  dependencies:
+    json-buffer "^3.0.1"
+    memjs "^1.3.0"
+
 keyv@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-3.1.0.tgz#ecc228486f69991e49e9476485a5be1e8fc5c4d9"
   integrity sha512-9ykJ/46SN/9KPM/sichzQ7OvXyGDYKGTaDlKMGCAlg2UK8KRy4jb0d8sFc+0Tt0YYnThq8X2RZgCg74RPxgcVA==
   dependencies:
     json-buffer "3.0.0"
+
+keyv@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.0.3.tgz#4f3aa98de254803cafcd2896734108daa35e4254"
+  integrity sha512-zdGa2TOpSZPq5mU6iowDARnMBZgtCqJ11dJROFi6tg6kTn4nuUdU09lFyLFSaHrWqpIJ+EBq4E8/Dc0Vx5vLdA==
+  dependencies:
+    json-buffer "3.0.1"
 
 killable@^1.0.1:
   version "1.0.1"
@@ -12158,6 +12274,11 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
+
+memjs@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/memjs/-/memjs-1.3.0.tgz#b7959b4ff3770e4c785463fd147f1e4fafd47a24"
+  integrity sha512-y/V9a0auepA9Lgyr4QieK6K2FczjHucEdTpSS+hHVNmVEkYxruXhkHu8n6DSRQ4HXHEE3cc6Sf9f88WCJXGXsQ==
 
 memory-fs@^0.4.1:
   version "0.4.1"
