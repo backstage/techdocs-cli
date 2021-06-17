@@ -51,7 +51,7 @@ export function registerCommands(program: CommanderStatic) {
     )
     .requiredOption(
       "--publisher-type <TYPE>",
-      "(Required always) awsS3 | googleGcs | azureBlobStorage - same as techdocs.publisher.type in Backstage app-config.yaml"
+      "(Required always) awsS3 | googleGcs | azureBlobStorage | openStackSwift - same as techdocs.publisher.type in Backstage app-config.yaml"
     )
     .requiredOption(
       "--storage-name <BUCKET/CONTAINER NAME>",
@@ -76,6 +76,34 @@ export function registerCommands(program: CommanderStatic) {
     .option(
       "--awsEndpoint <AWS ENDPOINT>",
       "Optional AWS endpoint to send requests to."
+    )
+    .option(
+      "--osUsername <OPENSTACK SWIFT USERNAME>",
+      "(Required for OpenStack) specify when --publisher-type openStackSwift"
+    )
+    .option(
+      "--osPassword <OPENSTACK SWIFT PASSWORD>",
+      "(Required for OpenStack) specify when --publisher-type openStackSwift"
+    )
+    .option(
+      "--osAuthUrl <OPENSTACK SWIFT AUTHURL>",
+      "(Required for OpenStack) specify when --publisher-type openStackSwift"
+    )
+    .option(
+      "--osRegion <OPENSTACK SWIFT REGION>",
+      "(Required for OpenStack) specify when --publisher-type openStackSwift"
+    )
+    .option(
+      "--osAuthVersion <OPENSTACK SWIFT AUTHVERSION>",
+      "Optional OpenStack. Default is setted to v3"
+    )
+    .option(
+      "--osDomainId <OPENSTACK SWIFT DOMAIN ID>",
+      "Optional OpenStack. Default is setted to default"
+    )
+    .option(
+      "--osDomainName <OPENSTACK SWIFT DOMAIN NAME>",
+      "Optional OpenStack. Default is setted to Default"
     )
     .option(
       "--directory <PATH>",
