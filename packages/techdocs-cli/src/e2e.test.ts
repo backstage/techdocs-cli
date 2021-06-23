@@ -9,12 +9,12 @@ describe("end-to-end", () => {
   });
 
   it("can generate", async () => {
-    jest.setTimeout(12000);
+    jest.setTimeout(10000);
     const proc = await executeTechDocsCliCommand(
       ["generate", "--no-docker", "-v"],
       {
         cwd: "../../",
-        killAfter: 10000
+        killAfter: 6000
       }
     );
 
@@ -23,12 +23,12 @@ describe("end-to-end", () => {
   });
 
   it("can serve", async () => {
-    jest.setTimeout(12000);
+    jest.setTimeout(10000);
     const proc = await executeTechDocsCliCommand(
       ["serve", "--no-docker", "-v"],
       {
         cwd: "../../",
-        killAfter: 10000
+        killAfter: 6000
       }
     );
 
@@ -37,12 +37,12 @@ describe("end-to-end", () => {
   });
 
   it("can serve:mkdocs", async () => {
-    jest.setTimeout(12000);
+    jest.setTimeout(10000);
     const proc = await executeTechDocsCliCommand(
       ["serve:mkdocs", "--no-docker", "-v"],
       {
         cwd: "../../",
-        killAfter: 10000
+        killAfter: 6000
       }
     );
 
