@@ -9,6 +9,7 @@ describe("end-to-end", () => {
   });
 
   it("can generate", async () => {
+    jest.setTimeout(10000)
     const proc = await executeTechDocsCliCommand(
       ["generate", "--no-docker"],
       {
@@ -19,21 +20,22 @@ describe("end-to-end", () => {
 
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Successfully generated docs");
-  }, 9000);
+  });
 
   it("can serve", async () => {
+    jest.setTimeout(10000)
     const proc = await executeTechDocsCliCommand(
       ["serve", "--no-docker"],
       {
         cwd: "../../",
-        killAfter: 10000
+        killAfter: 8000
       }
     );
 
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Starting mkdocs server");
     expect(proc.combinedStdOutErr).toContain("Serving docs in Backstage at");
-  }, 12000);
+  });
 });
 
 type CommandResponse = {
