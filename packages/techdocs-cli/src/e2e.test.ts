@@ -9,7 +9,6 @@ describe("end-to-end", () => {
   });
 
   it("can generate", async () => {
-    jest.setTimeout(9000);
     const proc = await executeTechDocsCliCommand(
       ["generate", "--no-docker"],
       {
@@ -22,10 +21,9 @@ describe("end-to-end", () => {
 
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Successfully generated docs");
-  });
+  }, 9000);
 
   it("can serve:mkdocs", async () => {
-    jest.setTimeout(9000);
     const proc = await executeTechDocsCliCommand(
       ["serve:mkdocs", "--no-docker"],
       {
@@ -38,10 +36,9 @@ describe("end-to-end", () => {
 
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Starting mkdocs server on");
-  });
+  }, 9000);
 
   it("can serve", async () => {
-    jest.setTimeout(12000);
     const proc = await executeTechDocsCliCommand(
       ["serve", "--no-docker"],
       {
@@ -54,8 +51,9 @@ describe("end-to-end", () => {
 
 
     expect(proc.exit).toEqual(0);
+    expect(proc.combinedStdOutErr).toContain("Starting mkdocs server");
     expect(proc.combinedStdOutErr).toContain("Serving docs in Backstage at");
-  });
+  }, 12000);
 });
 
 type CommandResponse = {
