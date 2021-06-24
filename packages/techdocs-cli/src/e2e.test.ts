@@ -17,26 +17,9 @@ describe("end-to-end", () => {
       }
     );
 
-    console.log(proc)
-
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Successfully generated docs");
   }, 9000);
-
-  // it("can serve:mkdocs", async () => {
-  //   const proc = await executeTechDocsCliCommand(
-  //     ["serve:mkdocs", "--no-docker"],
-  //     {
-  //       cwd: "../../",
-  //       killAfter: 8000
-  //     }
-  //   );
-
-  //   console.log(proc)
-
-  //   expect(proc.exit).toEqual(0);
-  //   expect(proc.combinedStdOutErr).toContain("Starting mkdocs server on");
-  // }, 9000);
 
   it("can serve", async () => {
     const proc = await executeTechDocsCliCommand(
@@ -46,9 +29,6 @@ describe("end-to-end", () => {
         killAfter: 10000
       }
     );
-
-    console.log(proc)
-
 
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Starting mkdocs server");
@@ -84,6 +64,7 @@ const executeTechDocsCliCommand = (
     const listen = spawn(pathToCli, args, {
       cwd: opts.cwd
     });
+
     const stdOutChunks: any[] = [];
     const stdErrChunks: any[] = [];
     const combinedChunks: any[] = [];
