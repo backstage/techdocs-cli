@@ -23,20 +23,20 @@ describe("end-to-end", () => {
     expect(proc.combinedStdOutErr).toContain("Successfully generated docs");
   }, 9000);
 
-  it("can serve:mkdocs", async () => {
-    const proc = await executeTechDocsCliCommand(
-      ["serve:mkdocs", "--no-docker"],
-      {
-        cwd: "../../",
-        killAfter: 8000
-      }
-    );
+  // it("can serve:mkdocs", async () => {
+  //   const proc = await executeTechDocsCliCommand(
+  //     ["serve:mkdocs", "--no-docker"],
+  //     {
+  //       cwd: "../../",
+  //       killAfter: 8000
+  //     }
+  //   );
 
-    console.log(proc)
+  //   console.log(proc)
 
-    expect(proc.exit).toEqual(0);
-    expect(proc.combinedStdOutErr).toContain("Starting mkdocs server on");
-  }, 9000);
+  //   expect(proc.exit).toEqual(0);
+  //   expect(proc.combinedStdOutErr).toContain("Starting mkdocs server on");
+  // }, 9000);
 
   it("can serve", async () => {
     const proc = await executeTechDocsCliCommand(
