@@ -9,7 +9,7 @@ describe("end-to-end", () => {
   });
 
   it("can generate", async () => {
-    jest.setTimeout(10000);
+    jest.setTimeout(9000);
     const proc = await executeTechDocsCliCommand(
       ["generate", "--no-docker"],
       {
@@ -25,12 +25,12 @@ describe("end-to-end", () => {
   });
 
   it("can serve:mkdocs", async () => {
-    jest.setTimeout(12000);
+    jest.setTimeout(9000);
     const proc = await executeTechDocsCliCommand(
       ["serve:mkdocs", "--no-docker"],
       {
         cwd: "../../",
-        killAfter: 10000
+        killAfter: 8000
       }
     );
 
