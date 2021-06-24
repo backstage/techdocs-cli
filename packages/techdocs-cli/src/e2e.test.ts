@@ -24,6 +24,22 @@ describe("end-to-end", () => {
     expect(proc.combinedStdOutErr).toContain("Successfully generated docs");
   });
 
+  it("can serve:mkdocs", async () => {
+    jest.setTimeout(12000);
+    const proc = await executeTechDocsCliCommand(
+      ["serve:mkdocs", "--no-docker"],
+      {
+        cwd: "../../",
+        killAfter: 10000
+      }
+    );
+
+    console.log(proc)
+
+    expect(proc.exit).toEqual(0);
+    expect(proc.combinedStdOutErr).toContain("Starting mkdocs server on");
+  });
+
   it("can serve", async () => {
     jest.setTimeout(12000);
     const proc = await executeTechDocsCliCommand(
@@ -39,22 +55,6 @@ describe("end-to-end", () => {
 
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Serving docs in Backstage at");
-  });
-
-  it("can serve:mkdocs", async () => {
-    jest.setTimeout(12000);
-    const proc = await executeTechDocsCliCommand(
-      ["serve:mkdocs", "--no-docker"],
-      {
-        cwd: "../../",
-        killAfter: 10000
-      }
-    );
-
-    console.log(proc)
-
-    expect(proc.exit).toEqual(0);
-    expect(proc.combinedStdOutErr).toContain("Starting mkdocs server on");
   });
 });
 
