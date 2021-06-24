@@ -51,6 +51,8 @@ describe("end-to-end", () => {
       }
     );
 
+    console.log(proc)
+
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Starting mkdocs server on");
   });
