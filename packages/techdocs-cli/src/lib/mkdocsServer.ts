@@ -19,11 +19,13 @@ import { run, LogFunc } from "./run";
 export const runMkdocsServer = async (options: {
   port?: string;
   useDocker?: boolean;
+  dockerImage?: string;
   stdoutLogFunc?: LogFunc;
   stderrLogFunc?: LogFunc;
 }): Promise<ChildProcess> => {
   const port = options.port ?? "8000";
   const useDocker = options.useDocker ?? true;
+  const dockerImage = options.dockerImage ?? "spotify/techdocs";
 
   if (useDocker) {
     return await run(
@@ -36,7 +38,7 @@ export const runMkdocsServer = async (options: {
         `'${process.cwd()}':/content`,
         "-p",
         `${port}:${port}`,
-        "spotify/techdocs",
+        dockerImage,
         "serve",
         "--dev-addr",
         `0.0.0.0:${port}`
