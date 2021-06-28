@@ -27,7 +27,7 @@ export default async function publish(cmd: Command) {
   // Assuming that proper credentials are set in Environment variables
   // for the respective GCS/AWS clients to work.
 
-  if (!["awsS3", "googleGcs", "azureBlobStorage"].includes(cmd.publisherType)) {
+  if (!["awsS3", "googleGcs", "azureBlobStorage", "openStackSwift"].includes(cmd.publisherType)) {
       logger.error(`Unknown publisher type ${cmd.publisherType}`);
       throw new Error();
   }
@@ -57,7 +57,37 @@ export default async function publish(cmd: Command) {
         ...(cmd.awsEndpoint && { endpoint: cmd.awsEndpoint })
       }
     };
-  } else {
+  } else if ("openStackSwift" === cmd.publisherType) {
+    let ismissingVariable = false;
+    
+    ['osUsername', 'osPassword', 'osAuthUrl', 'osRegion'].forEach((param: string) => {
+      if (!cmd[param]) {
+        ismissingVariable = true;
+        logger.error(`openStackSwift requires --${param} to be specified`);
+      }
+    });
+
+    if (ismissingVariable) {
+      throw new Error();
+    }
+    
+    publisherConfig = {
+      type: cmd.publisherType,
+      [cmd.publisherType]: {
+        containerName: cmd.storageName,
+        credentials: {
+          username: cmd.osUsername,
+          password: cmd.osPassword
+        },
+        authUrl: cmd.osAuthUrl,
+        region: cmd.osRegion,
+        keystoneAuthVersion: cmd.osAuthVersion,
+        domainId: cmd.osDomainId,
+        domainName: cmd.osDomainName,
+      }
+    };
+  }
+   else {
     publisherConfig = {
       type: cmd.publisherType,
       [cmd.publisherType]: {
