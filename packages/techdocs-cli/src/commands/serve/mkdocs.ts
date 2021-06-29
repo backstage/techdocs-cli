@@ -59,6 +59,7 @@ export default async function serveMkdocs(cmd: Command) {
   // Commander stores --no-docker in cmd.docker variable
   const childProcess = await runMkdocsServer({
     port: cmd.port,
+    dockerImage: cmd.dockerImage,
     useDocker: cmd.docker,
     stdoutLogFunc: logFunc,
     stderrLogFunc: logFunc

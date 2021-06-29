@@ -116,6 +116,11 @@ export function registerCommands(program: CommanderStatic) {
     .command("serve:mkdocs")
     .description("Serve a documentation project locally using MkDocs serve.")
     .option(
+      "-i, --docker-image <DOCKER_IMAGE>",
+      "The mkdocs docker container to use (default spotify/techdocs)",
+      "spotify/techdocs"
+    )
+    .option(
       "--no-docker",
       "Do not use Docker, run `mkdocs serve` in current user environment."
     )
@@ -127,6 +132,11 @@ export function registerCommands(program: CommanderStatic) {
     .command("serve")
     .description(
       "Serve a documentation project locally in a Backstage app-like environment"
+    )
+    .option(
+      "-i, --docker-image <DOCKER_IMAGE>",
+      "The mkdocs docker container to use (default spotify/techdocs)",
+      "spotify/techdocs"
     )
     .option(
       "--no-docker",
