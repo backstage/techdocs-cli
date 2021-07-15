@@ -78,6 +78,10 @@ export function registerCommands(program: CommanderStatic) {
       "Optional AWS endpoint to send requests to."
     )
     .option(
+      "--awsS3ForcePathStyle",
+      "Optional AWS S3 option to force path style."
+    )
+    .option(
       "--osUsername <OPENSTACK SWIFT USERNAME>",
       "(Required for OpenStack) specify when --publisher-type openStackSwift"
     )

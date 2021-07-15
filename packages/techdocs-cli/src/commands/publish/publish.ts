@@ -27,15 +27,21 @@ export default async function publish(cmd: Command) {
   // Assuming that proper credentials are set in Environment variables
   // for the respective GCS/AWS clients to work.
 
-  if (!["awsS3", "googleGcs", "azureBlobStorage", "openStackSwift"].includes(cmd.publisherType)) {
-      logger.error(`Unknown publisher type ${cmd.publisherType}`);
-      throw new Error();
+  if (
+    !["awsS3", "googleGcs", "azureBlobStorage", "openStackSwift"].includes(
+      cmd.publisherType
+    )
+  ) {
+    logger.error(`Unknown publisher type ${cmd.publisherType}`);
+    throw new Error();
   }
 
   let publisherConfig;
   if ("azureBlobStorage" === cmd.publisherType) {
     if (!cmd.azureAccountName) {
-      logger.error(`azureBlobStorage requires --azureAccountName to be specified`);
+      logger.error(
+        `azureBlobStorage requires --azureAccountName to be specified`
+      );
       throw new Error();
     }
     publisherConfig = {
@@ -45,32 +51,35 @@ export default async function publish(cmd: Command) {
         credentials: {
           accountName: cmd.azureAccountName,
           accountKey: cmd.azureAccountKey
-        },
+        }
       }
-    } 
+    };
   } else if ("awsS3" === cmd.publisherType) {
     publisherConfig = {
       type: cmd.publisherType,
       [cmd.publisherType]: {
         bucketName: cmd.storageName,
-        ...(cmd.awsRoleArn && { credentials: {roleArn: cmd.awsRoleArn} }),
-        ...(cmd.awsEndpoint && { endpoint: cmd.awsEndpoint })
+        ...(cmd.awsRoleArn && { credentials: { roleArn: cmd.awsRoleArn } }),
+        ...(cmd.awsEndpoint && { endpoint: cmd.awsEndpoint }),
+        ...(cmd.awsS3ForcePathStyle && { s3ForcePathStyle: true })
       }
     };
   } else if ("openStackSwift" === cmd.publisherType) {
     let ismissingVariable = false;
-    
-    ['osUsername', 'osPassword', 'osAuthUrl', 'osRegion'].forEach((param: string) => {
-      if (!cmd[param]) {
-        ismissingVariable = true;
-        logger.error(`openStackSwift requires --${param} to be specified`);
+
+    ["osUsername", "osPassword", "osAuthUrl", "osRegion"].forEach(
+      (param: string) => {
+        if (!cmd[param]) {
+          ismissingVariable = true;
+          logger.error(`openStackSwift requires --${param} to be specified`);
+        }
       }
-    });
+    );
 
     if (ismissingVariable) {
       throw new Error();
     }
-    
+
     publisherConfig = {
       type: cmd.publisherType,
       [cmd.publisherType]: {
@@ -83,17 +92,16 @@ export default async function publish(cmd: Command) {
         region: cmd.osRegion,
         keystoneAuthVersion: cmd.osAuthVersion,
         domainId: cmd.osDomainId,
-        domainName: cmd.osDomainName,
+        domainName: cmd.osDomainName
       }
     };
-  }
-   else {
+  } else {
     publisherConfig = {
       type: cmd.publisherType,
       [cmd.publisherType]: {
         bucketName: cmd.storageName
       }
-    }
+    };
   }
 
   const config = new ConfigReader({
@@ -116,7 +124,7 @@ export default async function publish(cmd: Command) {
   const { isAvailable } = await publisher.getReadiness();
   if (!isAvailable) {
     // Error messages printed in getReadiness() call. This ensures exit code 1.
-    return Promise.reject(new Error(''));
+    return Promise.reject(new Error(""));
   }
 
   const [namespace, kind, name] = cmd.entity.split("/");

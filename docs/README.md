@@ -151,6 +151,7 @@ Options:
                                            variables.
   --awsRoleArn <AWS ROLE ARN>              Optional AWS ARN of role to be assumed.
   --awsEndpoint <AWS ENDPOINT>             Optional AWS endpoint to send requests to.
+  --awsS3ForcePathStyle                    Optional AWS S3 option to force path style.
   --directory <PATH>                       Path of the directory containing generated files to
                                            publish (default: "./site/")
   -h, --help                               display help for command
