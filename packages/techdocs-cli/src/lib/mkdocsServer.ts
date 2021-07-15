@@ -32,6 +32,7 @@ export const runMkdocsServer = async (options: {
       "docker",
       [
         "run",
+        "--rm",
         "-w",
         "/content",
         "-v",

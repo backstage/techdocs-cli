@@ -31,6 +31,12 @@ export function registerCommands(program: CommanderStatic) {
       "./site/"
     )
     .option(
+      "--docker-image <DOCKER_IMAGE>",
+      "The mkdocs docker container to use",
+      "spotify/techdocs"
+    )
+    .option("--no-pull", "Do not pull the latest docker image", false)
+    .option(
       "--no-docker",
       "Do not use Docker, use MkDocs executable and plugins in current user environment."
     )
