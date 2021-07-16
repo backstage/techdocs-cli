@@ -51,6 +51,50 @@ export function registerCommands(program: CommanderStatic) {
     .action(lazy(() => import("./generate/generate").then(m => m.default)));
 
   program
+    .command("migrate")
+    .description("Migrate objects with case-sensitive entity triplets to lower-case versions.")
+    .requiredOption(
+      "--publisher-type <TYPE>",
+      "(Required always) awsS3 | googleGcs | azureBlobStorage | openStackSwift - same as techdocs.publisher.type in Backstage app-config.yaml"
+    )
+    .requiredOption(
+      "--storage-name <BUCKET/CONTAINER NAME>",
+      "(Required always) In case of AWS/GCS, use the bucket name. In case of Azure, use container name. Same as techdocs.publisher.[TYPE].bucketName"
+    )
+    .option(
+      "--azureAccountName <AZURE ACCOUNT NAME>",
+      "(Required for Azure) specify when --publisher-type azureBlobStorage"
+    )
+    .option(
+      "--azureAccountKey <AZURE ACCOUNT KEY>",
+      "Azure Storage Account key to use for authentication. If not specified, you must set AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET as environment variables."
+    )
+    .option(
+      "--awsRoleArn <AWS ROLE ARN>",
+      "Optional AWS ARN of role to be assumed."
+    )
+    .option(
+      "--awsEndpoint <AWS ENDPOINT>",
+      "Optional AWS endpoint to send requests to."
+    )
+    .option(
+      "--awsS3ForcePathStyle",
+      "Optional AWS S3 option to force path style."
+    )
+    .option(
+      "--removeOriginal",
+      "Optional Files are copied by default. If flag is set, files are renamed/moved instead.",
+      false
+    )
+    .option(
+      "--concurrency <MAX CONCURRENT REQS>",
+      "Optional Controls the number of API requests allowed to be performed simultaneously.",
+      '25'
+    )
+    .option("-v --verbose", "Enable verbose output.", false)
+    .action(lazy(() => import("./migrate/migrate").then(m => m.default)));
+
+  program
     .command("publish")
     .description(
       "Publish generated TechDocs site to an external storage AWS S3, Google GCS, etc."
