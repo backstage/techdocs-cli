@@ -97,7 +97,7 @@ class TechDocsDevStorageApi implements TechDocsStorage {
   async syncEntityDocs(_: EntityName) {
     // this is just stub of this function as we don't need to check if docs are up to date,
     //we always want to retrigger a new build
-    return true;
+    return 'cached';
   }
 
   // Used by transformer to modify the request to assets (CSS, Image) from inside the HTML.
