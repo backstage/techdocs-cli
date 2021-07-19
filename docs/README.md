@@ -93,21 +93,17 @@ Command reference:
 techdocs-cli generate --help
 Usage: techdocs-cli generate|build [options]
 
-Generate TechDocs documentation site using mkdocs.
+Generate TechDocs documentation site using MkDocs.
 
 Options:
-  --source-dir <PATH>             Source directory containing mkdocs.yml and docs/ directory.
-                                  (default: ".")
-  --output-dir <PATH>             Output directory containing generated TechDocs site. (default:
-                                  "./site/")
-  --no-docker                     Do not use Docker, use MkDocs executable and plugins in current
-                                  user environment.
-  --techdocs-ref <HOST_TYPE:URL>  The repository hosting documentation source files e.g.
-                                  github:https://ghe.mycompany.net.com/org/repo.
-                                  This value is same as the backstage.io/techdocs-ref annotation
-                                  of the corresponding Backstage entity.
-                                  It is completely fine to skip this as it is only being used to
-                                  set repo_url in mkdocs.yml if not found.
+  --source-dir <PATH>             Source directory containing mkdocs.yml and docs/ directory. (default: ".")
+  --output-dir <PATH>             Output directory containing generated TechDocs site. (default: "./site/")
+  --docker-image <DOCKER_IMAGE>   The mkdocs docker container to use (default: "spotify/techdocs")
+  --no-pull                       Do not pull the latest docker image
+  --no-docker                     Do not use Docker, use MkDocs executable and plugins in current user environment.
+  --techdocs-ref <HOST_TYPE:URL>  The repository hosting documentation source files e.g. github:https://ghe.mycompany.net.com/org/repo.
+                                  This value is same as the backstage.io/techdocs-ref annotation of the corresponding Backstage entity.
+                                  It is completely fine to skip this as it is only being used to set repo_url in mkdocs.yml if not found.
   -v --verbose                    Enable verbose output. (default: false)
   -h, --help                      display help for command
 ```

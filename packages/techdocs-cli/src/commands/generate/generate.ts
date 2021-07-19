@@ -37,6 +37,9 @@ export default async function generate(cmd: Command) {
 
   const sourceDir = resolve(cmd.sourceDir);
   const outputDir = resolve(cmd.outputDir);
+  const dockerImage = cmd.dockerImage;
+  const pullImage = cmd.pull;
+
   logger.info(`Using source dir ${sourceDir}`);
   logger.info(`Will output generated files in ${outputDir}`);
 
@@ -46,8 +49,10 @@ export default async function generate(cmd: Command) {
 
   const config = new ConfigReader({
     techdocs: {
-      generators: {
-        techdocs: cmd.docker ? "docker" : "local",
+      generator: {
+        runIn: cmd.docker ? "docker" : "local",
+        dockerImage,
+        pullImage,
       },
     },
   });
