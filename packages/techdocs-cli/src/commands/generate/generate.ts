@@ -19,13 +19,13 @@ import fs from "fs-extra";
 import Docker from "dockerode";
 import {
   TechdocsGenerator,
-  ParsedLocationAnnotation
+  ParsedLocationAnnotation,
 } from "@backstage/techdocs-common";
 import { DockerContainerRunner } from "@backstage/backend-common";
 import { ConfigReader } from "@backstage/config";
 import {
   convertTechDocsRefToLocationAnnotation,
-  createLogger
+  createLogger,
 } from "../../lib/utility";
 
 export default async function generate(cmd: Command) {
@@ -47,9 +47,9 @@ export default async function generate(cmd: Command) {
   const config = new ConfigReader({
     techdocs: {
       generators: {
-        techdocs: cmd.docker ? "docker" : "local"
-      }
-    }
+        techdocs: cmd.docker ? "docker" : "local",
+      },
+    },
   });
 
   // Docker client (conditionally) used by the generators, based on techdocs.generators config.
@@ -71,7 +71,7 @@ export default async function generate(cmd: Command) {
   const techdocsGenerator = new TechdocsGenerator({
     logger,
     containerRunner,
-    config
+    config,
   });
 
   logger.info("Generating documentation...");
@@ -79,9 +79,12 @@ export default async function generate(cmd: Command) {
   await techdocsGenerator.run({
     inputDir: sourceDir,
     outputDir,
-    ...(cmd.techdocsRef && {
-      parsedLocationAnnotation
-    })
+    ...(cmd.techdocsRef
+      ? {
+          parsedLocationAnnotation,
+        }
+      : {}),
+    logger,
   });
 
   logger.info("Done!");
