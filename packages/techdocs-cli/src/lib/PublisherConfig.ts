@@ -47,7 +47,7 @@ export class PublisherConfig {
   static getValidConfig(cmd: Command): ConfigReader {
     const publisherType = cmd.publisherType;
 
-    if (!this.isKnownPublisher(publisherType)) {
+    if (!PublisherConfig.isKnownPublisher(publisherType)) {
       throw new Error(`Unknown publisher type ${cmd.publisherType}`);
     }
 
