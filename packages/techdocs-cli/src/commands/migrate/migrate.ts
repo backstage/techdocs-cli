@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Spotify AB
+ * Copyright 2021 The Backstage Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { resolve } from "path";
-import { Command } from "commander";
-import { createLogger } from "../../lib/utility";
+
 import { SingleHostDiscovery } from "@backstage/backend-common";
 import { Publisher } from "@backstage/techdocs-common";
-import { Entity } from "@backstage/catalog-model";
+import { Command } from "commander";
+import { createLogger } from "../../lib/utility";
 import { PublisherConfig } from "../../lib/PublisherConfig";
 
-export default async function publish(cmd: Command) {
+export default async function migrate(cmd: Command) {
   const logger = createLogger({ verbose: cmd.verbose });
 
   const config = PublisherConfig.getValidConfig(cmd);
   const discovery = SingleHostDiscovery.fromConfig(config);
   const publisher = await Publisher.fromConfig(config, { logger, discovery });
+
+  if (!publisher.migrateDocsCase) {
+    throw new Error(`Migration not implemented for ${cmd.publisherType}`);
+  }
 
   // Check that the publisher's underlying storage is ready and available.
   const { isAvailable } = await publisher.getReadiness();
@@ -35,15 +38,18 @@ export default async function publish(cmd: Command) {
     return Promise.reject(new Error(""));
   }
 
-  const [namespace, kind, name] = cmd.entity.split("/");
-  const entity = {
-    kind,
-    metadata: {
-      namespace,
-      name
-    }
-  } as Entity;
+  // Validate and parse migration arguments.
+  const removeOriginal = cmd.removeOriginal;
+  const numericConcurrency = parseInt(cmd.concurrency, 10);
 
-  const directory = resolve(cmd.directory);
-  await publisher.publish({ entity, directory });
+  if (!Number.isInteger(numericConcurrency) || numericConcurrency <= 0) {
+    throw new Error(
+      `Concurrency must be a number greater than 1. ${cmd.concurrency} provided.`
+    );
+  }
+
+  await publisher.migrateDocsCase({
+    concurrency: numericConcurrency,
+    removeOriginal
+  });
 }
