@@ -23,7 +23,9 @@ describe('getValidPublisherConfig', () => {
       publisherType: "unknown publisher"       
     } as unknown as Command;
 
-    expect(getValidPublisherConfig.bind(null, invalidConfig)).toThrow();
+    expect(getValidPublisherConfig.bind(null, invalidConfig)).toThrowError(
+      `Unknown publisher type ${invalidConfig.publisherType}`
+    );
   })
 
   describe('for azureBlobStorage', () => {
@@ -31,7 +33,10 @@ describe('getValidPublisherConfig', () => {
       const config = {
         publisherType: Publisher.azureBlobStorage,
       } as unknown as Command;
-      expect(getValidPublisherConfig.bind(null, config)).toThrow();
+
+      expect(getValidPublisherConfig.bind(null, config)).toThrowError(
+        'azureBlobStorage requires --azureAccountName to be specified'
+      );
     });
 
     it('should return valid ConfigReader', () => {
@@ -68,7 +73,10 @@ describe('getValidPublisherConfig', () => {
         osUsername: 'someUsername',
         osPassword: 'somePassword',
       } as unknown as Command;
-      expect(getValidPublisherConfig.bind(null, config)).toThrow();
+
+      expect(getValidPublisherConfig.bind(null, config)).toThrowError(
+        `openStackSwift requires the following params to be specified: ${['osAuthUrl', 'osRegion'].join(', ')}`
+      );
     });
     
     it('should return valid ConfigReader', () => {
