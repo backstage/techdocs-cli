@@ -153,6 +153,44 @@ Options:
   -h, --help                               display help for command
 ```
 
+### Migrate content for case-insensitive access
+
+Prior to the beta version of TechDocs (`v[x.y.z]`), TechDocs were stored in
+object storage using a case-sensitive entity triplet (e.g.
+`default/API/name/index.html`). This resulted in a limitation where that exact
+case was required in the Backstage URL in order to read/render TechDocs
+content. As of `v[x.y.z]` of the TechDocs plugin, any case is allowed in the
+URL (e.g. `default/api/name`), matching the behavior of the Catalog plugin.
+
+Backstage instances created with TechDocs `v[x.y.z]` or later do not need this
+command. However, when upgrading to this version from an older version of
+TechDocs, the `migrate` command can be used prior to deployment to ensure docs
+remain accessible without having to rebuild all docs.
+
+Prior to upgrading to `v[x.y.z]` or greater, run this command to copy all
+assets to their lower-case triplet equivalents like this:
+
+```bash
+techdocs-cli migrate --publisher-type <awsS3|googleGcs|azureBlobStorage> --storage-name <bucket/container name> --verbose
+```
+
+Once migrated and the upgraded version of the Backstage plugin has been
+deployed, you can clean up the legacy, case-sensitive triplet files by
+re-running the command with the `--removeOriginal` flag passed, which _moves_
+(rather than copies) the files. Note: this deletes files and is therefore a
+destructive operation that should performed with caution.
+
+```bash
+techdocs-cli migrate --publisher-type <awsS3|googleGcs|azureBlobStorage> --storage-name <bucket/container name> --removeOriginal --verbose
+```
+
+Afterward, update your TechDocs CLI to `v[a.b.c]` to ensure further publishing
+happens using a lower-case entity triplet.
+
+Note: arguments for this command largely match those of the `publish` command,
+depending on your chosen storage provider. Run `techdocs-cli migrate --help`
+for details.
+
 #### Authentication
 
 You need to make sure that your environment is able to authenticate with the target cloud provider. `techdocs-cli` uses the official Node.js clients provided by AWS (v2), Google Cloud and Azure. You can authenticate using
