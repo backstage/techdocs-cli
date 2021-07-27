@@ -82,6 +82,34 @@ export function registerCommands(program: CommanderStatic) {
       "Optional AWS S3 option to force path style."
     )
     .option(
+      "--osUsername <OPENSTACK SWIFT USERNAME>",
+      "(Required for OpenStack) specify when --publisher-type openStackSwift"
+    )
+    .option(
+      "--osPassword <OPENSTACK SWIFT PASSWORD>",
+      "(Required for OpenStack) specify when --publisher-type openStackSwift"
+    )
+    .option(
+      "--osAuthUrl <OPENSTACK SWIFT AUTHURL>",
+      "(Required for OpenStack) specify when --publisher-type openStackSwift"
+    )
+    .option(
+      "--osRegion <OPENSTACK SWIFT REGION>",
+      "(Required for OpenStack) specify when --publisher-type openStackSwift"
+    )
+    .option(
+      "--osAuthVersion <OPENSTACK SWIFT AUTHVERSION>",
+      "Optional OpenStack. Default is set to v3"
+    )
+    .option(
+      "--osDomainId <OPENSTACK SWIFT DOMAIN ID>",
+      "Optional OpenStack. Default is set to default"
+    )
+    .option(
+      "--osDomainName <OPENSTACK SWIFT DOMAIN NAME>",
+      "Optional OpenStack. Default is set to Default"
+    )
+    .option(
       "--removeOriginal",
       "Optional Files are copied by default. If flag is set, files are renamed/moved instead.",
       false
@@ -149,15 +177,15 @@ export function registerCommands(program: CommanderStatic) {
     )
     .option(
       "--osAuthVersion <OPENSTACK SWIFT AUTHVERSION>",
-      "Optional OpenStack. Default is setted to v3"
+      "Optional OpenStack. Default is set to v3"
     )
     .option(
       "--osDomainId <OPENSTACK SWIFT DOMAIN ID>",
-      "Optional OpenStack. Default is setted to default"
+      "Optional OpenStack. Default is set to default"
     )
     .option(
       "--osDomainName <OPENSTACK SWIFT DOMAIN NAME>",
-      "Optional OpenStack. Default is setted to Default"
+      "Optional OpenStack. Default is set to Default"
     )
     .option(
       "--directory <PATH>",
