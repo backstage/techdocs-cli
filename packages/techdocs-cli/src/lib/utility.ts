@@ -44,7 +44,7 @@ export const createLogger = ({
   verbose: boolean;
 }): winston.Logger => {
   const logger = winston.createLogger({
-    level: verbose ? "debug" : "info",
+    level: verbose ? "verbose" : "info",
     transports: [
       new winston.transports.Console({ format: winston.format.simple() })
     ]
