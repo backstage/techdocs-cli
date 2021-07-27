@@ -18,7 +18,7 @@ import { SingleHostDiscovery } from "@backstage/backend-common";
 import { Publisher } from "@backstage/techdocs-common";
 import { Command } from "commander";
 import { createLogger } from "../../lib/utility";
-import { PublisherConfig } from "../../lib/PublisherConfig"
+import { PublisherConfig } from "../../lib/PublisherConfig";
 
 export default async function migrate(cmd: Command) {
   const logger = createLogger({ verbose: cmd.verbose });
@@ -40,14 +40,16 @@ export default async function migrate(cmd: Command) {
 
   // Validate and parse migration arguments.
   const removeOriginal = cmd.removeOriginal;
-  const numericConcurrency = parseInt(cmd.concurrency, 10)
-  
+  const numericConcurrency = parseInt(cmd.concurrency, 10);
+
   if (!Number.isInteger(numericConcurrency) || numericConcurrency <= 0) {
-    throw new Error(`Concurrency must be a number greater than 1. ${cmd.concurrency} provided.`)
+    throw new Error(
+      `Concurrency must be a number greater than 1. ${cmd.concurrency} provided.`
+    );
   }
 
   await publisher.migrateDocsCase({
     concurrency: numericConcurrency,
-    removeOriginal,
+    removeOriginal
   });
 }

@@ -27,7 +27,6 @@ type PublisherConfiguration = {
  * Helper when working with publisher-related configurations.
  */
 export class PublisherConfig {
-
   /**
    * Maps publisher-specific config keys to config getters.
    */
@@ -35,13 +34,13 @@ export class PublisherConfig {
     awsS3: PublisherConfig.getValidAwsS3Config,
     azureBlobStorage: PublisherConfig.getValidAzureConfig,
     googleGcs: PublisherConfig.getValidGoogleGcsConfig,
-    openStackSwift: PublisherConfig.getValidOpenStackSwiftConfig,
-  }
+    openStackSwift: PublisherConfig.getValidOpenStackSwiftConfig
+  };
 
   /**
    * Returns Backstage config suitable for use when instantiating a Publisher. If
    * there are any missing or invalid options provided, an error is thrown.
-   * 
+   *
    * Note: This assumes that proper credentials are set in Environment
    * variables for the respective GCS/AWS clients to work.
    */
@@ -61,7 +60,7 @@ export class PublisherConfig {
         }
       },
       techdocs: {
-        publisher: PublisherConfig.configFactories[publisherType](cmd),
+        publisher: PublisherConfig.configFactories[publisherType](cmd)
       }
     });
   }
@@ -69,7 +68,9 @@ export class PublisherConfig {
   /**
    * Typeguard to ensure the publisher has a known config getter.
    */
-   private static isKnownPublisher(type: string): type is keyof typeof PublisherConfig["configFactories"] {
+  private static isKnownPublisher(
+    type: string
+  ): type is keyof typeof PublisherConfig["configFactories"] {
     return PublisherConfig.configFactories.hasOwnProperty(type);
   }
 
@@ -78,7 +79,7 @@ export class PublisherConfig {
    */
   private static getValidAwsS3Config(cmd: Command): PublisherConfiguration {
     return {
-      type: 'awsS3',
+      type: "awsS3",
       awsS3: {
         bucketName: cmd.storageName,
         ...(cmd.awsRoleArn && { credentials: { roleArn: cmd.awsRoleArn } }),
@@ -93,11 +94,13 @@ export class PublisherConfig {
    */
   private static getValidAzureConfig(cmd: Command): PublisherConfiguration {
     if (!cmd.azureAccountName) {
-      throw new Error(`azureBlobStorage requires --azureAccountName to be specified`);
+      throw new Error(
+        `azureBlobStorage requires --azureAccountName to be specified`
+      );
     }
 
     return {
-      type: 'azureBlobStorage',
+      type: "azureBlobStorage",
       azureBlobStorage: {
         containerName: cmd.storageName,
         credentials: {
@@ -113,7 +116,7 @@ export class PublisherConfig {
    */
   private static getValidGoogleGcsConfig(cmd: Command): PublisherConfiguration {
     return {
-      type: 'googleGcs',
+      type: "googleGcs",
       googleGcs: {
         bucketName: cmd.storageName
       }
@@ -123,15 +126,26 @@ export class PublisherConfig {
   /**
    * Retrieves valid OpenStack Swift configuration based on the command.
    */
-  private static getValidOpenStackSwiftConfig(cmd: Command): PublisherConfiguration {
-    const missingParams = ["osUsername", "osPassword", "osAuthUrl", "osRegion"].filter((param: string) => !cmd[param]);
+  private static getValidOpenStackSwiftConfig(
+    cmd: Command
+  ): PublisherConfiguration {
+    const missingParams = [
+      "osUsername",
+      "osPassword",
+      "osAuthUrl",
+      "osRegion"
+    ].filter((param: string) => !cmd[param]);
 
     if (missingParams.length) {
-      throw new Error(`openStackSwift requires the following params to be specified: ${missingParams.join(', ')}`);
+      throw new Error(
+        `openStackSwift requires the following params to be specified: ${missingParams.join(
+          ", "
+        )}`
+      );
     }
 
     return {
-      type: 'openStackSwift',
+      type: "openStackSwift",
       openStackSwift: {
         containerName: cmd.storageName,
         credentials: {
@@ -146,5 +160,4 @@ export class PublisherConfig {
       }
     };
   }
-
 }

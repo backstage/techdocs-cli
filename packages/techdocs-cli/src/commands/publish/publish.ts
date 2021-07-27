@@ -19,8 +19,7 @@ import { createLogger } from "../../lib/utility";
 import { SingleHostDiscovery } from "@backstage/backend-common";
 import { Publisher } from "@backstage/techdocs-common";
 import { Entity } from "@backstage/catalog-model";
-import { PublisherConfig } from "../../lib/PublisherConfig"
-
+import { PublisherConfig } from "../../lib/PublisherConfig";
 
 export default async function publish(cmd: Command) {
   const logger = createLogger({ verbose: cmd.verbose });

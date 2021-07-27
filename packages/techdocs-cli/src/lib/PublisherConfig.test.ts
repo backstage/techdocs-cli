@@ -15,104 +15,127 @@
  */
 
 import { Command } from "commander";
-import { PublisherConfig } from './PublisherConfig';
+import { PublisherConfig } from "./PublisherConfig";
 
-describe('getValidPublisherConfig', () => {
-  it ("should not allow unknown publisher types", () => {
-    const invalidConfig = {
-      publisherType: "unknown publisher"       
-    } as unknown as Command;
+describe("getValidPublisherConfig", () => {
+  it("should not allow unknown publisher types", () => {
+    const invalidConfig = ({
+      publisherType: "unknown publisher"
+    } as unknown) as Command;
 
     expect(() => PublisherConfig.getValidConfig(invalidConfig)).toThrowError(
       `Unknown publisher type ${invalidConfig.publisherType}`
     );
-  })
+  });
 
-  describe('for azureBlobStorage', () => {
-    it('should require --azureAccountName', () => {
-      const config = {
-        publisherType: 'azureBlobStorage',
-      } as unknown as Command;
+  describe("for azureBlobStorage", () => {
+    it("should require --azureAccountName", () => {
+      const config = ({
+        publisherType: "azureBlobStorage"
+      } as unknown) as Command;
 
       expect(() => PublisherConfig.getValidConfig(config)).toThrowError(
-        'azureBlobStorage requires --azureAccountName to be specified'
+        "azureBlobStorage requires --azureAccountName to be specified"
       );
     });
 
-    it('should return valid ConfigReader', () => {
-      const config = {
-        publisherType: 'azureBlobStorage',
-        azureAccountName: 'someAccountName',
-        storageName: 'someContainer',
-      } as unknown as Command;
+    it("should return valid ConfigReader", () => {
+      const config = ({
+        publisherType: "azureBlobStorage",
+        azureAccountName: "someAccountName",
+        storageName: "someContainer"
+      } as unknown) as Command;
 
       const actualConfig = PublisherConfig.getValidConfig(config);
-      expect(actualConfig.getString('techdocs.publisher.type')).toBe('azureBlobStorage');
-      expect(actualConfig.getString('techdocs.publisher.azureBlobStorage.containerName')).toBe('someContainer');
-      expect(actualConfig.getString('techdocs.publisher.azureBlobStorage.credentials.accountName')).toBe('someAccountName');
+      expect(actualConfig.getString("techdocs.publisher.type")).toBe(
+        "azureBlobStorage"
+      );
+      expect(
+        actualConfig.getString(
+          "techdocs.publisher.azureBlobStorage.containerName"
+        )
+      ).toBe("someContainer");
+      expect(
+        actualConfig.getString(
+          "techdocs.publisher.azureBlobStorage.credentials.accountName"
+        )
+      ).toBe("someAccountName");
     });
   });
 
-  describe('for awsS3', () => {
-    it('should return valid ConfigReader', () => {
-      const config = {
-        publisherType: 'awsS3',
-        storageName: 'someStorageName',
-      } as unknown as Command;
+  describe("for awsS3", () => {
+    it("should return valid ConfigReader", () => {
+      const config = ({
+        publisherType: "awsS3",
+        storageName: "someStorageName"
+      } as unknown) as Command;
 
       const actualConfig = PublisherConfig.getValidConfig(config);
-      expect(actualConfig.getString('techdocs.publisher.type')).toBe('awsS3');
-      expect(actualConfig.getString('techdocs.publisher.awsS3.bucketName')).toBe('someStorageName');
+      expect(actualConfig.getString("techdocs.publisher.type")).toBe("awsS3");
+      expect(
+        actualConfig.getString("techdocs.publisher.awsS3.bucketName")
+      ).toBe("someStorageName");
     });
   });
 
-  describe('for openStackSwift', () => {
-    it('should throw error on missing parameters', () => {
-      const config = {
-        publisherType: 'openStackSwift',
-        osUsername: 'someUsername',
-        osPassword: 'somePassword',
-      } as unknown as Command;
+  describe("for openStackSwift", () => {
+    it("should throw error on missing parameters", () => {
+      const config = ({
+        publisherType: "openStackSwift",
+        osUsername: "someUsername",
+        osPassword: "somePassword"
+      } as unknown) as Command;
 
       expect(() => PublisherConfig.getValidConfig(config)).toThrowError(
-        `openStackSwift requires the following params to be specified: ${['osAuthUrl', 'osRegion'].join(', ')}`
+        `openStackSwift requires the following params to be specified: ${[
+          "osAuthUrl",
+          "osRegion"
+        ].join(", ")}`
       );
     });
-    
-    it('should return valid ConfigReader', () => {
-      const config = {
-        publisherType: 'openStackSwift',
-        storageName: 'someStorageName',
-        osUsername: 'someUsername',
-        osPassword: 'somePassword',
-        osAuthUrl: 'someAuthUrl',
-        osRegion: 'someRegion',
-      } as unknown as Command;
+
+    it("should return valid ConfigReader", () => {
+      const config = ({
+        publisherType: "openStackSwift",
+        storageName: "someStorageName",
+        osUsername: "someUsername",
+        osPassword: "somePassword",
+        osAuthUrl: "someAuthUrl",
+        osRegion: "someRegion"
+      } as unknown) as Command;
 
       const actualConfig = PublisherConfig.getValidConfig(config);
-      expect(actualConfig.getString('techdocs.publisher.type')).toBe('openStackSwift');
-      expect(actualConfig.getConfig('techdocs.publisher.openStackSwift').get()).toMatchObject({
-        containerName: 'someStorageName',
+      expect(actualConfig.getString("techdocs.publisher.type")).toBe(
+        "openStackSwift"
+      );
+      expect(
+        actualConfig.getConfig("techdocs.publisher.openStackSwift").get()
+      ).toMatchObject({
+        containerName: "someStorageName",
         credentials: {
-          username: 'someUsername',
-          password: 'somePassword'
+          username: "someUsername",
+          password: "somePassword"
         },
-        authUrl: 'someAuthUrl',
-        region: 'someRegion',
+        authUrl: "someAuthUrl",
+        region: "someRegion"
       });
     });
   });
 
-  describe('for googleGcs', () => {
-    it('should return valid ConfigReader', () => {
-      const config = {
-        publisherType: 'googleGcs',
-        storageName: 'someStorageName',
-      } as unknown as Command;
+  describe("for googleGcs", () => {
+    it("should return valid ConfigReader", () => {
+      const config = ({
+        publisherType: "googleGcs",
+        storageName: "someStorageName"
+      } as unknown) as Command;
 
       const actualConfig = PublisherConfig.getValidConfig(config);
-      expect(actualConfig.getString('techdocs.publisher.type')).toBe('googleGcs');
-      expect(actualConfig.getString('techdocs.publisher.googleGcs.bucketName')).toBe("someStorageName");
+      expect(actualConfig.getString("techdocs.publisher.type")).toBe(
+        "googleGcs"
+      );
+      expect(
+        actualConfig.getString("techdocs.publisher.googleGcs.bucketName")
+      ).toBe("someStorageName");
     });
   });
 });
