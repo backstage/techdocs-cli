@@ -52,7 +52,7 @@ techdocs-cli [command]
 techdocs-cli serve
 ```
 
-![A preview of techdocs-cli serve command](../.github/assets/techdocs-cli-serve-preview.png)
+![A preview of techdocs-cli serve command](assets/techdocs-cli-serve-preview.png)
 
 By default, Docker and [techdocs-container](https://github.com/backstage/techdocs-container) is used to make sure all the dependencies are installed. However, Docker can be disabled with `--no-docker` flag.
 
@@ -258,10 +258,7 @@ Note: The Backstage app and plugins versions are fixed in the `packages/embedded
 
 ### Few words on the setup of the project
 
-The `techdocs-cli` package currently has a bit of a weird setup. It consists of two monorepos. The first one is the top level monorepo, where each package is listed in the `packages` directory. The second monorepo is a backstage app monorepo which can be found in `packages/embedded-techdocs`.
-
-When we build techdocs-cli (using `build.sh` in the root) we first run `yarn run build` in `packages/embedded-techdocs` resulting in a bundle containing the entire Backstage application. When we build `packages/techdocs-cli` using `yarn run build`, the `embedded-techdocs` bundle will be copied over to the `packages/techdocs-cli/dist`.
-
-The resulting CLI can be found inside `packages/techdocs-cli/bin`. Use this for local development (by adding an alias in your local shell environment).
+See [Local Development](https://github.com/backstage/techdocs-cli/README.md#local-development)
+for more information.
 
 Happy hacking!

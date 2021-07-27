@@ -9,28 +9,28 @@ describe("end-to-end", () => {
   });
 
   it("can generate", async () => {
-    jest.setTimeout(10000)
-    const proc = await executeTechDocsCliCommand(
-      ["generate", "--no-docker"],
-      {
-        cwd: "../../",
-        killAfter: 8000
-      }
-    );
+    jest.setTimeout(10000);
+    const proc = await executeTechDocsCliCommand(["generate", "--no-docker"], {
+      cwd: "../../",
+      killAfter: 8000,
+    });
+
+    // eslint-disable-next-line no-console
+    console.log(proc.combinedStdOutErr);
 
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Successfully generated docs");
   });
 
   it("can serve", async () => {
-    jest.setTimeout(10000)
-    const proc = await executeTechDocsCliCommand(
-      ["serve", "--no-docker"],
-      {
-        cwd: "../../",
-        killAfter: 8000
-      }
-    );
+    jest.setTimeout(10000);
+    const proc = await executeTechDocsCliCommand(["serve", "--no-docker"], {
+      cwd: "../../",
+      killAfter: 8000,
+    });
+
+    // eslint-disable-next-line no-console
+    console.log(proc.combinedStdOutErr);
 
     expect(proc.exit).toEqual(0);
     expect(proc.combinedStdOutErr).toContain("Starting mkdocs server");
@@ -50,44 +50,43 @@ type ExecuteCommandOptions = {
   cwd?: string;
 };
 
-const executeTechDocsCliCommand = (
+function executeTechDocsCliCommand(
   args: string[],
   opts: ExecuteCommandOptions = {}
-): Promise<CommandResponse> => {
-  return new Promise(resolve => {
+): Promise<CommandResponse> {
+  return new Promise((resolve) => {
     const pathToCli = `${__dirname}/../bin/techdocs-cli`;
     const commandResponse = {
       stdout: "",
       stderr: "",
       combinedStdOutErr: "",
-      exit: 0
+      exit: 0,
     };
 
     const listen = spawn(pathToCli, args, {
-      cwd: opts.cwd
+      cwd: opts.cwd,
     });
 
     const stdOutChunks: any[] = [];
     const stdErrChunks: any[] = [];
     const combinedChunks: any[] = [];
 
-    listen.stdout.on("data", data => {
+    listen.stdout.on("data", (data) => {
       stdOutChunks.push(data);
       combinedChunks.push(data);
     });
 
-    listen.stderr.on("data", data => {
+    listen.stderr.on("data", (data) => {
       stdErrChunks.push(data);
       combinedChunks.push(data);
     });
 
-    listen.on("exit", code => {
+    listen.on("exit", (code) => {
       commandResponse.exit = code as number;
       commandResponse.stdout = Buffer.concat(stdOutChunks).toString("utf8");
       commandResponse.stderr = Buffer.concat(stdErrChunks).toString("utf8");
-      commandResponse.combinedStdOutErr = Buffer.concat(
-        combinedChunks
-      ).toString("utf8");
+      commandResponse.combinedStdOutErr =
+        Buffer.concat(combinedChunks).toString("utf8");
       resolve(commandResponse);
     });
 
@@ -97,4 +96,4 @@ const executeTechDocsCliCommand = (
       }, opts.killAfter);
     }
   });
-};
+}

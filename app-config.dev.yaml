@@ -1,0 +1,7 @@
+# Usages inherit from app-config.yaml
+
+backend:
+  baseUrl: http://localhost:7000
+
+techdocs:
+  requestUrl: http://localhost:7000/api

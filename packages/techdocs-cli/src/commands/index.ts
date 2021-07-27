@@ -240,6 +240,7 @@ function lazy(
       await actionFunc(...args);
       process.exit(0);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error.message);
       process.exit(1);
     }

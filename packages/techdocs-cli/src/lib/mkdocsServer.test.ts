@@ -52,7 +52,7 @@ describe("runMkdocsServer", () => {
   });
 
   describe("mkdocs", () => {
-    it("should run mkdocs if specified ", async () => {
+    it("should run mkdocs if specified", async () => {
       await runMkdocsServer({ useDocker: false });
 
       expect(run).toHaveBeenCalledWith(

@@ -24,10 +24,18 @@ import { createLogger } from "../../lib/utility";
 export default async function serve(cmd: Command) {
   const logger = createLogger({ verbose: cmd.verbose });
 
+  // Determine if we want to run in local dev mode or not
+  // This will run the backstage http server on a different port and only used
+  // for proxying mkdocs to the backstage app running locally (e.g. with webpack-dev-server)
+  const isDevMode = Object.keys(process.env).includes("TECHDOCS_CLI_DEV_MODE")
+    ? true
+    : false;
+
   // TODO: Backstage app port should also be configurable as a CLI option. However, since we bundle
   // a backstage app, we define app.baseUrl in the app-config.yaml.
   // Hence, it is complicated to make this configurable.
   const backstagePort = 3000;
+  const backstageBackendPort = 7000;
 
   const mkdocsDockerAddr = `http://0.0.0.0:${cmd.mkdocsPort}`;
   const mkdocsLocalAddr = `http://127.0.0.1:${cmd.mkdocsPort}`;
@@ -91,7 +99,7 @@ export default async function serve(cmd: Command) {
 
   const httpServer = new HTTPServer(
     techdocsPreviewBundlePath,
-    backstagePort,
+    isDevMode ? backstageBackendPort : backstagePort,
     cmd.mkdocsPort,
     cmd.verbose
   );

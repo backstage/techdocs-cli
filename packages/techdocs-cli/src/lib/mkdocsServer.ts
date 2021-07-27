@@ -49,10 +49,10 @@ export const runMkdocsServer = async (options: {
         stderrLogFunc: options.stderrLogFunc
       }
     );
-  } else {
-    return await run("mkdocs", ["serve", "--dev-addr", `127.0.0.1:${port}`], {
-      stdoutLogFunc: options.stdoutLogFunc,
-      stderrLogFunc: options.stderrLogFunc
-    });
   }
+
+  return await run("mkdocs", ["serve", "--dev-addr", `127.0.0.1:${port}`], {
+    stdoutLogFunc: options.stdoutLogFunc,
+    stderrLogFunc: options.stderrLogFunc
+  });
 };
