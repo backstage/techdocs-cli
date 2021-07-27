@@ -35,7 +35,7 @@ export default async function migrate(cmd: Command) {
   const { isAvailable } = await publisher.getReadiness();
   if (!isAvailable) {
     // Error messages printed in getReadiness() call. This ensures exit code 1.
-    return Promise.reject(new Error(""));
+    throw new Error("");
   }
 
   // Validate and parse migration arguments.
@@ -50,6 +50,6 @@ export default async function migrate(cmd: Command) {
 
   await publisher.migrateDocsCase({
     concurrency: numericConcurrency,
-    removeOriginal
+    removeOriginal,
   });
 }
