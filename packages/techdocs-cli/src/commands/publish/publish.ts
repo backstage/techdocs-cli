@@ -19,13 +19,13 @@ import { createLogger } from "../../lib/utility";
 import { SingleHostDiscovery } from "@backstage/backend-common";
 import { Publisher } from "@backstage/techdocs-common";
 import { Entity } from "@backstage/catalog-model";
-import { getValidPublisherConfig } from "../helpers"
+import { PublisherConfig } from "../../lib/PublisherConfig"
 
 
 export default async function publish(cmd: Command) {
   const logger = createLogger({ verbose: cmd.verbose });
 
-  const config = getValidPublisherConfig(cmd);
+  const config = PublisherConfig.getValidConfig(cmd);
   const discovery = SingleHostDiscovery.fromConfig(config);
   const publisher = await Publisher.fromConfig(config, { logger, discovery });
 

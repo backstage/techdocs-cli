@@ -18,12 +18,12 @@ import { SingleHostDiscovery } from "@backstage/backend-common";
 import { Publisher } from "@backstage/techdocs-common";
 import { Command } from "commander";
 import { createLogger } from "../../lib/utility";
-import { getValidPublisherConfig } from "../helpers"
+import { PublisherConfig } from "../../lib/PublisherConfig"
 
 export default async function migrate(cmd: Command) {
   const logger = createLogger({ verbose: cmd.verbose });
 
-  const config = getValidPublisherConfig(cmd);
+  const config = PublisherConfig.getValidConfig(cmd);
   const discovery = SingleHostDiscovery.fromConfig(config);
   const publisher = await Publisher.fromConfig(config, { logger, discovery });
 
