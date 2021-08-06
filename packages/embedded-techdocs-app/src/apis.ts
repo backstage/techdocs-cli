@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { EntityName } from '@backstage/catalog-model';
 import { Config } from '@backstage/config';
 import {
@@ -20,6 +21,7 @@ import {
   ScmIntegrationsApi,
 } from '@backstage/integration-react';
 import {
+  AnyApiFactory,
   configApiRef,
   createApiFactory,
   DiscoveryApi,
@@ -28,9 +30,10 @@ import {
   identityApiRef,
 } from '@backstage/core';
 import {
-  TechDocs,
+  SyncResult,
+  TechDocsApi,
   techdocsApiRef,
-  TechDocsStorage,
+  TechDocsStorageApi,
   techdocsStorageApiRef,
 } from '@backstage/plugin-techdocs';
 
@@ -41,7 +44,7 @@ import {
  * Note: Override TechDocs API to use local mkdocs server instead of techdocs-backend.
  */
 
-class TechDocsDevStorageApi implements TechDocsStorage {
+class TechDocsDevStorageApi implements TechDocsStorageApi {
   public configApi: Config;
   public discoveryApi: DiscoveryApi;
   public identityApi: IdentityApi;
@@ -94,9 +97,9 @@ class TechDocsDevStorageApi implements TechDocsStorage {
     return request.text();
   }
 
-  async syncEntityDocs(_: EntityName) {
+  async syncEntityDocs(_: EntityName): Promise<SyncResult> {
     // this is just stub of this function as we don't need to check if docs are up to date,
-    //we always want to retrigger a new build
+    // we always want to retrigger a new build
     return 'cached';
   }
 
@@ -111,7 +114,7 @@ class TechDocsDevStorageApi implements TechDocsStorage {
   }
 }
 
-class TechDocsDevApi implements TechDocs {
+class TechDocsDevApi implements TechDocsApi {
   public configApi: Config;
   public discoveryApi: DiscoveryApi;
   public identityApi: IdentityApi;
@@ -137,9 +140,13 @@ class TechDocsDevApi implements TechDocs {
     );
   }
 
-  // @ts-ignore
   async getEntityMetadata(_entityId: any) {
     return {
+      apiVersion: 'backstage.io/v1alpha1',
+      kind: 'Component',
+      metadata: {
+        name: 'local',
+      },
       spec: {
         owner: 'test',
         lifecycle: 'experimental',
@@ -155,7 +162,7 @@ class TechDocsDevApi implements TechDocs {
   }
 }
 
-export const apis = [
+export const apis: AnyApiFactory[] = [
   createApiFactory({
     api: techdocsStorageApiRef,
     deps: {

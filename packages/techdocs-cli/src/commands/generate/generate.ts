@@ -27,6 +27,7 @@ import {
   convertTechDocsRefToLocationAnnotation,
   createLogger,
 } from "../../lib/utility";
+import { stdout } from "process";
 
 export default async function generate(cmd: Command) {
   // Use techdocs-common package to generate docs. Keep consistency between Backstage and CI generating docs.
@@ -90,6 +91,7 @@ export default async function generate(cmd: Command) {
         }
       : {}),
     logger,
+    ...(process.env.LOG_LEVEL === "debug" ? { logStream: stdout } : {}),
   });
 
   logger.info("Done!");

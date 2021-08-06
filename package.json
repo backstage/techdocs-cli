@@ -12,20 +12,44 @@
     "directory": "."
   },
   "scripts": {
-    "build": "./build.sh",
-    "test": "yarn workspace @techdocs/cli run test",
-    "tsc": "yarn workspaces run tsc",
-    "start": "yarn workspace @techdocs/cli run start"
+    "start": "yarn workspace @techdocs/cli run start",
+    "start:app": "yarn workspace embedded-techdocs-app run start",
+    "cli": "packages/techdocs-cli/bin/techdocs-cli",
+    "cli:dev": "TECHDOCS_CLI_DEV_MODE=true packages/techdocs-cli/bin/techdocs-cli",
+    "build": "lerna run build",
+    "clean": "lerna run clean",
+    "lint": "lerna run lint",
+    "test": "lerna run test -- --coverage",
+    "tsc": "tsc",
+    "prepare": "husky install"
   },
   "keywords": [
     "backstage",
     "techdocs"
   ],
   "license": "Apache-2.0",
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "plugins/*"
+    ]
+  },
   "devDependencies": {
-    "@backstage/cli": "^0.7.5"
+    "@backstage/cli": "^0.7.5",
+    "@spotify/prettier-config": "^10.0.0",
+    "husky": "^7.0.1",
+    "lerna": "^3.20.2",
+    "lint-staged": "^11.1.1",
+    "prettier": "^2.3.2"
+  },
+  "prettier": "@spotify/prettier-config",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   }
 }

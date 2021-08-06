@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { resolve } from "path";
 import { Command } from "commander";
 import { createLogger } from "../../lib/utility";
@@ -21,7 +22,7 @@ import { Publisher } from "@backstage/techdocs-common";
 import { Entity } from "@backstage/catalog-model";
 import { PublisherConfig } from "../../lib/PublisherConfig";
 
-export default async function publish(cmd: Command) {
+export default async function publish(cmd: Command): Promise<any> {
   const logger = createLogger({ verbose: cmd.verbose });
 
   const config = PublisherConfig.getValidConfig(cmd);
@@ -46,4 +47,6 @@ export default async function publish(cmd: Command) {
 
   const directory = resolve(cmd.directory);
   await publisher.publish({ entity, directory });
+
+  return true;
 }

@@ -67,6 +67,9 @@ export default class HTTPServer {
               reject(error);
             });
 
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+
             request.url = forwardPath;
             return proxy.web(request, response);
           }
