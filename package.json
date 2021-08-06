@@ -20,7 +20,8 @@
     "clean": "lerna run clean",
     "lint": "lerna run lint",
     "test": "lerna run test -- --coverage",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "prepare": "husky install"
   },
   "keywords": [
     "backstage",
@@ -35,6 +36,20 @@
   },
   "devDependencies": {
     "@backstage/cli": "^0.7.5",
-    "lerna": "^3.20.2"
+    "@spotify/prettier-config": "^10.0.0",
+    "husky": "^7.0.1",
+    "lerna": "^3.20.2",
+    "lint-staged": "^11.1.1",
+    "prettier": "^2.3.2"
+  },
+  "prettier": "@spotify/prettier-config",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   }
 }

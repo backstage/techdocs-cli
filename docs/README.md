@@ -1,7 +1,5 @@
 # TechDocs CLI
 
-[![NPM Version badge](https://img.shields.io/npm/v/@techdocs/cli)](https://www.npmjs.com/package/@techdocs/cli)
-
 Utility command line interface for managing TechDocs sites in [Backstage](https://github.com/backstage/backstage).
 
 https://backstage.io/docs/features/techdocs/techdocs-overview
@@ -204,61 +202,6 @@ Refer to the Authentication section of the following documentation depending upo
 
 ## Development
 
-You are welcome to contribute to TechDocs CLI to improve it and support new features!
-
-### Set up locally
-
-Clone this repository, install dependencies and build a local version of the CLI.
-
-```bash
-git clone https://github.com/backstage/techdocs-cli
-
-cd techdocs-cli/
-
-yarn install
-
-yarn run build
-```
-
-The build commands first bundles a small Backstage app located inside `packages/embedded-techdocs` and stores at `packages/techdocs-cli/dist`. It then builds the `packages/techdocs-cli` which uses the Backstage app bundle for the `serve` command.
-The `techdocs-cli` local binary is located at `packages/techdocs-cli/bin/techdocs-cli`. You can add an alias to the binary or add it in your PATH
-
-```bash
-# File: ~/.zshrc or ~/.zprofile or ~/.bashrc or similar
-
-export PATH=/path/to/repo/packages/techdocs-cli/bin:$PATH
-```
-
-And then by running `techdocs-cli`, you can use latest code for development.
-
-Note that any changes to `packages/embedded-techdocs` will require a new `yarn run build` for it to be reflected in `techdocs-cli`. However, all the changes in `packages/techdocs-cli` are immediate.
-
-### Use an example docs project
-
-We have created an [example documentation project](https://github.com/backstage/techdocs-container/tree/main/mock-docs) and it's shipped with [techdocs-container](https://github.com/backstage/techdocs-container) repository, for the purpose of local development. But you are free to create your own local test site. All it takes is a `docs/index.md` and `mkdocs.yml` in a directory.
-
-```bash
-git clone https://github.com/backstage/techdocs-container.git
-
-cd techdocs-container/mock-docs
-
-# To get a view of your docs in Backstage, use:
-techdocs-cli serve
-
-# To view the raw mkdocs site (without Backstage), use:
-techdocs-cli serve:mkdocs
-```
-
-### Release
-
-1. Bump the version number in `packages/techdocs-cli/package.json` file and create a pull request.
-2. When the pull request is merged the [GitHub Actions workflow](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml) deploys a node package to NPM. The package is published at [`@techdocs/cli`](https://www.npmjs.com/package/@techdocs/cli) on NPM.
-
-Note: The Backstage app and plugins versions are fixed in the `packages/embedded-techdocs` mono-repo. So [`@backstage/plugin-techdocs`](https://github.com/backstage/techdocs-cli/blob/main/packages/embedded-techdocs/packages/app/package.json) version may need upgrading from time to time if significant APIs are changed.
-
-### Few words on the setup of the project
-
-See [Local Development](https://github.com/backstage/techdocs-cli/README.md#local-development)
+You are welcome to contribute to TechDocs CLI to improve it and support new
+features! See the project [README](https://github.com/backstage/techdocs-cli/blob/main/README.md)
 for more information.
-
-Happy hacking!
