@@ -36,7 +36,7 @@ You can now run the CLI:
 yarn cli
 
 # or using the techdoc-cli binary directly
-packages/techdocs-cli-bin/techdocs-cli
+packages/techdocs-cli/bin/techdocs-cli
 
 # ... or as a shell alias in ~/.zshrc or ~/.zprofile or ~/.bashrc or similar
 export PATH=/path/to/repo/packages/techdocs-cli/bin:$PATH
