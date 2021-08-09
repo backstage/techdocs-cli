@@ -137,6 +137,8 @@ Options:
   --entity <NAMESPACE/KIND/NAME>           (Required always) Entity uid separated by / in
                                            namespace/kind/name order (case-sensitive). Example:
                                            default/Component/myEntity
+  --legacyUseCaseSensitiveTripletPaths     Publishes objects with cased entity triplet prefix when set (e.g. namespace/Kind/name).
+                                           Only use if your TechDocs backend is configured the same way
   --azureAccountName <AZURE ACCOUNT NAME>  (Required for Azure) specify when --publisher-type
                                            azureBlobStorage
   --azureAccountKey <AZURE ACCOUNT KEY>    Azure Storage Account key to use for authentication.
