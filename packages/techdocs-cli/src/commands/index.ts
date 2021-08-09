@@ -149,6 +149,7 @@ export function registerCommands(program: CommanderStatic) {
       external storage, you can set this value to "true" to temporarily revert to
       the old, case-sensitive entity triplet behavior.
       `,
+      false,
     )
     .option(
       '--azureAccountName <AZURE ACCOUNT NAME>',
