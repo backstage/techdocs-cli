@@ -60,8 +60,10 @@ export class PublisherConfig {
         }
       },
       techdocs: {
-        publisher: PublisherConfig.configFactories[publisherType](cmd)
-      }
+        publisher: PublisherConfig.configFactories[publisherType](cmd),
+        legacyUseCaseSensitiveTripletPaths:
+          cmd.legacyUseCaseSensitiveTripletPaths,
+      },
     });
   }
 
