@@ -85,4 +85,4 @@ techdocs-cli serve:mkdocs
 1. Bump the version number in `packages/techdocs-cli/package.json` file and create a pull request.
 2. When the pull request is merged the [GitHub Actions workflow](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml) deploys a node package to NPM. The package is published at [`@techdocs/cli`](https://www.npmjs.com/package/@techdocs/cli) on NPM.
 
-Note: The Backstage app and plugins versions are fixed in the `packages/embedded-techdocs` mono-repo. So [`@backstage/plugin-techdocs`](https://github.com/backstage/techdocs-cli/blob/main/packages/embedded-techdocs/packages/app/package.json) version may need upgrading from time to time if significant APIs are changed.
+Note: The Backstage app and plugins versions are fixed in the `packages/embedded-techdocs-app` mono-repo. So [`@backstage/plugin-techdocs`](https://github.com/backstage/techdocs-cli/blob/main/packages/embedded-techdocs-app/package.json) version may need upgrading from time to time if significant APIs are changed.
