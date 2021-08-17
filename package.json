@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@backstage/cli": "^0.7.8",
+    "@changesets/cli": "^2.16.0",
     "@spotify/prettier-config": "^10.0.0",
     "husky": "^7.0.1",
     "lerna": "^3.20.2",
