@@ -21,8 +21,7 @@
     "lint": "lerna run lint",
     "test": "lerna run test -- --coverage",
     "tsc": "tsc",
-    "prepare": "husky install",
-    "prepack": "yarn tsc && yarn build"
+    "prepare": "husky install"
   },
   "keywords": [
     "backstage",
