@@ -151,6 +151,10 @@ export function registerCommands(program: CommanderStatic) {
       '(Required for Azure) specify when --publisher-type azureBlobStorage',
     )
     .option(
+      '--azureAccountKey <AZURE ACCOUNT KEY>',
+      'Azure Storage Account key to use for authentication. If not specified, you must set AZURE_TENANT_ID, AZURE_CLIENT_ID & AZURE_CLIENT_SECRET as environment variables.',
+    )
+    .option(
       '--awsRoleArn <AWS ROLE ARN>',
       'Optional AWS ARN of role to be assumed.',
     )
