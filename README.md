@@ -27,6 +27,27 @@ NOTE: When we build `techdocs-cli` it copies the output `embedded-techdocs-app`
 bundle into the `packages/techdocs-cli/dist` which is then published with the
 `@techdocs/cli` npm package.
 
+If you're changing files inside `@backstage/techdocs-common` locally and want to run it locally with `techdocs-cli` you can run:
+
+```sh
+cd backstage/packages/techdocs-common`
+yarn link
+```
+
+> The `backstage` folder above is from the [main Backstage repo](https://github.com/backstage/backstage)
+
+And then inside the `techdocs-cli` repo:
+
+```sh
+yarn link "@backstage/techdocs-common"
+```
+
+When you're done, remember to unlink the package so you can use the published version again:
+
+```sh
+yarn unlink "@backstage/techdocs-common" && yarn install --force
+```
+
 ### Running
 
 You can now run the CLI:
