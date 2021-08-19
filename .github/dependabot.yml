@@ -8,13 +8,16 @@ updates:
     directory: "/" 
     schedule:
       interval: "weekly"
+      day: "sunday"
       
   - package-ecosystem: "npm"
     directory: "/packages/embedded-techdocs-app"
     schedule:
       interval: "weekly"
+      day: "sunday"
 
   - package-ecosystem: "npm"
     directory: "/packages/techdocs-cli"
     schedule:
       interval: "weekly"
+      day: "sunday"
