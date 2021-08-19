@@ -7,14 +7,14 @@ updates:
   - package-ecosystem: "npm" 
     directory: "/" 
     schedule:
-      interval: "daily"
+      interval: "weekly"
       
   - package-ecosystem: "npm"
     directory: "/packages/embedded-techdocs-app"
     schedule:
-      interval: "daily"
+      interval: "weekly"
 
   - package-ecosystem: "npm"
     directory: "/packages/techdocs-cli"
     schedule:
-      interval: "daily"
+      interval: "weekly"
