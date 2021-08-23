@@ -103,7 +103,22 @@ techdocs-cli serve:mkdocs
 
 ## Release
 
-1. Bump the version number in `packages/techdocs-cli/package.json` file and create a pull request.
-2. When the pull request is merged the [GitHub Actions workflow](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml) deploys a node package to NPM. The package is published at [`@techdocs/cli`](https://www.npmjs.com/package/@techdocs/cli) on NPM.
+This repository uses [changesets](https://github.com/atlassian/changesets) for a more automated release process. All changes to the packages of this repository, `packages/embedded-techdocs-app` and `packages/techdocs-cli` should have changesets added along with each change.
+
+Once you decide you want to do a release: 
+
+### Manual release
+1. `yarn changeset version`
+_This consumes all changesets, and updates to the most appropriate semver version based on those changesets. It also writes changelog entries for each consumed changeset._
+
+When you have verified the version and changelogs looks as expected, you can publish the new version:
+2. `yarn changeset publish`
+
+### Automated release
+We have two workflows automating these two steps further. 
+
+1. The [changeset.yml](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/changeset.yml) workflow opens a new PR for you with the package versions and updated changelogs. 
+
+2. This PR can then be merged and if the new version is not published to NPM, the publish step in the [main.yml](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml#L41) workflow will get triggered and publish the new version for you. 
 
 Note: The Backstage app and plugins versions are fixed in the `packages/embedded-techdocs-app` mono-repo. So [`@backstage/plugin-techdocs`](https://github.com/backstage/techdocs-cli/blob/main/packages/embedded-techdocs-app/package.json) version may need upgrading from time to time if significant APIs are changed.
