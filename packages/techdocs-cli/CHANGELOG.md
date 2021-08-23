@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- f1bcf1a: ## Changelog (from v0.6.0 to v0.6.2)
+- f1bcf1a: Changelog (from v0.6.1 to v0.6.2)
 
   #### :bug: Bug Fix
 

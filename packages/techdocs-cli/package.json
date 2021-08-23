@@ -37,7 +37,7 @@
     "@types/react-dev-utils": "^9.0.4",
     "@types/serve-handler": "^6.1.0",
     "@types/webpack-env": "^1.15.3",
-    "embedded-techdocs-app": "0.0.1",
+    "embedded-techdocs-app": "0.0.0",
     "nodemon": "^2.0.6",
     "ts-node": "^9.0.0"
   },
