@@ -112,6 +112,7 @@ Once you decide you want to do a release:
 _This consumes all changesets, and updates to the most appropriate semver version based on those changesets. It also writes changelog entries for each consumed changeset._
 
 When you have verified the version and changelogs looks as expected, you can publish the new version:
+
 2. `yarn changeset publish`
 
 ### Automated release
