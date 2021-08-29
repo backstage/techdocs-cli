@@ -9,7 +9,7 @@ on:
     types: [opened, reopened]
   pull_request:
     types: [opened, reopened]
-    branches-ignore: 'dependabot/*'
+    branches-ignore: ['dependabot/*']
 
 env:
   MY_GITHUB_TOKEN: ${{ secrets.GH_SERVICE_ACCOUNT_TOKEN }}
