@@ -3,7 +3,11 @@ import { Navigate, Route } from 'react-router';
 import { createApp, FlatRoutes } from '@backstage/core';
 import { CatalogEntityPage } from '@backstage/plugin-catalog';
 
-import { TechdocsPage } from '@backstage/plugin-techdocs';
+import {
+  DefaultTechDocsHome,
+  TechDocsIndexPage,
+  TechDocsReaderPage,
+} from '@backstage/plugin-techdocs';
 import { apis } from './apis';
 import { Root } from './components/Root';
 import * as plugins from './plugins';
@@ -24,7 +28,13 @@ const routes = (
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
     />
-    <Route path="/docs" element={<TechdocsPage />} />
+    <Route path="/docs" element={<TechDocsIndexPage />}>
+      <DefaultTechDocsHome />
+    </Route>
+    <Route
+      path="/docs/:namespace/:kind/:name/*"
+      element={<TechDocsReaderPage />}
+    />
   </FlatRoutes>
 );
 
