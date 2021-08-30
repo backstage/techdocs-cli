@@ -113,7 +113,7 @@ We love having contributions, so if you want to contribute, please:
 yarn changeset
 ```
 
-3. Choose a package, semver version, add a summary of the changes and press ENTER
+3. Choose a package, [semver](https://semver.org/) version, add a summary of the changes and press ENTER
 
 4. This script will create a new markdown file in the .changeset folder
 
