@@ -21,6 +21,8 @@
     "lint": "lerna run lint",
     "test": "lerna run test -- --coverage",
     "tsc": "tsc",
+    "changeset": "changeset add",
+    "release": "yarn tsc & yarn build & changeset publish",
     "prepare": "husky install"
   },
   "keywords": [

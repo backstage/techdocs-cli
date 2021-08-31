@@ -101,25 +101,47 @@ techdocs-cli serve
 techdocs-cli serve:mkdocs
 ```
 
+## Contributing
+
+We love having contributions, so if you want to contribute, please:
+
+1. Create a new Pull Request from your branch to the main
+
+2. If you want to include your changes in the next version bump, run:
+
+```sh
+yarn changeset
+```
+
+3. Choose a package, [semver](https://semver.org/) version, add a summary of the changes and press ENTER
+
+4. This script will create a new markdown file in the .changeset folder
+
+   Not sure what this means? [Click here to learn what changesets are](https://github.com/changesets/changesets/blob/master/docs/adding-a-changeset.md)
+
+5. Commit the changeset along with your PR changes.
+
 ## Release
 
 This repository uses [changesets](https://github.com/atlassian/changesets) for a more automated release process. All changes to the packages of this repository, `packages/embedded-techdocs-app` and `packages/techdocs-cli` should have changesets added along with each change.
 
-Once you decide you want to do a release: 
+Once you decide you want to do a release:
 
 ### Manual release
+
 1. `yarn changeset version`
-_This consumes all changesets, and updates to the most appropriate semver version based on those changesets. It also writes changelog entries for each consumed changeset._
+   _This consumes all changesets, and updates to the most appropriate semver version based on those changesets. It also writes changelog entries for each consumed changeset._
 
 When you have verified the version and changelogs looks as expected, you can publish the new version:
 
 2. `yarn changeset publish`
 
 ### Automated release
-We have two workflows automating these two steps further. 
 
-1. The [changeset.yml](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/changeset.yml) workflow opens a new PR for you with the package versions and updated changelogs. 
+We have automated these two steps in our main workflow.
 
-2. This PR can then be merged and if the new version is not published to NPM, the publish step in the [main.yml](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml#L41) workflow will get triggered and publish the new version for you. 
+1. The [main.yml](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml#L41) workflow opens a new PR for you with the package versions and updated changelogs.
+
+2. This PR can then be merged and if the new version is not published to NPM, the publish step in the [main.yml](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml#L41) workflow will get triggered and publish the new version for you.
 
 Note: The Backstage app and plugins versions are fixed in the `packages/embedded-techdocs-app` mono-repo. So [`@backstage/plugin-techdocs`](https://github.com/backstage/techdocs-cli/blob/main/packages/embedded-techdocs-app/package.json) version may need upgrading from time to time if significant APIs are changed.
