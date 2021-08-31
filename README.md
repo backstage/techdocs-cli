@@ -138,7 +138,7 @@ When you have verified the version and changelogs looks as expected, you can pub
 
 ### Automated release
 
-We have two workflows automating these two steps further.
+We have automated these two steps in our main workflow.
 
 1. The [main.yml](https://github.com/backstage/techdocs-cli/blob/main/.github/workflows/main.yml#L41) workflow opens a new PR for you with the package versions and updated changelogs.
 
