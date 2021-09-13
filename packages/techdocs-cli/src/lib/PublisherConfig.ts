@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ConfigReader } from "@backstage/config";
-import { Command } from "commander";
+import { ConfigReader } from '@backstage/config';
+import { Command } from 'commander';
 
-type Publisher = keyof typeof PublisherConfig["configFactories"];
+type Publisher = keyof typeof PublisherConfig['configFactories'];
 type PublisherConfiguration = {
   [p in Publisher]?: any;
 } & {
@@ -34,7 +34,7 @@ export class PublisherConfig {
     awsS3: PublisherConfig.getValidAwsS3Config,
     azureBlobStorage: PublisherConfig.getValidAzureConfig,
     googleGcs: PublisherConfig.getValidGoogleGcsConfig,
-    openStackSwift: PublisherConfig.getValidOpenStackSwiftConfig
+    openStackSwift: PublisherConfig.getValidOpenStackSwiftConfig,
   };
 
   /**
@@ -54,10 +54,10 @@ export class PublisherConfig {
     return new ConfigReader({
       // This backend config is not used at all. Just something needed a create a mock discovery instance.
       backend: {
-        baseUrl: "http://localhost:7000",
+        baseUrl: 'http://localhost:7000',
         listen: {
-          port: 7000
-        }
+          port: 7000,
+        },
       },
       techdocs: {
         publisher: PublisherConfig.configFactories[publisherType](cmd),
@@ -71,8 +71,8 @@ export class PublisherConfig {
    * Typeguard to ensure the publisher has a known config getter.
    */
   private static isKnownPublisher(
-    type: string
-  ): type is keyof typeof PublisherConfig["configFactories"] {
+    type: string,
+  ): type is keyof typeof PublisherConfig['configFactories'] {
     return PublisherConfig.configFactories.hasOwnProperty(type);
   }
 
@@ -81,13 +81,13 @@ export class PublisherConfig {
    */
   private static getValidAwsS3Config(cmd: Command): PublisherConfiguration {
     return {
-      type: "awsS3",
+      type: 'awsS3',
       awsS3: {
         bucketName: cmd.storageName,
         ...(cmd.awsRoleArn && { credentials: { roleArn: cmd.awsRoleArn } }),
         ...(cmd.awsEndpoint && { endpoint: cmd.awsEndpoint }),
-        ...(cmd.awsS3ForcePathStyle && { s3ForcePathStyle: true })
-      }
+        ...(cmd.awsS3ForcePathStyle && { s3ForcePathStyle: true }),
+      },
     };
   }
 
@@ -97,19 +97,19 @@ export class PublisherConfig {
   private static getValidAzureConfig(cmd: Command): PublisherConfiguration {
     if (!cmd.azureAccountName) {
       throw new Error(
-        `azureBlobStorage requires --azureAccountName to be specified`
+        `azureBlobStorage requires --azureAccountName to be specified`,
       );
     }
 
     return {
-      type: "azureBlobStorage",
+      type: 'azureBlobStorage',
       azureBlobStorage: {
         containerName: cmd.storageName,
         credentials: {
           accountName: cmd.azureAccountName,
-          accountKey: cmd.azureAccountKey
-        }
-      }
+          accountKey: cmd.azureAccountKey,
+        },
+      },
     };
   }
 
@@ -118,10 +118,10 @@ export class PublisherConfig {
    */
   private static getValidGoogleGcsConfig(cmd: Command): PublisherConfiguration {
     return {
-      type: "googleGcs",
+      type: 'googleGcs',
       googleGcs: {
-        bucketName: cmd.storageName
-      }
+        bucketName: cmd.storageName,
+      },
     };
   }
 
@@ -129,37 +129,34 @@ export class PublisherConfig {
    * Retrieves valid OpenStack Swift configuration based on the command.
    */
   private static getValidOpenStackSwiftConfig(
-    cmd: Command
+    cmd: Command,
   ): PublisherConfiguration {
     const missingParams = [
-      "osUsername",
-      "osPassword",
-      "osAuthUrl",
-      "osRegion"
+      'osCredentialId',
+      'osSecret',
+      'osAuthUrl',
+      'osSwiftUrl',
     ].filter((param: string) => !cmd[param]);
 
     if (missingParams.length) {
       throw new Error(
         `openStackSwift requires the following params to be specified: ${missingParams.join(
-          ", "
-        )}`
+          ', ',
+        )}`,
       );
     }
 
     return {
-      type: "openStackSwift",
+      type: 'openStackSwift',
       openStackSwift: {
         containerName: cmd.storageName,
         credentials: {
-          username: cmd.osUsername,
-          password: cmd.osPassword
+          id: cmd.osCredentialId,
+          secret: cmd.osSecret,
         },
         authUrl: cmd.osAuthUrl,
-        region: cmd.osRegion,
-        keystoneAuthVersion: cmd.osAuthVersion,
-        domainId: cmd.osDomainId,
-        domainName: cmd.osDomainName
-      }
+        swiftUrl: cmd.osSwiftUrl,
+      },
     };
   }
 }

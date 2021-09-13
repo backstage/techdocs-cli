@@ -84,11 +84,11 @@ export function registerCommands(program: CommanderStatic) {
       'Optional AWS S3 option to force path style.',
     )
     .option(
-      '--osUsername <OPENSTACK SWIFT USERNAME>',
+      '--osCredentialId <OPENSTACK SWIFT APPLICATION CREDENTIAL ID>',
       '(Required for OpenStack) specify when --publisher-type openStackSwift',
     )
     .option(
-      '--osPassword <OPENSTACK SWIFT PASSWORD>',
+      '--osSecret <OPENSTACK SWIFT APPLICATION CREDENTIAL SECRET>',
       '(Required for OpenStack) specify when --publisher-type openStackSwift',
     )
     .option(
@@ -96,20 +96,8 @@ export function registerCommands(program: CommanderStatic) {
       '(Required for OpenStack) specify when --publisher-type openStackSwift',
     )
     .option(
-      '--osRegion <OPENSTACK SWIFT REGION>',
+      '--osSwiftUrl <OPENSTACK SWIFT SWIFTURL>',
       '(Required for OpenStack) specify when --publisher-type openStackSwift',
-    )
-    .option(
-      '--osAuthVersion <OPENSTACK SWIFT AUTHVERSION>',
-      'Optional OpenStack. Default is set to v3',
-    )
-    .option(
-      '--osDomainId <OPENSTACK SWIFT DOMAIN ID>',
-      'Optional OpenStack. Default is set to default',
-    )
-    .option(
-      '--osDomainName <OPENSTACK SWIFT DOMAIN NAME>',
-      'Optional OpenStack. Default is set to Default',
     )
     .option(
       '--removeOriginal',
@@ -167,11 +155,11 @@ export function registerCommands(program: CommanderStatic) {
       'Optional AWS S3 option to force path style.',
     )
     .option(
-      '--osUsername <OPENSTACK SWIFT USERNAME>',
+      '--osCredentialId <OPENSTACK SWIFT APPLICATION CREDENTIAL ID>',
       '(Required for OpenStack) specify when --publisher-type openStackSwift',
     )
     .option(
-      '--osPassword <OPENSTACK SWIFT PASSWORD>',
+      '--osSecret <OPENSTACK SWIFT APPLICATION CREDENTIAL SECRET>',
       '(Required for OpenStack) specify when --publisher-type openStackSwift',
     )
     .option(
@@ -179,20 +167,8 @@ export function registerCommands(program: CommanderStatic) {
       '(Required for OpenStack) specify when --publisher-type openStackSwift',
     )
     .option(
-      '--osRegion <OPENSTACK SWIFT REGION>',
+      '--osSwiftUrl <OPENSTACK SWIFT SWIFTURL>',
       '(Required for OpenStack) specify when --publisher-type openStackSwift',
-    )
-    .option(
-      '--osAuthVersion <OPENSTACK SWIFT AUTHVERSION>',
-      'Optional OpenStack. Default is set to v3',
-    )
-    .option(
-      '--osDomainId <OPENSTACK SWIFT DOMAIN ID>',
-      'Optional OpenStack. Default is set to default',
-    )
-    .option(
-      '--osDomainName <OPENSTACK SWIFT DOMAIN NAME>',
-      'Optional OpenStack. Default is set to Default',
     )
     .option(
       '--directory <PATH>',
