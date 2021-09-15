@@ -155,19 +155,19 @@ Options:
 
 ### Migrate content for case-insensitive access
 
-Prior to the beta version of TechDocs (`v[x.y.z]`), TechDocs were stored in
+Prior to the beta version of TechDocs (`v[0.11.0]`), TechDocs were stored in
 object storage using a case-sensitive entity triplet (e.g.
 `default/API/name/index.html`). This resulted in a limitation where that exact
 case was required in the Backstage URL in order to read/render TechDocs
-content. As of `v[x.y.z]` of the TechDocs plugin, any case is allowed in the
+content. As of `v[0.11.0]` of the TechDocs plugin, any case is allowed in the
 URL (e.g. `default/api/name`), matching the behavior of the Catalog plugin.
 
-Backstage instances created with TechDocs `v[x.y.z]` or later do not need this
+Backstage instances created with TechDocs `v[0.11.0]` or later do not need this
 command. However, when upgrading to this version from an older version of
 TechDocs, the `migrate` command can be used prior to deployment to ensure docs
 remain accessible without having to rebuild all docs.
 
-Prior to upgrading to `v[x.y.z]` or greater, run this command to copy all
+Prior to upgrading to `v[0.11.0]` or greater, run this command to copy all
 assets to their lower-case triplet equivalents like this:
 
 ```bash
@@ -184,7 +184,7 @@ destructive operation that should performed with caution.
 techdocs-cli migrate --publisher-type <awsS3|googleGcs|azureBlobStorage> --storage-name <bucket/container name> --removeOriginal --verbose
 ```
 
-Afterward, update your TechDocs CLI to `v[a.b.c]` to ensure further publishing
+Afterward, update your TechDocs CLI to `v[0.7.0]` to ensure further publishing
 happens using a lower-case entity triplet.
 
 Note: arguments for this command largely match those of the `publish` command,
