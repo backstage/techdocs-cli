@@ -15147,6 +15147,11 @@ react-router@6.0.0-beta.0:
   dependencies:
     prop-types "^15.7.2"
 
+react-router@6.0.0-beta.4:
+  version "6.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.0.0-beta.4.tgz#e35a440b36fd07a2ac854e1f1f176b56a777793a"
+  integrity sha512-48JRRZJOwmfOKM12Tv3WjmNkVb2NpSEgDTWC4+MEJaud0+eyLJxqy62CKzOydMlk7hrfRFpC/elUYSZAuyx3qA==
+
 react-side-effect@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.1.tgz#66c5701c3e7560ab4822a4ee2742dee215d72eb3"
