@@ -1,5 +1,16 @@
 # @techdocs/cli
 
+## 0.8.0
+
+### Minor Changes
+
+- c6f437a: OpenStack Swift configuration changed due to OSS SDK Client change in @backstage/techdocs-common, it was a breaking change.
+  PR Reference: https://github.com/backstage/backstage/pull/6839
+
+### Patch Changes
+
+- 05f0409: Merge Jobs for Release Pull Requests and Package Publishes
+
 ## 0.7.0
 
 ### Minor Changes
