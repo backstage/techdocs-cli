@@ -4272,13 +4272,21 @@
     jest-diff "^27.0.0"
     pretty-format "^27.0.0"
 
-"@types/jest@^26.0.15", "@types/jest@^26.0.7":
+"@types/jest@^26.0.15":
   version "26.0.24"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.24.tgz#943d11976b16739185913a1936e0de0c4a7d595a"
   integrity sha512-E/X5Vib8BWqZNRlDxj9vYXhsDwPYbPINqKF9BsnSoon4RQ0D9moEuLD8txgyypFLH7J4+Lho9Nr/c8H0Fi+17w==
   dependencies:
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
+
+"@types/jest@^27.0.2":
+  version "27.0.2"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-27.0.2.tgz#ac383c4d4aaddd29bbf2b916d8d105c304a5fcd7"
+  integrity sha512-4dRxkS/AFX0c5XW6IPMNOydLn2tEhNhJV7DnYK+0bjoJZ+QTmfucBlihX7aoEsh/ocYtkLC73UbnBXBXIxsULA==
+  dependencies:
+    jest-diff "^27.0.0"
+    pretty-format "^27.0.0"
 
 "@types/js-cookie@^2.2.6":
   version "2.2.7"
@@ -15144,12 +15152,24 @@ react-router-dom@6.0.0-beta.0:
     prop-types "^15.7.2"
     react-router "6.0.0-beta.0"
 
+react-router-dom@6.0.0-beta.5:
+  version "6.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.0.0-beta.5.tgz#7364ae41326ed7eb640c3da601ed9192be92f65e"
+  integrity sha512-l4LaL0WHiPUaLfVSMjZiGbV6uitfHTQWYVfHtmCo8dabhjTZ3gIKbAKGQVieZqi1avFVqj+s3i0Ul1ZalLr8Bw==
+  dependencies:
+    react-router "6.0.0-beta.5"
+
 react-router@6.0.0-beta.0:
   version "6.0.0-beta.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.0.0-beta.0.tgz#3e11f39b6ded4412c2fed9e4f989dd4c8156724d"
   integrity sha512-VgMdfpVcmFQki/LZuLh8E/MNACekDetz4xqft+a6fBZvvJnVqKbLqebF7hyoawGrV1HcO5tVaUang2Og4W2j1Q==
   dependencies:
     prop-types "^15.7.2"
+
+react-router@6.0.0-beta.5:
+  version "6.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.0.0-beta.5.tgz#f86700a6a627b81cdb87e4b1cab7c20f75e230bc"
+  integrity sha512-czEOOTV0uAcK1U05EJXkCgL2X53jipBzmHAcWZ9SnKUBnLSNIxc/sdkcPNwdb99U4x8TzZyDY5BqVGGwif42qg==
 
 react-side-effect@^2.1.0:
   version "2.1.1"
