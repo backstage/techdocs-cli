@@ -1,5 +1,11 @@
 # @techdocs/cli
 
+## 0.8.1
+
+### Patch Changes
+
+- 0187424: Separate build and publish release steps
+
 ## 0.8.0
 
 ### Minor Changes
