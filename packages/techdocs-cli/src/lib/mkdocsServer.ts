@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ChildProcess } from "child_process";
-import { run, LogFunc } from "./run";
+import { ChildProcess } from 'child_process';
+import { run, LogFunc } from './run';
 
 export const runMkdocsServer = async (options: {
   port?: string;
@@ -23,36 +23,36 @@ export const runMkdocsServer = async (options: {
   stdoutLogFunc?: LogFunc;
   stderrLogFunc?: LogFunc;
 }): Promise<ChildProcess> => {
-  const port = options.port ?? "8000";
+  const port = options.port ?? '8000';
   const useDocker = options.useDocker ?? true;
-  const dockerImage = options.dockerImage ?? "spotify/techdocs";
+  const dockerImage = options.dockerImage ?? 'spotify/techdocs';
 
   if (useDocker) {
     return await run(
-      "docker",
+      'docker',
       [
-        "run",
-        "--rm",
-        "-w",
-        "/content",
-        "-v",
-        `'${process.cwd()}':/content`,
-        "-p",
+        'run',
+        '--rm',
+        '-w',
+        '/content',
+        '-v',
+        `"${process.cwd()}":/content`,
+        '-p',
         `${port}:${port}`,
         dockerImage,
-        "serve",
-        "--dev-addr",
-        `0.0.0.0:${port}`
+        'serve',
+        '--dev-addr',
+        `0.0.0.0:${port}`,
       ],
       {
         stdoutLogFunc: options.stdoutLogFunc,
-        stderrLogFunc: options.stderrLogFunc
-      }
+        stderrLogFunc: options.stderrLogFunc,
+      },
     );
   }
 
-  return await run("mkdocs", ["serve", "--dev-addr", `127.0.0.1:${port}`], {
+  return await run('mkdocs', ['serve', '--dev-addr', `127.0.0.1:${port}`], {
     stdoutLogFunc: options.stdoutLogFunc,
-    stderrLogFunc: options.stderrLogFunc
+    stderrLogFunc: options.stderrLogFunc,
   });
 };
