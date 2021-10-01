@@ -1,73 +1,73 @@
-import { runMkdocsServer } from "./mkdocsServer";
-import { run } from "./run";
+import { runMkdocsServer } from './mkdocsServer';
+import { run } from './run';
 
-jest.mock("./run", () => {
+jest.mock('./run', () => {
   return {
-    run: jest.fn()
+    run: jest.fn(),
   };
 });
 
-describe("runMkdocsServer", () => {
+describe('runMkdocsServer', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  describe("docker", () => {
-    it("should run docker directly by default", async () => {
+  describe('docker', () => {
+    it('should run docker directly by default', async () => {
       await runMkdocsServer({});
 
-      const quotedCwd = `'${process.cwd()}':/content`;
+      const quotedCwd = `"${process.cwd()}":/content`;
       expect(run).toHaveBeenCalledWith(
-        "docker",
+        'docker',
         expect.arrayContaining([
-          "run",
+          'run',
           quotedCwd,
-          "8000:8000",
-          "serve",
-          "--dev-addr",
-          "0.0.0.0:8000",
-          "spotify/techdocs"
+          '8000:8000',
+          'serve',
+          '--dev-addr',
+          '0.0.0.0:8000',
+          'spotify/techdocs',
         ]),
-        expect.objectContaining({})
+        expect.objectContaining({}),
       );
     });
 
-    it("should accept port option", async () => {
-      await runMkdocsServer({ port: "5678" });
+    it('should accept port option', async () => {
+      await runMkdocsServer({ port: '5678' });
       expect(run).toHaveBeenCalledWith(
-        "docker",
-        expect.arrayContaining(["5678:5678", "0.0.0.0:5678"]),
-        expect.objectContaining({})
+        'docker',
+        expect.arrayContaining(['5678:5678', '0.0.0.0:5678']),
+        expect.objectContaining({}),
       );
     });
 
-    it("should accept custom docker image", async () => {
-      await runMkdocsServer({ dockerImage: "my-org/techdocs" });
+    it('should accept custom docker image', async () => {
+      await runMkdocsServer({ dockerImage: 'my-org/techdocs' });
       expect(run).toHaveBeenCalledWith(
-        "docker",
-        expect.arrayContaining(["my-org/techdocs"]),
-        expect.objectContaining({})
+        'docker',
+        expect.arrayContaining(['my-org/techdocs']),
+        expect.objectContaining({}),
       );
     });
   });
 
-  describe("mkdocs", () => {
-    it("should run mkdocs if specified", async () => {
+  describe('mkdocs', () => {
+    it('should run mkdocs if specified', async () => {
       await runMkdocsServer({ useDocker: false });
 
       expect(run).toHaveBeenCalledWith(
-        "mkdocs",
-        expect.arrayContaining(["serve", "--dev-addr", "127.0.0.1:8000"]),
-        expect.objectContaining({})
+        'mkdocs',
+        expect.arrayContaining(['serve', '--dev-addr', '127.0.0.1:8000']),
+        expect.objectContaining({}),
       );
     });
 
-    it("should accept port option", async () => {
-      await runMkdocsServer({ useDocker: false, port: "5678" });
+    it('should accept port option', async () => {
+      await runMkdocsServer({ useDocker: false, port: '5678' });
       expect(run).toHaveBeenCalledWith(
-        "mkdocs",
-        expect.arrayContaining(["127.0.0.1:5678"]),
-        expect.objectContaining({})
+        'mkdocs',
+        expect.arrayContaining(['127.0.0.1:5678']),
+        expect.objectContaining({}),
       );
     });
   });
