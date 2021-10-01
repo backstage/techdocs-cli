@@ -1,5 +1,11 @@
 # @techdocs/cli
 
+## 0.8.2
+
+### Patch Changes
+
+- 8fc7384: Allow to execute techdocs-cli serve using docker techdocs-container on Windows
+
 ## 0.8.1
 
 ### Patch Changes
