@@ -1,20 +1,21 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
-
+name: 'Feature Request'
+about: 'Suggest new features and changes'
+labels: enhancement
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+<!--- Provide a general summary of the feature request in the Title above -->
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+## Feature Suggestion
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+<!--- Tell us how we could improve your experience -->
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+## Possible Implementation
+
+<!--- Not obligatory, but ideas as to the implementation of the addition or change -->
+
+## Context
+
+<!--- What are you trying to accomplish? -->
+<!--- Providing context (e.g. links to configuration settings, stack trace or log data) -->
+<!--- helps us come up with a solution that is most useful in the real world -->
