@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { resolve } from "path";
-import { Command } from "commander";
-import fs from "fs-extra";
-import Docker from "dockerode";
+import { resolve } from 'path';
+import { Command } from 'commander';
+import fs from 'fs-extra';
+import Docker from 'dockerode';
 import {
   TechdocsGenerator,
   ParsedLocationAnnotation,
-} from "@backstage/techdocs-common";
-import { DockerContainerRunner } from "@backstage/backend-common";
-import { ConfigReader } from "@backstage/config";
+} from '@backstage/techdocs-common';
+import { DockerContainerRunner } from '@backstage/backend-common';
+import { ConfigReader } from '@backstage/config';
 import {
   convertTechDocsRefToLocationAnnotation,
   createLogger,
-} from "../../lib/utility";
-import { stdout } from "process";
+} from '../../lib/utility';
+import { stdout } from 'process';
 
 export default async function generate(cmd: Command) {
   // Use techdocs-common package to generate docs. Keep consistency between Backstage and CI generating docs.
@@ -38,20 +38,20 @@ export default async function generate(cmd: Command) {
 
   const sourceDir = resolve(cmd.sourceDir);
   const outputDir = resolve(cmd.outputDir);
-  const dockerImage = cmd.dockerImage;
+  const dockerImage = cmd.dockerImage ?? TechdocsGenerator.defaultDockerImage;
   const pullImage = cmd.pull;
 
   logger.info(`Using source dir ${sourceDir}`);
   logger.info(`Will output generated files in ${outputDir}`);
 
-  logger.verbose("Creating output directory if it does not exist.");
+  logger.verbose('Creating output directory if it does not exist.');
 
   await fs.ensureDir(outputDir);
 
   const config = new ConfigReader({
     techdocs: {
       generator: {
-        runIn: cmd.docker ? "docker" : "local",
+        runIn: cmd.docker ? 'docker' : 'local',
         dockerImage,
         pullImage,
       },
@@ -66,7 +66,7 @@ export default async function generate(cmd: Command) {
   if (cmd.techdocsRef) {
     try {
       parsedLocationAnnotation = convertTechDocsRefToLocationAnnotation(
-        cmd.techdocsRef
+        cmd.techdocsRef,
       );
     } catch (err) {
       logger.error(err.message);
@@ -74,13 +74,12 @@ export default async function generate(cmd: Command) {
   }
 
   // Generate docs using @backstage/techdocs-common
-  const techdocsGenerator = new TechdocsGenerator({
+  const techdocsGenerator = await TechdocsGenerator.fromConfig(config, {
     logger,
     containerRunner,
-    config,
   });
 
-  logger.info("Generating documentation...");
+  logger.info('Generating documentation...');
 
   await techdocsGenerator.run({
     inputDir: sourceDir,
@@ -91,8 +90,8 @@ export default async function generate(cmd: Command) {
         }
       : {}),
     logger,
-    ...(process.env.LOG_LEVEL === "debug" ? { logStream: stdout } : {}),
+    ...(process.env.LOG_LEVEL === 'debug' ? { logStream: stdout } : {}),
   });
 
-  logger.info("Done!");
+  logger.info('Done!');
 }
