@@ -3,3 +3,6 @@ site_description: Documentation for the TechDocs CLI.
 
 nav:
   - TechDocs CLI: README.md
+
+plugins:
+  - techdocs-core
