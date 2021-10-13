@@ -1177,6 +1177,50 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
+"@backstage/backend-common@^0.9.5":
+  version "0.9.5"
+  resolved "https://registry.yarnpkg.com/@backstage/backend-common/-/backend-common-0.9.5.tgz#ae336f40463ee41e1da85f37e86aaa4c7b159e8a"
+  integrity sha512-kRbbQoQEHXuCO/P/G7qe9Fd2UwA4ZFM5gtCFCvjDfmVL3hYKbwmV1KVUJ3WBnAFMVh7oxZmTLOSUf8561ab0qA==
+  dependencies:
+    "@backstage/cli-common" "^0.1.3"
+    "@backstage/config" "^0.1.10"
+    "@backstage/config-loader" "^0.6.9"
+    "@backstage/errors" "^0.1.2"
+    "@backstage/integration" "^0.6.6"
+    "@google-cloud/storage" "^5.8.0"
+    "@octokit/rest" "^18.5.3"
+    "@types/cors" "^2.8.6"
+    "@types/dockerode" "^3.2.1"
+    "@types/express" "^4.17.6"
+    archiver "^5.0.2"
+    aws-sdk "^2.840.0"
+    compression "^1.7.4"
+    concat-stream "^2.0.0"
+    cors "^2.8.5"
+    cross-fetch "^3.0.6"
+    dockerode "^3.2.1"
+    express "^4.17.1"
+    express-promise-router "^4.1.0"
+    fs-extra "9.1.0"
+    git-url-parse "^11.6.0"
+    helmet "^4.0.0"
+    isomorphic-git "^1.8.0"
+    keyv "^4.0.3"
+    keyv-memcache "^1.2.5"
+    knex "^0.95.1"
+    lodash "^4.17.21"
+    logform "^2.1.1"
+    minimatch "^3.0.4"
+    minimist "^1.2.5"
+    morgan "^1.10.0"
+    raw-body "^2.4.1"
+    selfsigned "^1.10.7"
+    stoppable "^1.1.0"
+    tar "^6.1.2"
+    unzipper "^0.10.11"
+    winston "^3.2.1"
+    yn "^4.0.0"
+
 "@backstage/catalog-client@^0.3.18":
   version "0.3.18"
   resolved "https://registry.yarnpkg.com/@backstage/catalog-client/-/catalog-client-0.3.18.tgz#cfabb1e414126554cfe2e593429395e313d58a13"
@@ -1197,7 +1241,7 @@
     "@backstage/errors" "^0.1.2"
     cross-fetch "^3.0.6"
 
-"@backstage/catalog-model@^0.9.0", "@backstage/catalog-model@^0.9.3":
+"@backstage/catalog-model@^0.9.0", "@backstage/catalog-model@^0.9.1", "@backstage/catalog-model@^0.9.3":
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-0.9.3.tgz#8e9c5407de84ec5869a65793c5e32a8d4bd2bd7c"
   integrity sha512-iE3FS1kTsmIhdrB+fL2liplXwEL5iAeYwsFlEOAt5JGZk43EBDWwKTifxBB+pylmO2pzwD3HssJhojO5OPWxEQ==
@@ -1216,6 +1260,11 @@
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@backstage/cli-common/-/cli-common-0.1.2.tgz#391ae00a58a1bd813952d854c9f7cc2bf5254b14"
   integrity sha512-oP6GL6jet3Qh2kyQkjgRVf/vQRhpJTmbL+YsH9QGQSLLv7lZQcK11QrN8+uH2VgZI8yiVU+bPkLBLsdeM1rySg==
+
+"@backstage/cli-common@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@backstage/cli-common/-/cli-common-0.1.3.tgz#6fc6f42548fd36a20d5d1809653d6c890591c48f"
+  integrity sha512-PY4L2KwoYvwZEXZ2F6BGESfzEGsHaNEqOm2+WuWL3iLACmpR2UlhqkqPxwXxWnVhudOn13O3aeiIn/6HocPU2w==
 
 "@backstage/cli@^0.7.7", "@backstage/cli@^0.7.8":
   version "0.7.8"
@@ -1334,6 +1383,23 @@
   dependencies:
     "@backstage/cli-common" "^0.1.1"
     "@backstage/config" "^0.1.7"
+    "@types/json-schema" "^7.0.6"
+    ajv "^7.0.3"
+    chokidar "^3.5.2"
+    fs-extra "9.1.0"
+    json-schema "^0.3.0"
+    json-schema-merge-allof "^0.8.1"
+    typescript-json-schema "^0.50.1"
+    yaml "^1.9.2"
+    yup "^0.29.3"
+
+"@backstage/config-loader@^0.6.9":
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-0.6.9.tgz#c5221c5aae0c1d8ca00fdb00dabfd31ab6fc28dc"
+  integrity sha512-JJ6hzcgTqoe1crN4SeHTLCythTKVRi3W/NLnRyVHBaRXsipTRA+o+pwCuyaAxY9h/wvyAlzZbe6XBLqaMf2/Pg==
+  dependencies:
+    "@backstage/cli-common" "^0.1.3"
+    "@backstage/config" "^0.1.9"
     "@types/json-schema" "^7.0.6"
     ajv "^7.0.3"
     chokidar "^3.5.2"
@@ -1639,6 +1705,18 @@
     git-url-parse "^11.6.0"
     luxon "^2.0.2"
 
+"@backstage/integration@^0.6.6":
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-0.6.6.tgz#827057d6068b644e8a9d6d4fe3a62e4152fbf671"
+  integrity sha512-89a1UyTRYKMc+LyKSk32R7lK3zFzSnu6LFQQi2N5yKLUF4TpmYb4zv80tcDAvV46c/ZrnKJFNQPxmVviUNzOwg==
+  dependencies:
+    "@backstage/config" "^0.1.10"
+    "@octokit/auth-app" "^3.4.0"
+    "@octokit/rest" "^18.5.3"
+    cross-fetch "^3.0.6"
+    git-url-parse "^11.6.0"
+    luxon "^2.0.2"
+
 "@backstage/plugin-catalog-react@^0.4.4":
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-0.4.4.tgz#5a5bece064b7c8127e2c608ad4179f135f4aa4c6"
@@ -1746,28 +1824,37 @@
     react-text-truncate "^0.16.0"
     react-use "^17.2.4"
 
-"@backstage/techdocs-common@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@backstage/techdocs-common/-/techdocs-common-0.9.0.tgz#d0f8e624a87b6db1875b0d91eb46e8abbbb983be"
-  integrity sha512-m1f7qkRf0+OuNCK+rQ5wYEETCYhwNJkzz5qUe3ogemsRL5YN1RJmWwasEnmN6QGVDZfIf7C1fS0ofshP8KEaLw==
+"@backstage/search-common@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@backstage/search-common/-/search-common-0.2.0.tgz#91971536b0b9a7d8eb308b79d744d4a8dfdeea4d"
+  integrity sha512-eJzY+UF+edhr8EpMwAPWrETzCuR4HMJ7V1Z590gveEsAB7/OATd3MHh5hyvlICbERrejAsvTlFkta6kR+aFIzg==
+  dependencies:
+    "@backstage/config" "^0.1.6"
+
+"@backstage/techdocs-common@^0.10.2":
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/@backstage/techdocs-common/-/techdocs-common-0.10.2.tgz#d6d749d339a4cb4533e8e21bf3b0d835a973e3c5"
+  integrity sha512-BdK2AeuAnGVdQcRT09CqDUPHJXS1qcXEJh5fWPn7MIMMAIH7IbSJ1GbaHPCxJ10VYsQ1VcCZpi6MMbjQ/9faTQ==
   dependencies:
     "@azure/identity" "^1.5.0"
     "@azure/storage-blob" "^12.5.0"
-    "@backstage/backend-common" "^0.9.0"
-    "@backstage/catalog-model" "^0.9.0"
+    "@backstage/backend-common" "^0.9.5"
+    "@backstage/catalog-model" "^0.9.1"
     "@backstage/config" "^0.1.8"
     "@backstage/errors" "^0.1.1"
-    "@backstage/integration" "^0.6.2"
+    "@backstage/integration" "^0.6.6"
+    "@backstage/search-common" "^0.2.0"
     "@google-cloud/storage" "^5.6.0"
     "@trendyol-js/openstack-swift-sdk" "^0.0.4"
     "@types/express" "^4.17.6"
     aws-sdk "^2.840.0"
     express "^4.17.1"
     fs-extra "9.1.0"
+    git-url-parse "^11.6.0"
     js-yaml "^4.0.0"
     json5 "^2.1.3"
     mime-types "^2.1.27"
-    mock-fs "^4.13.0"
+    mock-fs "^5.1.0"
     p-limit "^3.1.0"
     recursive-readdir "^2.2.2"
     winston "^3.2.1"
@@ -13023,10 +13110,10 @@ mkdirp@*, mkdirp@^1.0.3:
   dependencies:
     minimist "^1.2.5"
 
-mock-fs@^4.13.0:
-  version "4.14.0"
-  resolved "https://registry.yarnpkg.com/mock-fs/-/mock-fs-4.14.0.tgz#ce5124d2c601421255985e6e94da80a7357b1b18"
-  integrity sha512-qYvlv/exQ4+svI3UOvPUpLDF0OMX5euvUH0Ny4N5QyRyhNdgAgUrVH3iUINSzEPLvx0kbo/Bp28GJKIqvE7URw==
+mock-fs@^5.1.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/mock-fs/-/mock-fs-5.1.1.tgz#d4c95e916abf400664197079d7e399d133bb6048"
+  integrity sha512-p/8oZ3qvfKGPw+4wdVCyjDxa6wn2tP0TCf3WXC1UyUBAevezPn1TtOoxtMYVbZu/S/iExg+Ghed1busItj2CEw==
 
 modify-values@^1.0.0:
   version "1.0.1"

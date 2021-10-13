@@ -29,5 +29,8 @@ jobs:
       - name: Install mkdocs
         run: python -m pip install mkdocs
 
+      - name: Install mkdocs-techdocs-core
+        run: python -m pip install mkdocs-techdocs-core
+
       - name: yarn test
         run: yarn test

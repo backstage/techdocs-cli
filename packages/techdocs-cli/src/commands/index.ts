@@ -15,6 +15,9 @@
  */
 
 import { CommanderStatic } from 'commander';
+import { TechdocsGenerator } from '@backstage/techdocs-common';
+
+const defaultDockerImage = TechdocsGenerator.defaultDockerImage;
 
 export function registerCommands(program: CommanderStatic) {
   program
@@ -33,7 +36,7 @@ export function registerCommands(program: CommanderStatic) {
     .option(
       '--docker-image <DOCKER_IMAGE>',
       'The mkdocs docker container to use',
-      'spotify/techdocs',
+      defaultDockerImage,
     )
     .option('--no-pull', 'Do not pull the latest docker image', false)
     .option(
@@ -183,7 +186,7 @@ export function registerCommands(program: CommanderStatic) {
     .option(
       '-i, --docker-image <DOCKER_IMAGE>',
       'The mkdocs docker container to use',
-      'spotify/techdocs',
+      defaultDockerImage,
     )
     .option(
       '--no-docker',
@@ -201,7 +204,7 @@ export function registerCommands(program: CommanderStatic) {
     .option(
       '-i, --docker-image <DOCKER_IMAGE>',
       'The mkdocs docker container to use',
-      'spotify/techdocs',
+      defaultDockerImage,
     )
     .option(
       '--no-docker',

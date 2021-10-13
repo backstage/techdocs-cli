@@ -19,12 +19,29 @@ describe('end-to-end', () => {
     expect(proc.exit).toEqual(0);
   });
 
-  it('can serve', async () => {
+  it('can serve in mkdocs', async () => {
     jest.setTimeout(10000);
-    const proc = await executeTechDocsCliCommand(['serve', '--no-docker'], {
-      cwd: '../../',
-      killAfter: 8000,
-    });
+    const proc = await executeTechDocsCliCommand(
+      ['serve:mkdocs', '--no-docker'],
+      {
+        cwd: '../../',
+        killAfter: 8000,
+      },
+    );
+
+    expect(proc.combinedStdOutErr).toContain('Starting mkdocs server');
+    expect(proc.exit).toEqual(0);
+  });
+
+  it('can serve in backstage', async () => {
+    jest.setTimeout(10000);
+    const proc = await executeTechDocsCliCommand(
+      ['serve', '--no-docker', '--mkdocs-port=8888'],
+      {
+        cwd: '../../',
+        killAfter: 8000,
+      },
+    );
 
     expect(proc.combinedStdOutErr).toContain('Starting mkdocs server');
     expect(proc.combinedStdOutErr).toContain('Serving docs in Backstage at');
