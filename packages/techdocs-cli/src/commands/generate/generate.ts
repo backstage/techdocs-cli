@@ -38,7 +38,7 @@ export default async function generate(cmd: Command) {
 
   const sourceDir = resolve(cmd.sourceDir);
   const outputDir = resolve(cmd.outputDir);
-  const dockerImage = cmd.dockerImage ?? TechdocsGenerator.defaultDockerImage;
+  const dockerImage = cmd.dockerImage;
   const pullImage = cmd.pull;
 
   logger.info(`Using source dir ${sourceDir}`);
