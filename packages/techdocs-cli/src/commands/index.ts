@@ -49,6 +49,10 @@ export function registerCommands(program: CommanderStatic) {
         '\nThis value is same as the backstage.io/techdocs-ref annotation of the corresponding Backstage entity.' +
         '\nIt is completely fine to skip this as it is only being used to set repo_url in mkdocs.yml if not found.\n',
     )
+    .option(
+      '--etag <ETAG>',
+      'A unique identifier for the prepared tree e.g. commit SHA. If provided it will be stored in techdocs_metadata.json.',
+    )
     .option('-v --verbose', 'Enable verbose output.', false)
     .alias('build')
     .action(lazy(() => import('./generate/generate').then(m => m.default)));

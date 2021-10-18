@@ -90,6 +90,7 @@ export default async function generate(cmd: Command) {
         }
       : {}),
     logger,
+    etag: cmd.etag,
     ...(process.env.LOG_LEVEL === 'debug' ? { logStream: stdout } : {}),
   });
 
