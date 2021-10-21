@@ -36,6 +36,7 @@ import {
   TechDocsStorageApi,
   techdocsStorageApiRef,
 } from '@backstage/plugin-techdocs';
+import { searchPlugin } from '@backstage/plugin-search';
 
 // TODO: Export type from plugin-techdocs and import this here
 // import { ParsedEntityId } from '@backstage/plugin-techdocs'
@@ -196,4 +197,5 @@ export const apis: AnyApiFactory[] = [
     deps: { configApi: configApiRef },
     factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
   }),
+  ...searchPlugin.getApis(),
 ];
