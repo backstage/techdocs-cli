@@ -10,6 +10,7 @@ import {
 } from '@backstage/plugin-techdocs';
 import { apis } from './apis';
 import { Root } from './components/Root';
+import { techDocsPage } from './components/TechDocsPage';
 import * as plugins from './plugins';
 
 const app = createApp({
@@ -34,7 +35,9 @@ const routes = (
     <Route
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
-    />
+    >
+      {techDocsPage}
+    </Route>
   </FlatRoutes>
 );
 
