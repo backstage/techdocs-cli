@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { spawn, SpawnOptions, ChildProcess } from "child_process";
+import { spawn, SpawnOptions, ChildProcess } from 'child_process';
 
 export type LogFunc = (data: Buffer | string) => void;
-type SpawnOptionsPartialEnv = Omit<SpawnOptions, "env"> & {
+type SpawnOptionsPartialEnv = Omit<SpawnOptions, 'env'> & {
   env?: Partial<NodeJS.ProcessEnv>;
   // Pipe stdout to this log function
   stdoutLogFunc?: LogFunc;
@@ -30,35 +30,36 @@ type SpawnOptionsPartialEnv = Omit<SpawnOptions, "env"> & {
 export const run = async (
   name: string,
   args: string[] = [],
-  options: SpawnOptionsPartialEnv = {}
+  options: SpawnOptionsPartialEnv = {},
 ): Promise<ChildProcess> => {
   const { stdoutLogFunc, stderrLogFunc } = options;
 
   const env: NodeJS.ProcessEnv = {
     ...process.env,
-    FORCE_COLOR: "true",
-    ...(options.env ?? {})
+    FORCE_COLOR: 'true',
+    ...(options.env ?? {}),
   };
 
   // Refer: https://nodejs.org/api/child_process.html#child_process_subprocess_stdio
   const stdio = [
-    "inherit",
-    stdoutLogFunc ? "pipe" : "inherit",
-    stderrLogFunc ? "pipe" : "inherit"
-  ] as ("inherit" | "pipe")[];
+    'inherit',
+    stdoutLogFunc ? 'pipe' : 'inherit',
+    stderrLogFunc ? 'pipe' : 'inherit',
+  ] as ('inherit' | 'pipe')[];
 
   const childProcess = spawn(name, args, {
     stdio: stdio,
     shell: true,
+    detached: true,
     ...options,
-    env
+    env,
   });
 
   if (stdoutLogFunc && childProcess.stdout) {
-    childProcess.stdout.on("data", stdoutLogFunc);
+    childProcess.stdout.on('data', stdoutLogFunc);
   }
   if (stderrLogFunc && childProcess.stderr) {
-    childProcess.stderr.on("data", stderrLogFunc);
+    childProcess.stderr.on('data', stderrLogFunc);
   }
 
   return childProcess;
@@ -68,19 +69,19 @@ export const run = async (
 // Throw error if any child process errors
 // Resolves only when all processes exit with status code 0
 export async function waitForSignal(
-  childProcesses: Array<ChildProcess>
+  childProcesses: Array<ChildProcess>,
 ): Promise<void> {
   const promises: Array<Promise<void>> = [];
 
   childProcesses.forEach(childProcess => {
-    if (typeof childProcess.exitCode === "number") {
+    if (typeof childProcess.exitCode === 'number') {
       if (childProcess.exitCode) {
         throw new Error(`Non zero exit code from child process`);
       }
       return;
     }
 
-    for (const signal of ["SIGINT", "SIGTERM"] as const) {
+    for (const signal of ['SIGINT', 'SIGTERM'] as const) {
       process.on(signal, () => {
         childProcess.kill(signal);
         // exit instead of resolve. The process is shutting down and resolving a promise here logs an error
@@ -90,15 +91,15 @@ export async function waitForSignal(
 
     promises.push(
       new Promise<void>((resolve, reject) => {
-        childProcess.once("error", error => reject(error));
-        childProcess.once("exit", code => {
+        childProcess.once('error', error => reject(error));
+        childProcess.once('exit', code => {
           if (code) {
             reject(new Error(`Non zero exit code from child process`));
           } else {
             resolve();
           }
         });
-      })
+      }),
     );
   });
 
