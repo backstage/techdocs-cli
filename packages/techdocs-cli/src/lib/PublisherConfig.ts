@@ -84,6 +84,7 @@ export class PublisherConfig {
       type: 'awsS3',
       awsS3: {
         bucketName: cmd.storageName,
+        ...(cmd.awsBucketRootPath && { bucketRootPath: cmd.awsBucketRootPath }),
         ...(cmd.awsRoleArn && { credentials: { roleArn: cmd.awsRoleArn } }),
         ...(cmd.awsEndpoint && { endpoint: cmd.awsEndpoint }),
         ...(cmd.awsS3ForcePathStyle && { s3ForcePathStyle: true }),
@@ -121,6 +122,7 @@ export class PublisherConfig {
       type: 'googleGcs',
       googleGcs: {
         bucketName: cmd.storageName,
+        ...(cmd.gcsBucketRootPath && { bucketRootPath: cmd.gcsBucketRootPath }),
       },
     };
   }
