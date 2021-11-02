@@ -23,6 +23,7 @@
     "tsc": "tsc",
     "changeset": "changeset add",
     "release": "changeset publish",
+    "postinstall": "yarn tsc",
     "prepare": "husky install"
   },
   "keywords": [
