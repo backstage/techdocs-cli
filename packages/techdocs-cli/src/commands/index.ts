@@ -161,6 +161,7 @@ export function registerCommands(program: CommanderStatic) {
       '--awsS3ForcePathStyle',
       'Optional AWS S3 option to force path style.',
     )
+    .option('--awsS3sse <AWS SSE>', 'Optional AWS S3 Server Side Encryption.')
     .option(
       '--osCredentialId <OPENSTACK SWIFT APPLICATION CREDENTIAL ID>',
       '(Required for OpenStack) specify when --publisher-type openStackSwift',

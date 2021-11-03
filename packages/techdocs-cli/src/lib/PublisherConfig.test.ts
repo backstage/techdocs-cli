@@ -76,6 +76,20 @@ describe('getValidPublisherConfig', () => {
         actualConfig.getString('techdocs.publisher.awsS3.bucketName'),
       ).toBe('someStorageName');
     });
+
+    it('should return valid ConfigReader with SSE option', () => {
+      const config = {
+        publisherType: 'awsS3',
+        storageName: 'someStorageName',
+        awsS3sse: 'aws:kms',
+      } as unknown as Command;
+
+      const actualConfig = PublisherConfig.getValidConfig(config);
+      expect(actualConfig.getString('techdocs.publisher.type')).toBe('awsS3');
+      expect(actualConfig.getString('techdocs.publisher.awsS3.sse')).toBe(
+        'aws:kms',
+      );
+    });
   });
 
   describe('for openStackSwift', () => {
