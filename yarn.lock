@@ -1847,9 +1847,9 @@
     zen-observable "^0.8.15"
 
 "@backstage/theme@^0.2.10", "@backstage/theme@^0.2.11", "@backstage/theme@^0.2.8", "@backstage/theme@^0.2.9":
-  version "0.2.11"
-  resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.2.11.tgz#61130cad4869502dc46bcbde0735b9a071e6306b"
-  integrity sha512-+8Ad1ply4nD3LvG6bJj67/XBXoSMSYjqxEmCzM0vxBzNRPPYaey7TzFJRrAK8Zisz0WVvS9UqHcOHWbcuxxuUQ==
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.2.13.tgz#3412d5f149c8c9bfc80b58e3832c5e06021063a2"
+  integrity sha512-4+Ia+41bzIZy4FIeefrie5bafC0RZWtPVM2/ugx3Ab19d00gFKg7UNN3G7HChufGXJENOtJSuns0y8kQUN9uiQ==
   dependencies:
     "@material-ui/core" "^4.12.2"
 
