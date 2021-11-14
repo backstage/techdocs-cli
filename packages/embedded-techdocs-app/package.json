@@ -32,7 +32,7 @@
     "@types/node": "^16.7.1",
     "@types/react-dom": "^17.0.9",
     "cross-env": "^7.0.0",
-    "cypress": "^8.3.1",
+    "cypress": "^9.0.0",
     "eslint-plugin-cypress": "^2.10.3",
     "start-server-and-test": "^1.10.11"
   },
